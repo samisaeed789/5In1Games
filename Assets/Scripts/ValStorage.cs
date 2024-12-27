@@ -5,6 +5,7 @@ using UnityEngine;
 public static class ValStorage 
 {
     public static string modeSel;
+    public static string gameSel;
     public static int selLevel;
     public static int TrnsparVal;
 
@@ -101,13 +102,64 @@ public static class ValStorage
         PlayerPrefs.SetInt("UnlockedLevels", val);
     }
 
-    public static int GetUnlockedLevels()
+    public static int GetUnlockedCarDriveMode()
     {
-       return PlayerPrefs.GetInt("UnlockedLevels", 0);
+       return PlayerPrefs.GetInt("UnlockedCarDriveMode", 0);
     } 
     
-   
- 
+    public static void SetUnlockedCarDriveMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedCarDriveMode", val);
+    }
+    
+    public static int GetUnlockedCarParkMode()
+    {
+       return PlayerPrefs.GetInt("UnlockedCarParkMode", 0);
+    } 
+    
+    public static void SetUnlockedCarParkMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedCarParkMode", val);
+    }
+
+
+    public static bool IsSoundMute()
+    {
+        int isMuted = PlayerPrefs.GetInt("SoundMute", 0);
+       
+        if (isMuted == 0) 
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+    public static void SetSoundMute(int val)
+    {
+        PlayerPrefs.SetInt("SoundMute", val);  
+    }
+    
+    
+    public static void SetMusicMute(int val)
+    {
+        PlayerPrefs.SetInt("MusicMute", val);  
+    }
+    public static bool IsMusicMute()
+    {
+        int isMuted = PlayerPrefs.GetInt("MusicMute", 0);
+
+        if (isMuted == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 
 
 
