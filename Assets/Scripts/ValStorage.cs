@@ -122,6 +122,46 @@ public static class ValStorage
         PlayerPrefs.SetInt("UnlockedCarParkMode", val);
     }
 
+    public static int GetUnlockedEuroTruckDriveMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedEuroTruckDriveMode", 0);
+    }
+
+    public static void SetUnlockedEuroTruckDriveMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedEuroTruckDriveMode", val);
+    } 
+    
+    public static int GetUnlockedEuroTruckParkMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedEuroTruckParkMode", 0);
+    }
+
+    public static void SetUnlockedEuroTruckParkMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedEuroTruckParkMode", val);
+    }
+
+
+    public static int GetUnlockedJeepDriveMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedJeepDriveMode", 0);
+    }
+
+    public static void SetUnlockedJeepDriveMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedEuroTruckDriveMode", val);
+    }
+    
+    public static int GetUnlockedJeepParkMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedJeepParkMode", 0);
+    }
+
+    public static void SetUnlockedJeepParkMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedJeepParkMode", val);
+    }
 
     public static bool IsSoundMute()
     {
@@ -160,6 +200,25 @@ public static class ValStorage
         }
     }
 
+    public static int GetUnlockedBusDriveMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedBusDriveMode", 0);
+    }
+
+    public static void SetUnlockedBusDriveMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedBusDriveMode", val);
+    }
+    
+    public static int GetUnlockedBusParkMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedBusParkMode", 0);
+    }
+
+    public static void SetUnlockedBusParkMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedBusParkMode", val);
+    }
 
 
 
