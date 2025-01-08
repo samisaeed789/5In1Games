@@ -836,23 +836,23 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN
-    EmbeddedLinux: DOTWEEN
-    GameCoreScarlett: DOTWEEN
-    GameCoreXboxOne: DOTWEEN
-    LinuxHeadlessSimulation: DOTWEEN
-    Nintendo Switch: DOTWEEN
-    PS4: DOTWEEN
-    PS5: DOTWEEN
-    QNX: DOTWEEN
-    Stadia: DOTWEEN
-    Standalone: DOTWEEN
-    VisionOS: DOTWEEN
-    WebGL: DOTWEEN
-    Windows Store Apps: DOTWEEN
-    XboxOne: DOTWEEN
-    iPhone: DOTWEEN
-    tvOS: DOTWEEN
+    Android: DOTWEEN;BCG_RCC
+    EmbeddedLinux: DOTWEEN;BCG_RCC
+    GameCoreScarlett: DOTWEEN;BCG_RCC
+    GameCoreXboxOne: DOTWEEN;BCG_RCC
+    LinuxHeadlessSimulation: DOTWEEN;BCG_RCC
+    Nintendo Switch: DOTWEEN;BCG_RCC
+    PS4: DOTWEEN;BCG_RCC
+    PS5: DOTWEEN;BCG_RCC
+    QNX: DOTWEEN;BCG_RCC
+    Stadia: DOTWEEN;BCG_RCC
+    Standalone: DOTWEEN;BCG_RCC
+    VisionOS: DOTWEEN;BCG_RCC
+    WebGL: DOTWEEN;BCG_RCC
+    Windows Store Apps: DOTWEEN;BCG_RCC
+    XboxOne: DOTWEEN;BCG_RCC
+    iPhone: DOTWEEN;BCG_RCC
+    tvOS: DOTWEEN;BCG_RCC
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -960,7 +960,7 @@ PlayerSettings:
   hmiLogStartupTiming: 0
   hmiCpuConfiguration: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 2
   windowsGamepadBackendHint: 0
   cloudProjectId: c7fc0f95-cdbd-4edb-b2e6-e86f0ed45c7a
   framebufferDepthMemorylessMode: 0
