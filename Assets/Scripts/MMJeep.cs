@@ -58,6 +58,8 @@ public class MMJeep : MonoBehaviour
     public Button[] LvlCards;
 
 
+    public GameObject Garage;
+    MySoundManager soundmngr;
     private void Start()
     {
         SetControlsTTNGS();
@@ -72,6 +74,18 @@ public class MMJeep : MonoBehaviour
         {
             soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
         }
+
+
+        ValStorage.SetUnlockedJeepDriveMode(2);
+        ValStorage.SetUnlockedJeepParkMode(2);
+
+
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+        if (soundmngr)
+            soundmngr.SetJeepBGM(true);
+
     }
     public void ButtonActivity(string panelName)
     {
@@ -86,6 +100,7 @@ public class MMJeep : MonoBehaviour
                 break;
             case "LvlSel":
                 PanelActivity(LvlSel: true);
+                Garage.SetActive(false);
                 break;
             case "Garage":
                 PanelActivity(Garage: true);
@@ -103,6 +118,9 @@ public class MMJeep : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
 
     public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
@@ -139,10 +157,16 @@ public class MMJeep : MonoBehaviour
 
     public void ExitPanel(bool val) 
     {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
         exitPanel.SetActive(val);
     }
     public void SettingsPanel(bool val) 
     {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
         settingsPanel.SetActive(val);
     }
     
@@ -151,8 +175,18 @@ public class MMJeep : MonoBehaviour
     {
         ValStorage.selLevel = i;
         ButtonActivity("Garage");
+        SetGarage();
+
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
-    
+    void SetGarage() 
+    {
+        Garage.SetActive(true);
+    }
+
+
     public void SelectedMode(string S) 
     {
         switch (S)
@@ -167,6 +201,11 @@ public class MMJeep : MonoBehaviour
                 break;
         }
         ButtonActivity("LvlSel");
+
+
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
 
 
@@ -177,6 +216,9 @@ public class MMJeep : MonoBehaviour
 
     public void LoadNxtScene()
     {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
         StartLoading("GPDriving");
     }
 
@@ -224,10 +266,16 @@ public class MMJeep : MonoBehaviour
 
     public void Cntrlbtn() 
     {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
         SettngsActivity(isControl:true);
     }
     public void Soundbtn() 
     {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
         SettngsActivity(isSfx:true);
     }
 
@@ -263,10 +311,6 @@ public class MMJeep : MonoBehaviour
     
     public void Setsliders()
     {
-
-        Debug.Log("MUSIC VALUE  " + ValStorage.GetMVolume());// GetMVolume());
-        Debug.Log("sOUND VALUE  " + ValStorage.GetSVolume());// GetMVolume());
-
         musicSlider.value = ValStorage.GetMVolume();
         soundSlider.value = ValStorage.GetSVolume();
     }
@@ -310,6 +354,9 @@ public class MMJeep : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
 
     public void Musicchkbox() 
@@ -324,6 +371,9 @@ public class MMJeep : MonoBehaviour
             ValStorage.SetMusicMute(1);
             music_chk.SetActive(true);
         }
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     } 
     
     public void Soundchkbox() 
@@ -338,6 +388,10 @@ public class MMJeep : MonoBehaviour
             ValStorage.SetSoundMute(1);
             sound_chk.SetActive(true);
         }
+
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
 
     public void SetCoins()
@@ -350,13 +404,11 @@ public class MMJeep : MonoBehaviour
 
     public void OnMSliderValueChanged(float value)
     {
-        Debug.Log("sOUND VALUE  " + value);
         ValStorage.SetMVolume(value);
 
     }
     public void OnSSliderValueChanged(float value)
     {
-        Debug.Log("MUSIC VALUE  "+value);
 
         ValStorage.SetSVolume(value);
 
@@ -364,6 +416,14 @@ public class MMJeep : MonoBehaviour
 
 
 
+    public void GoToPrevScene()
+    {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
+
+        StartLoading("Splash");
+    }
 
 
 

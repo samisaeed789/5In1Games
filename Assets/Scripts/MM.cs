@@ -4,66 +4,89 @@ using UnityEngine;
 
 public class MM : MonoBehaviour
 {
+    
+    
+    
     [Header("SplashPanels")]
-    public GameObject firstScreenPanel;
-    public GameObject SecondScreenPanel;
-    public GameObject carDrivingPanel;
-    public GameObject euroTruckPanel;
-    public GameObject offRoadJeepPanel;
-    public GameObject cityBusPanel;
-    public GameObject policeChasePanel;
+    public GameObject carDrivinggame;
+    public GameObject euroTruckgame;
+    public GameObject offRoadJeepgame;
+    public GameObject cityBusgame;
+    public GameObject policeChasegame;
 
 
-    public void MoreDetails(string panelName)
+
+    private void Start()
     {
-        SecondScreenPanel.SetActive(true);
-        firstScreenPanel.SetActive(false);
+        SelectedGame();
+    }
 
-        switch (panelName)
+    void SelectedGame() 
+    {
+        Debug.Log("ValStorage.GetGameSel()      " + ValStorage.GetGameSel());
+
+        switch (ValStorage.GetGameSel())
         {
-            case "CarDrive":
-                PanelActivity(isCarDrive: true);
+            case "Car":
+                GameActivity(isCarDriveGame: true);
+              
                 break;
             case "EuroTruck":
-                PanelActivity(isEuroTruck: true);
+                GameActivity(isEuroTruckGame: true);
+               
+
                 break;
-            case "OffRoadJeep":
-                PanelActivity(isoffRoadJeepPanel: true);
+            case "Jeep":
+                GameActivity(isoffRoadJeepGame: true);
+            
                 break;
-            case "CityBus":
-                PanelActivity(isCityBusPanel: true);
+            case "Bus":
+                GameActivity(isCityGame: true);
+               
+
                 break;
-            case "PoliceChase":
-                PanelActivity(isPoliceChasePanel: true);
+            case "Police":
+                GameActivity(isPoliceChaseGame: true);
+              
                 break;
             default:
                 break;
         }
     }
 
-    public void PanelActivity(bool isCarDrive = false, bool isEuroTruck = false, bool isoffRoadJeepPanel = false, bool isCityBusPanel = false, bool isPoliceChasePanel = false)
+
+
+
+
+    public void GameActivity(bool isCarDriveGame = false, bool isEuroTruckGame = false, bool isoffRoadJeepGame = false, bool isCityGame = false, bool isPoliceChaseGame = false)
     {
-        if (carDrivingPanel)
+        if (carDrivinggame)
         {
-            carDrivingPanel.SetActive(isCarDrive);
+            carDrivinggame.SetActive(isCarDriveGame);
         }
-        if (euroTruckPanel)
+        if (euroTruckgame)
         {
-            euroTruckPanel.SetActive(isEuroTruck);
+            euroTruckgame.SetActive(isEuroTruckGame);
         }
-        if (offRoadJeepPanel)
+        if (offRoadJeepgame)
         {
-            offRoadJeepPanel.SetActive(isoffRoadJeepPanel);
+            offRoadJeepgame.SetActive(isoffRoadJeepGame);
         }
-        if (cityBusPanel)
+        if (cityBusgame)
         {
-            cityBusPanel.SetActive(isCityBusPanel);
+            cityBusgame.SetActive(isCityGame);
         }
-        if (policeChasePanel)
+        if (policeChasegame)
         {
-            policeChasePanel.SetActive(isPoliceChasePanel);
+            policeChasegame.SetActive(isPoliceChaseGame);
         }
-       
+        this.gameObject.SetActive(false);
     }
 
+
+
+    public void PlayNow() 
+    {
+        this.gameObject.SetActive(false);
+    }
 }

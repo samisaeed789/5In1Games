@@ -47,11 +47,24 @@ public class MMBusGame : MonoBehaviour
     public Button[] LvlCards;
 
 
+    MySoundManager soundmngr;
+
+    public GameObject garage;
     private void Start()
     {
         SetControlsTTNGS();
         Setmusicsound();
         SetCoins();
+
+        ValStorage.SetUnlockedBusDriveMode(2);
+        ValStorage.SetUnlockedBusParkMode(2);
+
+
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+        if(soundmngr)
+            soundmngr.SetBusBGM(true);
     }
     public void ButtonActivity(string panelName)
     {
@@ -66,6 +79,7 @@ public class MMBusGame : MonoBehaviour
                 break;
             case "LvlSel":
                 PanelActivity(LvlSel: true);
+                garage.SetActive(false);
                 break;
             case "Garage":
                 PanelActivity(Garage: true);
@@ -83,6 +97,9 @@ public class MMBusGame : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
     }
 
     public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
@@ -121,6 +138,10 @@ public class MMBusGame : MonoBehaviour
     {
         ValStorage.selLevel = i;
         ButtonActivity("Garage");
+        garage.SetActive(true);
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
     }
 
     public void SelectedMode(string S)
@@ -137,6 +158,9 @@ public class MMBusGame : MonoBehaviour
                 break;
         }
         ButtonActivity("LvlSel");
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
     }
 
     void CheckUnlocked(int unlocledlvls)
@@ -167,17 +191,26 @@ public class MMBusGame : MonoBehaviour
     public void LoadNxtScene()
     {
         StartLoading("GPDriving");
+       
+        
+    
     }
 
     AsyncOperation asyncLoad;
     public void StartLoading(string sceneName)
     {
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
+
         ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
        DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)
                .SetEase(Ease.Linear)
                .OnKill(() => OnLoadingComplete());
+
+
+
     }
 
     void OnLoadingComplete()
@@ -187,6 +220,9 @@ public class MMBusGame : MonoBehaviour
 
     public void Soundchkbox()
     {
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
         if (sound_actv.activeSelf)
         {
             ValStorage.SetSoundMute(0);
@@ -200,6 +236,9 @@ public class MMBusGame : MonoBehaviour
     }
     public void Musicchkbox()
     {
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
         if (music_actv.activeSelf)
         {
             ValStorage.SetSoundMute(0);
@@ -258,6 +297,9 @@ public class MMBusGame : MonoBehaviour
 
     public void Cntrl_btn_activity(string s)
     {
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
         switch (s)
         {
 
@@ -285,5 +327,10 @@ public class MMBusGame : MonoBehaviour
         {
             txt.text = ValStorage.GetCoins().ToString();
         }
+    }
+
+    public void GotPrevScene() 
+    {
+        StartLoading("Splash");
     }
 }

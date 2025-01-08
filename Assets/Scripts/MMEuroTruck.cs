@@ -60,12 +60,28 @@ public class MMEuroTruck : MonoBehaviour
     [Header("Levels")]
     public Button[] LvlCards;
 
+    public GameObject garage;
+
+    MySoundManager soundmngr;
 
     private void Start()
     {
         SetControlsTTNGS();
         Setmusicsound();
         SetCoins();
+
+
+        ValStorage.SetUnlockedEuroTruckDriveMode(2);
+        ValStorage.SetUnlockedEuroTruckParkMode(2);
+
+
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+        if (soundmngr)
+            soundmngr.SetEuroTruckBGM(true);
+
+
     }
     public void ButtonActivity(string panelName)
     {
@@ -80,6 +96,8 @@ public class MMEuroTruck : MonoBehaviour
                 break;
             case "LvlSel":
                 PanelActivity(LvlSel: true);
+                garage.SetActive(false);
+                
                 break;
             case "Garage":
                 PanelActivity(Garage: true);
@@ -97,6 +115,9 @@ public class MMEuroTruck : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
     }
 
     public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
@@ -133,10 +154,14 @@ public class MMEuroTruck : MonoBehaviour
 
     public void ExitPanel(bool val) 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         exitPanel.SetActive(val);
     }
     public void SettingsPanel(bool val) 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         settingsPanel.SetActive(val);
     }
     
@@ -145,6 +170,10 @@ public class MMEuroTruck : MonoBehaviour
     {
         ValStorage.selLevel = i;
         ButtonActivity("Garage");
+        garage.SetActive(true);
+
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
     }
     
     public void SelectedMode(string S) 
@@ -161,6 +190,9 @@ public class MMEuroTruck : MonoBehaviour
                 break;
         }
         ButtonActivity("LvlSel");
+
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
     }
 
 
@@ -171,6 +203,10 @@ public class MMEuroTruck : MonoBehaviour
 
     public void LoadNxtScene()
     {
+
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
+
         StartLoading("GPDriving");
     }
 
@@ -218,10 +254,14 @@ public class MMEuroTruck : MonoBehaviour
 
     public void Cntrlbtn() 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         SettngsActivity(isControl:true);
     }
     public void Soundbtn() 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         SettngsActivity(isSfx:true);
     }
 
@@ -296,6 +336,9 @@ public class MMEuroTruck : MonoBehaviour
 
     public void Cntrl_btn_activity(string s) 
     {
+
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         switch (s)
         {
 
@@ -321,6 +364,8 @@ public class MMEuroTruck : MonoBehaviour
 
     public void Musicchkbox() 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         if (music_chk.activeSelf)
         {
             ValStorage.SetMusicMute(0);
@@ -335,6 +380,8 @@ public class MMEuroTruck : MonoBehaviour
     
     public void Soundchkbox() 
     {
+        if (soundmngr)
+            soundmngr.PlayEuroClickSound();
         if (sound_chk.activeSelf)
         {
             ValStorage.SetSoundMute(0);
@@ -440,6 +487,10 @@ public class MMEuroTruck : MonoBehaviour
         IncreaseSoundVolume(); // Increase both music and sound volume
     }
 
+    public void GoToPrevScene() 
+    {
+        StartLoading("Splash");
+    }
 
 
 }

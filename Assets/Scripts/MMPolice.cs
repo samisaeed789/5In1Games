@@ -58,6 +58,10 @@ public class MMPolice : MonoBehaviour
     public Button[] LvlCards;
 
 
+
+    public GameObject garage;
+
+    MySoundManager soundmngr;
     private void Start()
     {
         SetControlsTTNGS();
@@ -72,6 +76,16 @@ public class MMPolice : MonoBehaviour
         {
             soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
         }
+
+        ValStorage.SetUnlockedPoliceDriveMode(2);
+        ValStorage.SetUnlockedPoliceParkMode(2);
+      
+        
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+        if (soundmngr)
+            soundmngr.SetPoliceBGM(true);
     }
     public void ButtonActivity(string panelName)
     {
@@ -86,6 +100,7 @@ public class MMPolice : MonoBehaviour
                 break;
             case "LvlSel":
                 PanelActivity(LvlSel: true);
+                garage.SetActive(false);
                 break;
             case "Garage":
                 PanelActivity(Garage: true);
@@ -103,6 +118,9 @@ public class MMPolice : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmngr)
+            soundmngr.PlayBusClickSound();
     }
 
     public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
@@ -151,6 +169,7 @@ public class MMPolice : MonoBehaviour
     {
         ValStorage.selLevel = i;
         ButtonActivity("Garage");
+        garage.SetActive(true);
     }
     
     public void SelectedMode(string S) 
@@ -158,10 +177,10 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedJeepDriveMode());
+                CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
                 break;
             case "Parking":
-                CheckUnlocked(ValStorage.GetUnlockedJeepParkMode());
+                CheckUnlocked(ValStorage.GetUnlockedPoliceParkMode());
                 break;
             default:
                 break;
@@ -341,4 +360,11 @@ public class MMPolice : MonoBehaviour
     {
         ValStorage.SetSVolume(value);
     }
+
+
+    public void GoToPrevScene()
+    {
+        StartLoading("Splash");
+    }
+
 }

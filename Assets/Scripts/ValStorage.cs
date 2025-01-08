@@ -150,9 +150,30 @@ public static class ValStorage
 
     public static void SetUnlockedJeepDriveMode(int val)
     {
-        PlayerPrefs.SetInt("UnlockedEuroTruckDriveMode", val);
+        PlayerPrefs.SetInt("UnlockedJeepDriveMode", val);
+    }
+
+    public static int GetUnlockedPoliceDriveMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedPoliceDriveMode", 0);
+    }
+
+    public static void SetUnlockedPoliceDriveMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedPoliceDriveMode", val);
     }
     
+    public static int GetUnlockedPoliceParkMode()
+    {
+        return PlayerPrefs.GetInt("UnlockedPoliceParkMode", 0);
+    }
+
+    public static void SetUnlockedPoliceParkMode(int val)
+    {
+        PlayerPrefs.SetInt("UnlockedPoliceParkMode", val);
+    }
+
+
     public static int GetUnlockedJeepParkMode()
     {
         return PlayerPrefs.GetInt("UnlockedJeepParkMode", 0);
@@ -220,6 +241,14 @@ public static class ValStorage
         PlayerPrefs.SetInt("UnlockedBusParkMode", val);
     }
 
+    public static void SetGameSel(string val) 
+    {
+        PlayerPrefs.SetString("GameSelected",val);
+    }
 
+    public static string GetGameSel()
+    {
+        return PlayerPrefs.GetString("GameSelected");
+    }
 
 }

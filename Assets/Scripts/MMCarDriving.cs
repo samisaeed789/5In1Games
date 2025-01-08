@@ -17,6 +17,7 @@ public class MMCarDriving : MonoBehaviour
     public GameObject exitPanel;
     public GameObject carPurhasedPanel;
     public GameObject notEnoughCoinsPanel;
+    public GameObject Garage;
 
     [Header("UI")]
     public Text[] allCoinstxt;
@@ -46,11 +47,20 @@ public class MMCarDriving : MonoBehaviour
     public Button[] LvlCards;
 
 
+    MySoundManager soundmanager;
     private void Start()
     {
         SetControlsTTNGS();
         Setmusicsound();
         SetCoins();
+       
+        if(MySoundManager.instance)
+            soundmanager = MySoundManager.instance;
+
+        soundmanager.SetBGM(true);
+
+        ValStorage.SetUnlockedCarDriveMode(2);
+        ValStorage.SetUnlockedCarParkMode(2);
     }
     public void ButtonActivity(string panelName)
     {
@@ -65,6 +75,7 @@ public class MMCarDriving : MonoBehaviour
                 break;
             case "LvlSel":
                 PanelActivity(LvlSel: true);
+                Garage.SetActive(false);
                 break;
             case "Garage":
                 PanelActivity(Garage: true);
@@ -82,6 +93,13 @@ public class MMCarDriving : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmanager && panelName== "ModeSel")
+            soundmanager.PlayButtonClickSound(scifi:true);
+
+        else
+            soundmanager.PlayButtonClickSound();
+
     }
 
     public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
@@ -122,6 +140,10 @@ public class MMCarDriving : MonoBehaviour
     {
         ValStorage.selLevel = i;
         ButtonActivity("Garage");
+        Garage.SetActive(true);
+
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
     }
     
     public void SelectedMode(string S) 
@@ -138,17 +160,27 @@ public class MMCarDriving : MonoBehaviour
                 break;
         }
         ButtonActivity("LvlSel");
+
+
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
     }
 
 
     public void SelectedCar()
     {
         ButtonActivity("Loading");
+
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
     }
 
     public void LoadNxtScene()
     {
         StartLoading("GPDriving");
+
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound(scifi:true);
     }
 
 
@@ -158,6 +190,9 @@ public class MMCarDriving : MonoBehaviour
     AsyncOperation asyncLoad;
     public void StartLoading(string sceneName)
     {
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound(scifi: true);
+
         ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -291,10 +326,15 @@ public class MMCarDriving : MonoBehaviour
             default:
                 break;
         }
+
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
     }
 
     public void Musicchkbox() 
     {
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
         if (music_chk.activeSelf)
         {
             ValStorage.SetMusicMute(0);
@@ -309,6 +349,8 @@ public class MMCarDriving : MonoBehaviour
     
     public void Soundchkbox() 
     {
+        if (soundmanager)
+            soundmanager.PlayButtonClickSound();
         if (sound_chk.activeSelf)
         {
             ValStorage.SetSoundMute(0);
@@ -329,6 +371,10 @@ public class MMCarDriving : MonoBehaviour
         }
     }
 
+    public void LoadPrevScene() 
+    {
+        StartLoading("Splash");
+    }
 
 
 
