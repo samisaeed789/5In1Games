@@ -35,6 +35,7 @@ public class GarageHndlr : MonoBehaviour
     public Button arrownxt;
     public Button arrowbck;
     private int currentIndex = 0;
+    [SerializeField]Car currentCar;
 
     public SmoothOrbitCam orbitcam;
     [SerializeField] float distance;
@@ -48,9 +49,6 @@ public class GarageHndlr : MonoBehaviour
     public Image Brake;
     public Image Handling;
     public Image Durabilty;
-
-
-
 
     public UIAnimator[] Policechasebtn;
     private void Start()
@@ -83,7 +81,7 @@ public class GarageHndlr : MonoBehaviour
         }
 
         // Show current car model
-        Car currentCar = GetCurrCar();
+        currentCar = GetCurrCar();
         currentCar.carModel.SetActive(true);
         orbitcam.target = currentCar.carModel.transform;
 
@@ -178,7 +176,7 @@ public class GarageHndlr : MonoBehaviour
         if (MySoundManager.instance)
             MySoundManager.instance.PlayButtonClickSound();
 
-        Car currentCar = GetCurrCar();
+        currentCar = GetCurrCar();
 
         // Check if the car is already purchased
         if (PlayerPrefs.GetInt(currentCar.carID) == 0 && currentCar.carPrice<=ValStorage.GetCoins())
@@ -201,18 +199,18 @@ public class GarageHndlr : MonoBehaviour
 
     public Car GetCurrCar() 
     {
-        Car currentCar = cars[currentIndex];
-        return currentCar;
+        Car _currentCar = cars[currentIndex];
+        return _currentCar;
     }
 
     public string GetCurrCarId()
     {
-        Car currCar = GetCurrCar();
-        return currCar.carID;
+        Car _currCar = GetCurrCar();
+        return _currCar.carID;
     }
     public int GetCurrCarNumber()
     {
-        Car currCar = GetCurrCar();
-        return currCar.CarNumber;
+        Car _currCar = GetCurrCar();
+        return _currCar.CarNumber;
     }
 }

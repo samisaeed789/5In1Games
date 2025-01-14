@@ -16872,7 +16872,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cars:
-  - carID: 1
+  - carID: Jeep_1
     carModel: {fileID: 878933382}
     Speed: 0.3
     Acceleration: 0.1
@@ -16881,7 +16881,7 @@ MonoBehaviour:
     Durabilty: 0.6
     carPrice: 2000
     CarNumber: 1
-  - carID: 2
+  - carID: Jeep_2
     carModel: {fileID: 701023003}
     Speed: 0.4
     Acceleration: 0.2
@@ -16890,7 +16890,7 @@ MonoBehaviour:
     Durabilty: 0.3
     carPrice: 0
     CarNumber: 2
-  - carID: 3
+  - carID: Jeep_3
     carModel: {fileID: 255921012}
     Speed: 0.3
     Acceleration: 0.6
@@ -16908,6 +16908,16 @@ MonoBehaviour:
   NotenoughCoin: {fileID: 1077064997}
   arrownxt: {fileID: 1212419838}
   arrowbck: {fileID: 1387730350}
+  currentCar:
+    carID: 
+    carModel: {fileID: 0}
+    Speed: 0
+    Acceleration: 0
+    Brake: 0
+    Handling: 0
+    Durabilty: 0
+    carPrice: 0
+    CarNumber: 0
   orbitcam: {fileID: 1244870774}
   distance: 10
   yoffset: 2.72
@@ -17676,7 +17686,7 @@ GameObject:
   m_Component:
   - component: {fileID: 421556775}
   - component: {fileID: 421556774}
-  - component: {fileID: 421556773}
+  - component: {fileID: 421556776}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -17684,26 +17694,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &421556773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 421556772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &421556774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17734,6 +17724,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &421556776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421556772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_XRTrackingOrigin: {fileID: 0}
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
+  m_CursorLockBehavior: 0
 --- !u!1 &423119015
 GameObject:
   m_ObjectHideFlags: 0
@@ -18145,7 +18165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 722911867421502023, guid: 0b72a5594930c804e821433ee3d212ed, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 722911867421502023, guid: 0b72a5594930c804e821433ee3d212ed, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -24324,6 +24344,16 @@ MonoBehaviour:
   NotenoughCoin: {fileID: 1549332299}
   arrownxt: {fileID: 0}
   arrowbck: {fileID: 1256842686}
+  currentCar:
+    carID: 
+    carModel: {fileID: 0}
+    Speed: 0
+    Acceleration: 0
+    Brake: 0
+    Handling: 0
+    Durabilty: 0
+    carPrice: 0
+    CarNumber: 0
   orbitcam: {fileID: 1244870774}
   distance: 9.7
   yoffset: 1.86
@@ -51189,7 +51219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1083701784
 RectTransform:
   m_ObjectHideFlags: 0
@@ -61136,7 +61166,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: GPDriving
+          m_StringArgument: Parking
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1324158157
@@ -63841,7 +63871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1362559099
 RectTransform:
   m_ObjectHideFlags: 0
@@ -67116,7 +67146,7 @@ MonoBehaviour:
     Handling: 0.8
     Durabilty: 0.9
     carPrice: 2000
-    CarNumber: 1
+    CarNumber: 2
   - carID: 3
     carModel: {fileID: 1917637347}
     Speed: 0.58
@@ -67125,7 +67155,7 @@ MonoBehaviour:
     Handling: 0.7
     Durabilty: 0.9
     carPrice: 2000
-    CarNumber: 1
+    CarNumber: 3
   carPriceText: {fileID: 501992410}
   carPrice: {fileID: 199910721}
   purchaseButton: {fileID: 318571162}
@@ -67135,6 +67165,16 @@ MonoBehaviour:
   NotenoughCoin: {fileID: 1486300281}
   arrownxt: {fileID: 1220793985}
   arrowbck: {fileID: 1148686449}
+  currentCar:
+    carID: 
+    carModel: {fileID: 0}
+    Speed: 0
+    Acceleration: 0
+    Brake: 0
+    Handling: 0
+    Durabilty: 0
+    carPrice: 0
+    CarNumber: 0
   orbitcam: {fileID: 1244870774}
   distance: 17.5
   yoffset: 1.27
@@ -106348,7 +106388,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2092227626}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1522264772}
+        m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
+        m_MethodName: LoadNxtScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2092227626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119666,7 +119718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cars:
   - carID: 1
-    carModel: {fileID: 1854896231}
+    carModel: {fileID: 303858287}
     Speed: 0.3
     Acceleration: 0.1
     Brake: 0.4
@@ -119684,7 +119736,7 @@ MonoBehaviour:
     carPrice: 0
     CarNumber: 2
   - carID: 3
-    carModel: {fileID: 303858287}
+    carModel: {fileID: 1854896231}
     Speed: 0.3
     Acceleration: 0.6
     Brake: 0.8
@@ -119701,6 +119753,16 @@ MonoBehaviour:
   NotenoughCoin: {fileID: 661534782}
   arrownxt: {fileID: 1076115760249455256}
   arrowbck: {fileID: 2046292261429132233}
+  currentCar:
+    carID: 
+    carModel: {fileID: 0}
+    Speed: 0
+    Acceleration: 0
+    Brake: 0
+    Handling: 0
+    Durabilty: 0
+    carPrice: 0
+    CarNumber: 0
   orbitcam: {fileID: 1244870774}
   distance: 10
   yoffset: 1.27
@@ -119786,6 +119848,16 @@ MonoBehaviour:
   NotenoughCoin: {fileID: 8721742863287126793}
   arrownxt: {fileID: 1076115761701065679}
   arrowbck: {fileID: 0}
+  currentCar:
+    carID: 
+    carModel: {fileID: 0}
+    Speed: 0
+    Acceleration: 0
+    Brake: 0
+    Handling: 0
+    Durabilty: 0
+    carPrice: 0
+    CarNumber: 0
   orbitcam: {fileID: 1244870774}
   distance: 15
   yoffset: 1.27

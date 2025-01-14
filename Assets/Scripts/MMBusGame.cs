@@ -149,7 +149,7 @@ public class MMBusGame : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedBusDriveMode());
+                CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedBusDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedBusParkMode());
@@ -190,10 +190,7 @@ public class MMBusGame : MonoBehaviour
 
     public void LoadNxtScene()
     {
-        StartLoading("GPDriving");
-       
-        
-    
+        StartLoading("Parking");
     }
 
     AsyncOperation asyncLoad;
@@ -202,7 +199,13 @@ public class MMBusGame : MonoBehaviour
         if (soundmngr)
             soundmngr.PlayBusClickSound();
 
+
+
+        GarageHndlr garagehandler= garagePanel.GetComponent<GarageHndlr>();
+        ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
         ButtonActivity("Loading");
+        garage.SetActive(false);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
        DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)

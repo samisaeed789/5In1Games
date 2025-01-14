@@ -30,6 +30,8 @@ public class GameSel : MonoBehaviour
     {
         if (MySoundManager.instance)
             soundmngr = MySoundManager.instance;
+
+        soundmngr.SetBGM(true);
     }
     public void MoreDetails(string panelName)
     {
@@ -56,8 +58,6 @@ public class GameSel : MonoBehaviour
             default:
                 break;
         }
-
-
         if (soundmngr)
             soundmngr.PlayButtonClickSound();
 
@@ -91,12 +91,11 @@ public class GameSel : MonoBehaviour
     public void PlayNow(string panelName)
     {
       
-
         switch (panelName)
         {
             case "CarDrive":
                 GameActivity(isCarDriveGame: true);
-                ValStorage.SetGameSel("Car");
+                ValStorage.SetGameSel("CarDrive");
                 break;
             case "EuroTruck":
                 GameActivity(isEuroTruckGame: true);
@@ -149,7 +148,10 @@ public class GameSel : MonoBehaviour
         {
             policeChase.SetActive(isPoliceChaseGame);
         }
-      
+
+        //if (soundmngr)
+        //    soundmngr.SetBGM(false);
+
     }
 
     public void BackVBtn() 

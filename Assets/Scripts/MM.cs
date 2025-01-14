@@ -23,11 +23,9 @@ public class MM : MonoBehaviour
 
     void SelectedGame() 
     {
-        Debug.Log("ValStorage.GetGameSel()      " + ValStorage.GetGameSel());
-
         switch (ValStorage.GetGameSel())
         {
-            case "Car":
+            case "CarDrive":
                 GameActivity(isCarDriveGame: true);
               
                 break;

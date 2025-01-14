@@ -181,7 +181,7 @@ public class MMEuroTruck : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedEuroTruckDriveMode());
+                CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedEuroTruckDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedEuroTruckParkMode());
@@ -207,13 +207,18 @@ public class MMEuroTruck : MonoBehaviour
         if (soundmngr)
             soundmngr.PlayEuroClickSound();
 
-        StartLoading("GPDriving");
+        StartLoading("Parking");
     }
 
     AsyncOperation asyncLoad;
     public void StartLoading(string sceneName)
     {
+
+        GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
+        ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
         ButtonActivity("Loading");
+        garage.SetActive(false);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)

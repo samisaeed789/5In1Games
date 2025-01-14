@@ -192,7 +192,7 @@ public class MMJeep : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedJeepDriveMode());
+                CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedJeepDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedJeepParkMode());
@@ -219,12 +219,16 @@ public class MMJeep : MonoBehaviour
 
         if (soundmngr)
             soundmngr.PlayJeepClickSound();
-        StartLoading("GPDriving");
+        StartLoading("Parking");
     }
 
     AsyncOperation asyncLoad;
     public void StartLoading(string sceneName)
     {
+
+        GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
+        ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
         ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;

@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MM.unity
     guid: 7a782faecca9eca4d93c9fbf1f711f1c
   - enabled: 1
-    path: Assets/Scenes/GPParking.unity
-    guid: c9282fcf8a528764ead4143d1b598489
+    path: Assets/Scenes/Parking.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

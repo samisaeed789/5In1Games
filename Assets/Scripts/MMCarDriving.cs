@@ -66,7 +66,6 @@ public class MMCarDriving : MonoBehaviour
     {
         switch (panelName)
         {
-
             case "MM":
                 PanelActivity(MM: true);
                 break;
@@ -151,7 +150,7 @@ public class MMCarDriving : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedCarDriveMode());
+                CheckUnlocked(0);//ValStorage.GetUnlockedCarDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedCarParkMode());
@@ -177,8 +176,8 @@ public class MMCarDriving : MonoBehaviour
 
     public void LoadNxtScene()
     {
-        StartLoading("GPDriving");
-
+        StartLoading("Parking");
+       
         if (soundmanager)
             soundmanager.PlayButtonClickSound(scifi:true);
     }
@@ -192,6 +191,13 @@ public class MMCarDriving : MonoBehaviour
     {
         if (soundmanager)
             soundmanager.PlayButtonClickSound(scifi: true);
+
+
+        
+        GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
+        if(garagehandler!=null)
+            ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
 
         ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);

@@ -177,7 +177,7 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
+                CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedPoliceParkMode());
@@ -196,13 +196,19 @@ public class MMPolice : MonoBehaviour
 
     public void LoadNxtScene()
     {
-        StartLoading("GPDriving");
+        StartLoading("Parking");
     }
 
     AsyncOperation asyncLoad;
     public void StartLoading(string sceneName)
     {
+
+        GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
+        ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
+
         ButtonActivity("Loading");
+        garage.SetActive(false);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)
