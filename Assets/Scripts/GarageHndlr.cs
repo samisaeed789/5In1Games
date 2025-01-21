@@ -24,6 +24,9 @@ public class GarageHndlr : MonoBehaviour
     }
 
 
+
+    public string GameMode;
+
     public List<Car> cars;
     public Text carPriceText;
     public GameObject carPrice;
@@ -89,7 +92,7 @@ public class GarageHndlr : MonoBehaviour
 
         // Check if the car is purchased
         bool isPurchased = PlayerPrefs.GetInt(currentCar.carID) == 1;
-        Debug.Log("IsPurchased   "+isPurchased);
+    
         if (isPurchased)
         {
             if(Locked!=null)
@@ -179,11 +182,14 @@ public class GarageHndlr : MonoBehaviour
         currentCar = GetCurrCar();
 
         // Check if the car is already purchased
-        if (PlayerPrefs.GetInt(currentCar.carID) == 0 && currentCar.carPrice<=ValStorage.GetCoins())
+        if (PlayerPrefs.GetInt(currentCar.carID) == 0 && currentCar.carPrice<=ValStorage.GetCoins(GameMode))
         {
             purchasesuccess.SetActive(true);
 
-            ValStorage.SetCoins(ValStorage.GetCoins()- currentCar.carPrice);
+            ValStorage.SetCoins(GameMode, ValStorage.GetCoins(GameMode) - currentCar.carPrice);
+
+
+
            // MMManager.Instance.SetCoins();
 
             // Simulate purchase logic (you can replace this with real currency handling)

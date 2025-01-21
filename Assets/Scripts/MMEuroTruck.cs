@@ -71,9 +71,7 @@ public class MMEuroTruck : MonoBehaviour
         SetCoins();
 
 
-        ValStorage.SetUnlockedEuroTruckDriveMode(2);
-        ValStorage.SetUnlockedEuroTruckParkMode(2);
-
+     
 
         if (MySoundManager.instance)
             soundmngr = MySoundManager.instance;
@@ -403,7 +401,7 @@ public class MMEuroTruck : MonoBehaviour
     {
         foreach (Text txt in allCoinstxt)
         {
-            txt.text = ValStorage.GetCoins().ToString();
+            txt.text = ValStorage.GettruckCoins().ToString();
         }
     }
 

@@ -37,7 +37,8 @@ public class MySoundManager : MonoBehaviour {
     public AudioClip jeepbgm;
     public AudioClip policebgm;
     public AudioClip Indi;
-    public AudioClip Horn;
+    public AudioClip HornBus;
+    public AudioClip HornCar;
     public AudioClip Excellent;
     public AudioClip DiscourageS;
     public AudioClip click;
@@ -71,6 +72,7 @@ public class MySoundManager : MonoBehaviour {
     public AudioClip Revv1;
     public AudioClip Revv5;
     public AudioClip Unlock;
+    public AudioClip UhOh;
 
 
   
@@ -95,15 +97,15 @@ public class MySoundManager : MonoBehaviour {
 
 		musicValue = val;
         BGM.volume = musicValue;
+		ValStorage.SetMVolume(val);
 	
 	}
 
 	public void soundValueChanged (float val)
 	{
-
 		soundValue = val;
 		Effectsource.volume = soundValue;
-
+		ValStorage.SetSVolume(val);
 	}
 
 	public void SetMainMenuMusic (bool check, float val)
@@ -254,9 +256,18 @@ public class MySoundManager : MonoBehaviour {
 		Effectsource.PlayOneShot(FillerPanel);
 	}
 
-	public void PlayHorn()
+	public void PlayHorn(string Vehicle)
 	{
-		Effectsource.clip = Horn;
+        if (Vehicle == "Bus") 
+		{
+			Effectsource.clip = HornBus;
+		}
+		if (Vehicle == "Car")
+		{
+			Effectsource.clip = HornCar;
+		}
+
+
 		Effectsource.loop = true;  // Set looping to true while button is held down
 		Effectsource.Play();
 	}
@@ -329,6 +340,10 @@ public class MySoundManager : MonoBehaviour {
 	
 		Effectsource.PlayOneShot (coin);
 		Effectsource.loop=true;
+	}
+	public void PlayUhoH()
+	{
+		Effectsource.PlayOneShot(UhOh);
 	}
 
 	public void StopcoinSound()

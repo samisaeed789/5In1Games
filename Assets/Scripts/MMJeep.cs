@@ -66,18 +66,15 @@ public class MMJeep : MonoBehaviour
         Setsliders();
         SetCoins();
 
-        if (musicSlider != null)
-        {
-            musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
-        }
-        if (soundSlider != null)
-        {
-            soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
-        }
+        //if (musicSlider != null)
+        //{
+        //    musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
+        //}
+        //if (soundSlider != null)
+        //{
+        //    soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
+        //}
 
-
-        ValStorage.SetUnlockedJeepDriveMode(2);
-        ValStorage.SetUnlockedJeepParkMode(2);
 
 
         if (MySoundManager.instance)
@@ -400,23 +397,25 @@ public class MMJeep : MonoBehaviour
 
     public void SetCoins()
     {
+        Debug.LogError("totalCoins____" + ValStorage.GetCoins("jeep"));
+
         foreach (Text txt in allCoinstxt)
         {
-            txt.text = ValStorage.GetCoins().ToString();
+            txt.text = ValStorage.GetCoins("jeep").ToString();
         }
     }
 
-    public void OnMSliderValueChanged(float value)
-    {
-        ValStorage.SetMVolume(value);
+    //public void OnMSliderValueChanged(float value)
+    //{
+    //    ValStorage.SetMVolume(value);
 
-    }
-    public void OnSSliderValueChanged(float value)
-    {
+    //}
+    //public void OnSSliderValueChanged(float value)
+    //{
 
-        ValStorage.SetSVolume(value);
+    //    ValStorage.SetSVolume(value);
 
-    }
+    //}
 
 
 
@@ -429,7 +428,15 @@ public class MMJeep : MonoBehaviour
         StartLoading("Splash");
     }
 
+    public void OnVolumeChanged(float value)
+    {
+        soundmngr?.musicValueChanged(value);
+    }
 
+    public void OnSVolChanged(float value)
+    {
+        soundmngr?.soundValueChanged(value);
+    }
 
 
 }

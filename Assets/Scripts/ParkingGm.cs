@@ -13,6 +13,7 @@ public class ParkingGm : MonoBehaviour
     public GameObject busMode;
     public GameObject carsMode;
     [SerializeField] GameObject emojiPanel;
+    [SerializeField] GameObject Env;
 
 
     [SerializeField] GameObject busPanel;
@@ -20,22 +21,49 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject carPanel;
     [SerializeField] GameObject jeepPanel;
     [SerializeField] GameObject policePanel;
+
     [Header("BusPanels")]
     [SerializeField] GameObject failPanelbus;
     [SerializeField] GameObject completePanelbus;
     [SerializeField] GameObject Loadingbus;
     [SerializeField] GameObject pausePanelbus;
     [SerializeField] GameObject envBGbus;
+    [SerializeField] GameObject busIgnition;
     [SerializeField] GameObject LoadBarbus;
+    [SerializeField] GameObject uiBlockerbus;
+    [SerializeField] GameObject seatbeltbus;
     [SerializeField] Image loadingBarbus;
+    [SerializeField] CanvasGroup busCan;
+    [SerializeField] RCC_Demo ControlsBus;
+    [SerializeField] Text rewardedCoinsbus;
+    [SerializeField] Text CoinsTotalbus;
+    [SerializeField] GameObject nextbtncompbus;
+
+
+
+
 
     [Header("TruckPanels")]
     [SerializeField] GameObject failPanelTruck;
     [SerializeField] GameObject completePanelTruck;
     [SerializeField] GameObject LoadingTruck;
     [SerializeField] GameObject pausePanelTruck;
+    [SerializeField] GameObject lftindiTruck;
+    [SerializeField] GameObject rghtindiTruck;
     [SerializeField] GameObject LoadBarTruck;
+    [SerializeField] GameObject uiBlockerTruck;
     [SerializeField] Image loadingBarTruck;
+    [SerializeField] CanvasGroup truckCan;
+    [SerializeField] GameObject truckIgnition;
+    [SerializeField] GameObject seatbelttruck;
+    [SerializeField]  RCC_Demo ControlsTruck;
+    [SerializeField]  Text rewardedCoinstruck;
+    [SerializeField] Text CoinsTotaltruck;
+    [SerializeField] GameObject nextbtncomptruck;
+
+
+
+
 
 
     [Header("CarPanels")]
@@ -44,7 +72,19 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject LoadingCar;
     [SerializeField] GameObject pausePanelCar;
     [SerializeField] GameObject LoadBarBCar;
+    [SerializeField] GameObject uiBlockerBCar;
     [SerializeField] Text loadingText;
+    [SerializeField] GameObject lftindicar;
+    [SerializeField] GameObject rghtindiacr;
+    [SerializeField] CanvasGroup carCan;
+    [SerializeField] GameObject carIgnition;
+    [SerializeField] GameObject seatbeltcar;
+    [SerializeField] RCC_Demo ControlsCar;
+    [SerializeField] Text rewardedCoinsCar;
+    [SerializeField] Text   CoinsTotalCar;
+    [SerializeField] GameObject nextbtncompcar;
+
+
 
     [Header("JeepPanels")]
     [SerializeField] GameObject failPanelJeep;
@@ -52,7 +92,27 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject LoadingJeep;
     [SerializeField] GameObject pausePanelJeep;
     [SerializeField] GameObject LoadBarJeep;
+    [SerializeField] GameObject gearupJeep;
+    [SerializeField] GameObject geardownJeep;
     [SerializeField] Image loadingBarJeep;
+    [SerializeField] GameObject lftindijeep;
+    [SerializeField] GameObject rghtindijeep;
+    [SerializeField] GameObject uiBlockerjeep;
+    [SerializeField] CanvasGroup jeepCan;
+    [SerializeField] GameObject jeepIgnition;
+    [SerializeField] GameObject seatbeltjeep;
+    [SerializeField] RCC_Demo ControlsJeep;
+    [SerializeField] Text rewardedCoinsjeep;
+    [SerializeField] Text CoinsTotaljeep;
+    [SerializeField] GameObject nextbtncompjeep;
+
+
+
+    [Header("Settings")]
+    public GameObject cntrl_Steering_chk;
+    public GameObject cntrl_Arrw_chk;
+    public GameObject cntrl_Tilt_chk;
+
 
     [Header("policePanels")]
     [SerializeField] GameObject failPanelPolice;
@@ -61,6 +121,20 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject pausePanelPolice;
     [SerializeField] GameObject LoadBarPolice;
     [SerializeField] Image loadingBarPolice;
+    [SerializeField] GameObject lftindipolice;
+    [SerializeField] GameObject rghtindipolice;
+    [SerializeField] CanvasGroup policeCan;
+    [SerializeField] GameObject policeIgnition;
+    [SerializeField] GameObject seatbeltpolice;
+    [SerializeField] RCC_Demo Controlspolice;
+    [SerializeField] GameObject gearuppolice;
+    [SerializeField] GameObject geardownpolice;
+    [SerializeField] GameObject uiBlockerpolice;
+    [SerializeField] Slider volumeSlider;
+    [SerializeField] Slider soundvolumeSlider;
+    [SerializeField] Text coinstxtcomppolice;
+    [SerializeField] Text timetxtcomppolice;
+    [SerializeField] GameObject nextbtncomppolice;
 
 
 
@@ -70,9 +144,13 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject Loading;
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject LoadBar;
+    [SerializeField] GameObject LeftIndActv;
+    [SerializeField] GameObject RightIndActv;
     [SerializeField] Image loadingBar;
     [SerializeField] GameObject Ignition;
     [SerializeField] CanvasGroup canvas;
+    [SerializeField] GameObject UIBlocker;
+
 
 
 
@@ -81,6 +159,7 @@ public class ParkingGm : MonoBehaviour
     Rigidbody carRb;
     [SerializeField] Camera Cam;
     [SerializeField] RCC_Camera rccCam;
+    [SerializeField] ParticleSystem celebConftti;
     [SerializeField] RCC_UIController GasBtn;
     [SerializeField] RCC_UIController BrakeBtn;
     [SerializeField] GameObject celeb;
@@ -97,15 +176,12 @@ public class ParkingGm : MonoBehaviour
     [SerializeField] GameObject MusicOff;
     [SerializeField] GameObject Belt;
     [SerializeField] GameObject Beltbtn;
-    [SerializeField] GameObject headLight;
     [SerializeField] GameObject headLightActvbtn;
     [SerializeField] RCC_Demo Controls;
-    [SerializeField] GameObject gearup;
-    [SerializeField] GameObject geardown;
     [SerializeField] GameObject NxtBtnSccs;
     [SerializeField] Image[] UIgp;
-    [SerializeField] GameObject UIBlocker;
-
+    [SerializeField] GameObject gearup;
+    [SerializeField] GameObject geardown;
 
     [Header("Text")]
     [SerializeField] Text timerText;
@@ -142,6 +218,13 @@ public class ParkingGm : MonoBehaviour
 
     [SerializeField]GameObject CarSel = null;
 
+
+    [Header("VehicleRelated")]
+   public GameObject headLight;
+
+
+
+    string gameSel;
     LD_Park lvldata;
     ParticleSystem[] lvlconfti;
     Rigidbody rbCar;
@@ -167,6 +250,8 @@ public class ParkingGm : MonoBehaviour
         // UpdateVolume();
         // SetButtonTransparency(ValStorage.GetTransparency());
         //  Controls.SetMobileController(ValStorage.GetControls());
+        volumeSlider.value = ValStorage.GetMVolume();
+        soundvolumeSlider.value = ValStorage.GetSVolume();
 
 
         if (Test) 
@@ -179,6 +264,9 @@ public class ParkingGm : MonoBehaviour
             SetPanels(ValStorage.GetGameSel());
             SelectedGame(ValStorage.GetGameSel());
         }
+
+        gameSel = ValStorage.GetGameSel();
+        SetControlsTTNGS();
     }
 
 
@@ -232,9 +320,11 @@ public class ParkingGm : MonoBehaviour
         carRb.isKinematic = true;
 
         CarSel.SetActive(true);
-           
+        Carstats = CarSel.GetComponent<ObstacleColl>();
     }
+    ObstacleColl Carstats;
 
+    string GameMode;
     public void SetPanels(string selGame)
     {
         
@@ -247,6 +337,18 @@ public class ParkingGm : MonoBehaviour
                 Loading = LoadingCar;
                 pausePanel = pausePanelCar;
                 LoadBar = LoadBarBCar;
+                LeftIndActv = lftindicar;
+                RightIndActv = rghtindiacr;
+                canvas = carCan;
+                Ignition = carIgnition;
+                Beltbtn = seatbeltcar;
+                Controls = ControlsCar;
+                UIBlocker = uiBlockerBCar;
+                CoinsEarnedlvltxt = rewardedCoinsCar;
+                TotalCompltxt = CoinsTotalCar;
+                NxtBtnSccs = nextbtncompcar;
+                GameMode = "car";
+
                 break;
             case "EuroTruck":
                 truckPanel.SetActive(true);
@@ -256,7 +358,22 @@ public class ParkingGm : MonoBehaviour
                 pausePanel = pausePanelTruck;
                 loadingBar = loadingBarTruck;
                 LoadBar = LoadBarTruck;
+                LeftIndActv = lftindiTruck;
+                RightIndActv = rghtindiTruck;
+                canvas = truckCan;
+                Ignition = truckIgnition;
+                Beltbtn = seatbelttruck;
+                Controls = ControlsTruck;
+                UIBlocker = uiBlockerTruck;
+                CoinsEarnedlvltxt = rewardedCoinstruck;
+                TotalCompltxt = CoinsTotaltruck;
+                NxtBtnSccs = nextbtncomptruck;
+
+                GameMode = "truck";
+
+
                 break;
+           
             case "Jeep":
                 jeepPanel.SetActive(true);
                 failPanel = failPanelJeep;
@@ -265,7 +382,24 @@ public class ParkingGm : MonoBehaviour
                 pausePanel = pausePanelJeep;
                 loadingBar = loadingBarJeep;
                 LoadBar = LoadBarJeep;
+                LeftIndActv = lftindijeep;
+                RightIndActv = rghtindijeep;
+                canvas = jeepCan;
+                Ignition = jeepIgnition;
+                Beltbtn = seatbeltjeep;
+                gearup = gearupJeep;
+                geardown = geardownJeep;
+                ControlsJeep.SetMobileController(ValStorage.GetControls());
+                UIBlocker = uiBlockerjeep;
+                CoinsEarnedlvltxt = rewardedCoinsjeep;
+                TotalCompltxt = CoinsTotaljeep;
+                NxtBtnSccs = nextbtncompjeep;
+
+                GameMode = "jeep";
+
                 break;
+
+
             case "Bus":
                 busPanel.SetActive(true);
                 failPanel = failPanelbus;
@@ -274,6 +408,17 @@ public class ParkingGm : MonoBehaviour
                 pausePanel = pausePanelbus;
                 loadingBar = loadingBarbus;
                 LoadBar = LoadBarbus;
+                canvas = busCan;
+                Ignition = busIgnition;
+                Beltbtn = seatbeltbus;
+                ControlsBus.SetMobileController(0);
+                UIBlocker = uiBlockerbus;
+                CoinsEarnedlvltxt = rewardedCoinsbus;
+                TotalCompltxt = CoinsTotalbus;
+                NxtBtnSccs = nextbtncompbus;
+
+                GameMode = "bus";
+
                 break;
             case "Police":
                 policePanel.SetActive(true);
@@ -283,6 +428,25 @@ public class ParkingGm : MonoBehaviour
                 pausePanel = pausePanelPolice;
                 loadingBar = loadingBarPolice;
                 LoadBar = LoadBarPolice;
+                LeftIndActv = lftindipolice;
+                RightIndActv = rghtindipolice;
+                canvas = policeCan;
+                Ignition = policeIgnition;
+                Beltbtn = seatbeltpolice;
+                Controls = Controlspolice;
+                gearup = gearuppolice;
+                geardown = geardownpolice;
+                UIBlocker = uiBlockerpolice;
+                CoinsEarnedlvltxt = timetxtcomppolice;
+                TotalCompltxt = coinstxtcomppolice;
+                NxtBtnSccs = nextbtncomppolice;
+
+                GameMode = "police";
+               
+
+
+              
+
                 break;
             default:
                 break;
@@ -292,18 +456,16 @@ public class ParkingGm : MonoBehaviour
 
     public void OnLevelStatsLoadedHandler(LD_Park lvlData) 
     {
+        Env.SetActive(true);
         lvldata = lvlData;
         if (lvldata.SpawnPoint) 
         {
             carRb.transform.position = lvldata.SpawnPoint.position;
         }
-       
         carRb.isKinematic = false;
         CarSel.SetActive(true);
-
         Ignition.SetActive(true);
         Loading.SetActive(false);
-       
         RCC_CameraCarSelection carselcam = rccCam.gameObject.GetComponent<RCC_CameraCarSelection>();
         carselcam.target = carController.transform;
     }
@@ -312,7 +474,6 @@ public class ParkingGm : MonoBehaviour
 
     void SetLevel()
     {
-        Debug.Log("here");
         foreach (GameObject g in lvldata.OnObjets)
         {
             g.SetActive(true);
@@ -320,10 +481,47 @@ public class ParkingGm : MonoBehaviour
        
         carController.canControl = true;    
     }
-   
-  
 
 
+    public void IndiRight()
+    {
+
+        if (soundManager)
+            soundManager.PlayButtonClickSound();
+
+        if (LeftIndActv.activeSelf)
+        {
+            LeftIndActv.SetActive(false);
+        }
+
+        if (RightIndActv.activeSelf)
+        {
+            RightIndActv.SetActive(false);
+        }
+        else
+        {
+            RightIndActv.SetActive(true);
+       
+        }
+    }
+
+    public void IndiLft()
+    {
+        if (soundManager)
+            soundManager.PlayButtonClickSound();
+        if (RightIndActv.activeSelf)
+        {
+            RightIndActv.SetActive(false);
+        }
+        if (LeftIndActv.activeSelf)
+        {
+            LeftIndActv.SetActive(false);
+        }
+        else
+        {
+            LeftIndActv.SetActive(true);
+        }
+    }
     Transform GetCarspawn() 
     {
         string name = rbCar.gameObject.name;
@@ -364,15 +562,14 @@ public class ParkingGm : MonoBehaviour
     
     public void CarFinalPark() 
     {
+        Debug.LogError("no of times");
+
         carRb.isKinematic = true;
         canvas.alpha = 0f;
-       // UIBlocker.SetActive(true);
+        UIBlocker.SetActive(true);
 
-        //foreach (ParticleSystem particle in lvlconfti) 
-        //{
-        //    particle.Play();
-        //}
-       // StartDance();
+
+        // StartDance();
         if (soundManager)
         {
             soundManager.PlayCompleteSound(true);
@@ -381,8 +578,9 @@ public class ParkingGm : MonoBehaviour
     }
     void Celeb() 
     {
-     
+
         RCC_CameraCarSelection celebCam = rccCam.gameObject.GetComponent<RCC_CameraCarSelection>();
+        celebConftti.Play();
         celebCam.enabled = true;
        // celeb.SetActive(true);
         IsTimerRunning = false;
@@ -423,12 +621,13 @@ public class ParkingGm : MonoBehaviour
     void OnShakeComplete() 
     {
         canvas.alpha = 1f;
-      //  UIBlocker.SetActive(false);
+        UIBlocker.SetActive(false);
         SetLevel();
 
          canvas.gameObject.GetComponent<UIAnimator>().PlayAnimation(AnimSetupType.Intro);
-        // envBG.SetActive(true);s
-
+         headLight = Carstats.Headlight;
+            soundManager?.SetBGM(true);
+    
     }
 
 
@@ -450,6 +649,8 @@ public class ParkingGm : MonoBehaviour
 
 
     //}
+
+
     void UpdateTimerText()
     {
         int minutes = Mathf.FloorToInt(elapsedTime / 60); // Divide elapsed time by 60 to get minutes
@@ -496,7 +697,7 @@ public class ParkingGm : MonoBehaviour
 
         CarSound(false);
         canvas.alpha = 0f;
-      //  UIBlocker.SetActive(true);
+        UIBlocker.SetActive(true);
         StartCoroutine(FailPanel());
     }
 
@@ -519,6 +720,8 @@ public class ParkingGm : MonoBehaviour
 
     void delFail()
     {
+        emojiPanel.SetActive(false);
+        UIBlocker.SetActive(false);
         failPanel.SetActive(true);
 
 
@@ -528,8 +731,8 @@ public class ParkingGm : MonoBehaviour
 
     IEnumerator CompletePanel() 
     {
-        
-      //  UnlckNxtLvl();
+
+        UnlckNxtLvl();
 
         yield return new WaitForSeconds(7f);
         if (soundManager)
@@ -542,12 +745,15 @@ public class ParkingGm : MonoBehaviour
         //    AdsManager.instance.showAdmobInterstitial();
 
 
-        Invoke(nameof(delComp), 0.2f);
-        
+       // Invoke(nameof(delComp), 0.2f);
 
+        delComp();
     }
+
+
     void delComp() 
     {
+        UIBlocker.SetActive(false);
         completePanel.SetActive(true);
 
         SetCoinsinPanel();
@@ -564,42 +770,38 @@ public class ParkingGm : MonoBehaviour
     void UnlckNxtLvl()
     {
 
-      //  int currlvl = ValStorage.selLevelParking;
-       // int unlockdlvls = ValStorage.GetUnlockedLevelsParking();
+        int currlvl = ValStorage.selLevel;
+        int unlockdlvls = ValStorage.GetUnlockedModeLevel(GameMode);
 
-        //if (currlvl == unlockdlvls)
-        //{
-        //  //  ValStorage.SetUnlockedLevelsParking(unlockdlvls + 1);
-        //}
+        if (currlvl == unlockdlvls && currentlvl<5)
+        {
+            ValStorage.SetUnlockedModeLevel(GameMode,unlockdlvls + 1);
+        }
 
-        //if (currlvl == 7)
-        //{
-        //    NxtBtnSccs.SetActive(false);
-        //}
+        if (currlvl == 5)
+        {
+            NxtBtnSccs?.SetActive(false);
+        }
     }
 
     void SetCoinsinPanel()
     {
-      
-      //  timerText.text = Mathf.FloorToInt(elapsedTime * 2).ToString();
-      //  CoinsEarnedlvltxt.text = 500.ToString();
-     //   StartCoroutine(CounterAnimation(CalculateTotalCoins()));
-
-
-    //    int alreadycoins = ValStorage.GetCoins();
-       // int totalcoins = alreadycoins + CalculateTotalCoins();
-      //  ValStorage.SetCoins(totalcoins);
+        CoinsEarnedlvltxt.text = 300.ToString();
+        StartCoroutine(CounterAnimation(CalculateTotalCoins()));
+        int alreadycoins = ValStorage.GetCoins(GameMode);
+        int totalcoins = alreadycoins + CalculateTotalCoins();
+        Debug.LogError("GameMode____" + GameMode);
+        ValStorage.SetCoins(GameMode,totalcoins);
     }
     private int CalculateTotalCoins()
     {
         int coinsFromTime = Mathf.FloorToInt(elapsedTime * 2);
 
-        int total = 500 + coinsFromTime;
+        int total = 300 + coinsFromTime;
         return total;
     }
     private IEnumerator CounterAnimation(int totalCoins)
     {
-
         yield return new WaitForSeconds(1f);
         int duration = 3; // Total duration for the animation
         float elapsedTime = 0f; // Time elapsed since the start of the animation
@@ -622,30 +824,29 @@ public class ParkingGm : MonoBehaviour
             currentCoins = Mathf.Min(currentCoins, totalCoins);
 
             // Update the UI or text with the current number of coins
-            TotalCompltxt.text = currentCoins.ToString();
+            if (TotalCompltxt != null)
+                TotalCompltxt.text = currentCoins.ToString();
 
             yield return null; // Wait until the next frame
         }
 
         // Ensure the final count is exactly totalCoins
-        TotalCompltxt.text = totalCoins.ToString();
+
+        if (TotalCompltxt != null)
+            TotalCompltxt.text = totalCoins.ToString();
 
         // Stop sound if available
         if (soundManager)
             soundManager.StopcoinSound();
-
     }
     public void Restart()
     {
         Time.timeScale = 1f;
         StopCoinAnimation();
         Loading.SetActive(true);
-
-
-
+       
         //if (AdsManager.instance)
         //    AdsManager.instance.showAdmobInterstitial();
-
 
         if (ValStorage.GetGameSel() == "CarDrive") 
         {
@@ -700,7 +901,7 @@ public class ParkingGm : MonoBehaviour
     public void Home()
     {
         Time.timeScale = 1f;
-       // StopCoinAnimation();
+        StopCoinAnimation();
         Loading.SetActive(true);
         LoadBar.SetActive(true);
 
@@ -722,13 +923,24 @@ public class ParkingGm : MonoBehaviour
         Loading.SetActive(true);
         LoadBar.SetActive(true);
 
-     //   StopCoinAnimation();
-      //  int currentLevelIndex = ValStorage.selLevel;
-
-        if (currentlvl < 2)
+        StopCoinAnimation();
+        if (currentlvl < 5)
         {
             ValStorage.selLevel += 1;
-            StartCoroutine(StartLoading("Parking",0f));
+            //StartCoroutine(StartLoading("Parking",0f));
+
+            if (ValStorage.GetGameSel() == "CarDrive")
+            {
+                loadingText.text = 0f.ToString() + "%";
+                LoadBar.SetActive(true);
+                StartCoroutine(StartLoading("Parking", 0f));
+            }
+            else
+            {
+                StartCoroutine(LoadAsyncScene("Parking"));
+
+            }
+
         }
     }
 
@@ -850,24 +1062,18 @@ public class ParkingGm : MonoBehaviour
 
     }
 
-    public void PlayStopMusic()
+    public void PlayStopMusic(GameObject redBtn)
     {
-        // If the MusicOff button is active (meaning music is currently off)
-        if (MusicOff.activeSelf)
+        soundManager?.PlayButtonClickSound();
+        if (redBtn.activeSelf) 
         {
-            MusicOff.SetActive(false);  // Hide the "Music Off" button
-            if (soundManager)
-            {
-                soundManager.SetBGM(true);  // Start playing background music
-            }
+            soundManager?.SetBGM(true);
+            redBtn.SetActive(!redBtn.activeSelf);
         }
-        else
+        else 
         {
-            MusicOff.SetActive(true);  // Show the "Music Off" button
-            if (soundManager)
-            {
-                soundManager.SetBGM(false);  // Stop playing background music
-            }
+            soundManager?.SetBGM(false);
+            redBtn.SetActive(!redBtn.activeSelf);
         }
     }
 
@@ -882,9 +1088,34 @@ public class ParkingGm : MonoBehaviour
     public void OnButtonPressed()
     {
 
-        if (soundManager)
+        if (!soundManager)
         {
-            soundManager.PlayHorn();
+            return;
+        }
+        
+        switch (gameSel)
+        {
+            case "CarDrive":
+                soundManager.PlayHorn("Car");
+                break;
+            case "EuroTruck":
+                soundManager.PlayHorn("Bus");
+
+                break;
+            case "Jeep":
+                soundManager.PlayHorn("Car");
+
+                break;
+            case "Bus":
+                soundManager.PlayHorn("Bus");
+
+                break;
+            case "Police":
+                soundManager.PlayHorn("Car");
+
+                break;
+            default:
+                break;
         }
 
     }
@@ -903,6 +1134,7 @@ public class ParkingGm : MonoBehaviour
         if (soundManager)
             soundManager.PlayButtonClickSound();
 
+
         Belt.SetActive(true);
         Beltbtn.SetActive(false);
         Invoke(nameof(delayoff), 1.05f);
@@ -913,16 +1145,18 @@ public class ParkingGm : MonoBehaviour
 
         if (soundManager)
             soundManager.PlayButtonClickSound();
-        if (headLight != null)
-        {
-            // Toggle the active state of the headlight
-            headLight.SetActive(!headLight.activeSelf);
-        }
 
-        if (headLightActvbtn != null)
+
+        if (headLight == null)
         {
-            headLightActvbtn.SetActive(!headLight.activeSelf);
+            headLight = Carstats.Headlight;
+
         }
+       
+             headLight?.SetActive(!headLight.activeSelf);
+        
+
+       
     }
 
     void delayoff()
@@ -970,8 +1204,8 @@ public class ParkingGm : MonoBehaviour
 
     public void PlayHIT()
     {
-        if (soundManager)
-            soundManager.PlayHitSound();
+       soundManager?.PlayHitSound();
+     
     }
 
 
@@ -1001,6 +1235,96 @@ public class ParkingGm : MonoBehaviour
     }
 
    
+
+    public void DualIndi(GameObject btn) 
+    {
+        if(btn!=null)
+            btn.SetActive(!btn.activeSelf);
+    }
+
+    public void Gear(GameObject Drive,GameObject Reverse) 
+    {
+        if (Drive.activeSelf) 
+        {
+            Drive.SetActive(false);
+            Reverse.SetActive(true);
+        }
+        else 
+        {
+            Drive.SetActive(true);
+            Reverse.SetActive(false);
+        }
+    }
+
+
+    public void ControlsActivity(bool isSteer = false, bool isArrow = false,bool isTilt = false)
+    {
+        if (cntrl_Steering_chk)
+        {
+            cntrl_Steering_chk.SetActive(isSteer);
+        }
+        if (cntrl_Arrw_chk)
+        {
+            cntrl_Arrw_chk.SetActive(isArrow);
+        }
+        if (cntrl_Tilt_chk)
+        {
+            cntrl_Tilt_chk.SetActive(isTilt);
+        }
+
+    }
+
+    public void Cntrl_btn_activity(string s)
+    {
+        switch (s)
+        {
+
+            case "Steer":
+                ValStorage.SetControls(2);
+                ControlsActivity(isSteer: true);
+                break;
+
+            case "Arrow":
+                ValStorage.SetControls(0);
+                ControlsActivity(isArrow: true);
+                break; 
+            
+            case "Tilt":
+                ValStorage.SetControls(0);
+                ControlsActivity(isTilt: true);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void SetControlsTTNGS()
+    {
+        if (ValStorage.GetControls() == 0)
+        {
+            ControlsActivity(isArrow: true);
+        }
+        if (ValStorage.GetControls() == 1)
+        {
+            ControlsActivity(isTilt: true);
+
+        }
+        if (ValStorage.GetControls() == 2)
+        {
+            ControlsActivity(isSteer: true);
+
+        }
+    }
+    public void OnVolumeChanged(float value)
+    {
+        soundManager?.musicValueChanged(value);
+    }
+    
+    public void OnSVolChanged(float value)
+    {
+        soundManager?.soundValueChanged(value);
+    }
 }
 
 

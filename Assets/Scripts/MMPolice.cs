@@ -68,19 +68,21 @@ public class MMPolice : MonoBehaviour
         Setsliders();
         SetCoins();
 
-        if (musicSlider != null)
-        {
-            musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
-        }
-        if (soundSlider != null)
-        {
-            soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
-        }
+        //if (musicSlider != null)
+        //{
+        //    musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
+        //}
+        //if (soundSlider != null)
+        //{
+        //    soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
+        //}
 
-        ValStorage.SetUnlockedPoliceDriveMode(2);
-        ValStorage.SetUnlockedPoliceParkMode(2);
-      
-        
+        //ValStorage.SetUnlockedPoliceDriveMode(0);
+        //ValStorage.SetUnlockedPoliceParkMode(5);
+
+       
+
+
         if (MySoundManager.instance)
             soundmngr = MySoundManager.instance;
 
@@ -304,6 +306,9 @@ public class MMPolice : MonoBehaviour
 
     public void Cntrl_btn_activity(string s) 
     {
+       
+        soundmngr?.PlayBusClickSound();
+
         switch (s)
         {
 
@@ -321,6 +326,8 @@ public class MMPolice : MonoBehaviour
                 break;
         }
     }
+
+   
 
     public void Musicchkbox() 
     {
@@ -354,7 +361,7 @@ public class MMPolice : MonoBehaviour
     {
         foreach (Text txt in allCoinstxt)
         {
-            txt.text = ValStorage.GetCoins().ToString();
+            txt.text = ValStorage.GetpoliceCoins().ToString();
         }
     }
 
@@ -372,5 +379,13 @@ public class MMPolice : MonoBehaviour
     {
         StartLoading("Splash");
     }
+    public void OnVolumeChanged(float value)
+    {
+        soundmngr?.musicValueChanged(value);
+    }
 
+    public void OnSVolChanged(float value)
+    {
+        soundmngr?.soundValueChanged(value);
+    }
 }

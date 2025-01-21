@@ -56,8 +56,7 @@ public class MMBusGame : MonoBehaviour
         Setmusicsound();
         SetCoins();
 
-        ValStorage.SetUnlockedBusDriveMode(2);
-        ValStorage.SetUnlockedBusParkMode(2);
+    
 
 
         if (MySoundManager.instance)
@@ -65,6 +64,9 @@ public class MMBusGame : MonoBehaviour
 
         if(soundmngr)
             soundmngr.SetBusBGM(true);
+
+
+
     }
     public void ButtonActivity(string panelName)
     {
@@ -152,7 +154,7 @@ public class MMBusGame : MonoBehaviour
                 CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedBusDriveMode());
                 break;
             case "Parking":
-                CheckUnlocked(ValStorage.GetUnlockedBusParkMode());
+                CheckUnlocked(ValStorage.GetUnlockedModeLevel("bus"));
                 break;
             default:
                 break;
@@ -328,7 +330,7 @@ public class MMBusGame : MonoBehaviour
     {
         foreach (Text txt in allCoinstxt)
         {
-            txt.text = ValStorage.GetCoins().ToString();
+            txt.text = ValStorage.GetBusCoins().ToString();
         }
     }
 

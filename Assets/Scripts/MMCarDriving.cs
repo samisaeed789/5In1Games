@@ -59,8 +59,7 @@ public class MMCarDriving : MonoBehaviour
 
         soundmanager.SetBGM(true);
 
-        ValStorage.SetUnlockedCarDriveMode(2);
-        ValStorage.SetUnlockedCarParkMode(2);
+      
     }
     public void ButtonActivity(string panelName)
     {
@@ -373,7 +372,7 @@ public class MMCarDriving : MonoBehaviour
     {
         foreach (Text txt in allCoinstxt)
         {
-            txt.text = ValStorage.GetCoins().ToString();
+            txt.text = ValStorage.GetcarCoins().ToString();
         }
     }
 

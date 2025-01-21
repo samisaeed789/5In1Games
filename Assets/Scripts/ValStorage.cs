@@ -11,10 +11,10 @@ public static class ValStorage
 
     public static float timerforlane;
 
-   public static int GetCoins() 
-   {
-      return  PlayerPrefs.GetInt("Coins");
-   }
+   //public static int GetCoins() 
+   //{
+   //   return  PlayerPrefs.GetInt("Coins");
+   //}
 
 
 
@@ -31,11 +31,11 @@ public static class ValStorage
         return PlayerPrefs.GetInt("SelectedCarNumber");
     }
 
-    public static void SetCoins(int coin)
-    {
+    //public static void SetCoins(int coin)
+    //{
 
-        PlayerPrefs.SetInt("Coins",coin);
-    }
+    //    PlayerPrefs.SetInt("Coins",coin);
+    //}
 
     public static void SetTransparency(int val) 
     {
@@ -117,7 +117,12 @@ public static class ValStorage
     
     public static int GetUnlockedCarParkMode()
     {
-       return PlayerPrefs.GetInt("UnlockedCarParkMode", 0);
+        if (!PlayerPrefs.HasKey("UnlockedCarParkMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedCarParkMode", 1);
+        }
+
+        return PlayerPrefs.GetInt("UnlockedCarParkMode", 0);
     } 
     
     public static void SetUnlockedCarParkMode(int val)
@@ -137,6 +142,11 @@ public static class ValStorage
     
     public static int GetUnlockedEuroTruckParkMode()
     {
+
+        if (!PlayerPrefs.HasKey("UnlockedEuroTruckParkMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedEuroTruckParkMode", 1);
+        }
         return PlayerPrefs.GetInt("UnlockedEuroTruckParkMode", 0);
     }
 
@@ -148,6 +158,8 @@ public static class ValStorage
 
     public static int GetUnlockedJeepDriveMode()
     {
+        
+
         return PlayerPrefs.GetInt("UnlockedJeepDriveMode", 0);
     }
 
@@ -158,6 +170,10 @@ public static class ValStorage
 
     public static int GetUnlockedPoliceDriveMode()
     {
+        if (!PlayerPrefs.HasKey("UnlockedPoliceDriveMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedPoliceDriveMode", 1);
+        }
         return PlayerPrefs.GetInt("UnlockedPoliceDriveMode", 0);
     }
 
@@ -168,6 +184,10 @@ public static class ValStorage
     
     public static int GetUnlockedPoliceParkMode()
     {
+        if (!PlayerPrefs.HasKey("UnlockedPoliceParkMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedPoliceParkMode", 1);
+        }
         return PlayerPrefs.GetInt("UnlockedPoliceParkMode", 0);
     }
 
@@ -179,6 +199,10 @@ public static class ValStorage
 
     public static int GetUnlockedJeepParkMode()
     {
+        if (!PlayerPrefs.HasKey("UnlockedJeepParkMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedJeepParkMode", 1);
+        }
         return PlayerPrefs.GetInt("UnlockedJeepParkMode", 0);
     }
 
@@ -224,6 +248,10 @@ public static class ValStorage
         }
     }
 
+
+
+    
+
     public static int GetUnlockedBusDriveMode()
     {
         return PlayerPrefs.GetInt("UnlockedBusDriveMode", 0);
@@ -236,6 +264,10 @@ public static class ValStorage
     
     public static int GetUnlockedBusParkMode()
     {
+        if (!PlayerPrefs.HasKey("UnlockedBusParkMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedBusParkMode",1);
+        }
         return PlayerPrefs.GetInt("UnlockedBusParkMode", 0);
     }
 
@@ -252,6 +284,177 @@ public static class ValStorage
     public static string GetGameSel()
     {
         return PlayerPrefs.GetString("GameSelected");
+    }
+
+
+    public static void SetbusCoins(int coin)
+    {
+
+        PlayerPrefs.SetInt("BusCoins", coin);
+    }
+    
+    public static int GetBusCoins()
+    {
+
+        return PlayerPrefs.GetInt("BusCoins");
+    } 
+    
+    public static void SettruckCoins(int coin)
+    {
+
+        PlayerPrefs.SetInt("truckCoins", coin);
+    } 
+    
+    public static int GettruckCoins()
+    {
+
+        return PlayerPrefs.GetInt("truckCoins");
+
+    }
+
+    public static void SetjeepCoins(int coin)
+    {
+      
+
+        PlayerPrefs.SetInt("jeepCoins", coin);
+    } 
+    
+    public static int GetjeepCoins()
+    {
+
+        return PlayerPrefs.GetInt("jeepCoins");
+    }
+
+    public static void SetcarCoins(int coin)
+    {
+
+        PlayerPrefs.SetInt("carCoins", coin);
+    }
+      public static int GetcarCoins()
+    {
+
+       return PlayerPrefs.GetInt("carCoins");
+    }
+    
+    public static void SetpoliceCoins(int coin)
+    {
+
+        PlayerPrefs.SetInt("policeCoins", coin);
+    }
+    
+    public static int GetpoliceCoins()
+    {
+       return PlayerPrefs.GetInt("policeCoins");
+    }
+
+
+    public static int GetCoins(string gameMode)
+    {
+        if (gameMode == "car")
+        {
+            return GetcarCoins();
+        }
+        else if (gameMode == "jeep")
+        {
+            return GetjeepCoins();
+        }
+        else if(gameMode == "truck")
+        {
+            return GettruckCoins();
+        }
+        
+        else if(gameMode == "bus")
+        {
+            return GetBusCoins();
+        }
+        else if(gameMode == "police")
+        {
+            return GetpoliceCoins();
+        }
+        return 0;
+    }
+
+    public static void SetCoins(string gameMode, int val)
+    {
+        if (gameMode == "car")
+        {
+            SetcarCoins(val);
+        }
+        else if (gameMode == "jeep")
+        {
+            SetjeepCoins(val);
+        }
+        else if (gameMode == "truck")
+        {
+           SettruckCoins(val);
+        }
+
+        else if (gameMode == "bus")
+        {
+            SetbusCoins(val);
+        }
+        else if (gameMode == "police")
+        {
+            SetpoliceCoins(val);
+        }
+        Debug.LogError("get jeep coins ____"+GetjeepCoins());
+    }
+
+
+    public static void SetUnlockedModeLevel(string gameMode, int val)
+    {
+        if (gameMode == "car")
+        {
+            SetUnlockedCarParkMode(val);
+        }
+        else if (gameMode == "jeep")
+        {
+            SetUnlockedJeepParkMode(val);
+
+        }
+        else if (gameMode == "truck")
+        {
+            SetUnlockedEuroTruckParkMode(val);
+        }
+
+        else if (gameMode == "bus")
+        {
+            SetUnlockedBusParkMode(val);
+
+        }
+        else if (gameMode == "police")
+        {
+            SetUnlockedPoliceParkMode(val);
+
+        }
+    }
+    
+    public static int GetUnlockedModeLevel(string gameMode)
+    {
+        if (gameMode == "car")
+        {
+            return GetUnlockedCarParkMode();
+        }
+        else if (gameMode == "jeep")
+        {
+            return GetUnlockedJeepParkMode();
+
+        }
+        else if (gameMode == "truck")
+        {
+            return GetUnlockedEuroTruckParkMode();
+        }
+        else if (gameMode == "bus")
+        {
+            return GetUnlockedBusParkMode();
+
+        }
+        else if (gameMode == "police")
+        {
+            return GetUnlockedPoliceParkMode();
+
+        }
+        return 0;
     }
 
 }

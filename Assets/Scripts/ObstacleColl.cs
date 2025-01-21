@@ -24,6 +24,7 @@ public class ObstacleColl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Car = GetComponent<RCC_CarControllerV3>();
         gm = ParkingGm.instance;
+        gm.headLight = Headlight;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -39,7 +40,7 @@ public class ObstacleColl : MonoBehaviour
                 if (!hasCollided)
                 {
                     obstacle.HitEffect();
-                  //  StartCoroutine(PlayAngryEmoji());
+                    StartCoroutine(PlayAngryEmoji());
                     gm.Collided();
                     CheckCollisions();
                     hasCollided = true;
@@ -60,7 +61,7 @@ public class ObstacleColl : MonoBehaviour
             collisionCount++;
             if (collisionCount >= 4)
             {
-            //    CarWreckedPlay();
+                CarWreckedPlay();
                 gm.FailLevel();
             }
     }
@@ -83,6 +84,8 @@ public class ObstacleColl : MonoBehaviour
     IEnumerator PlayAngryEmoji() 
     {
         Emoji.SetActive(true);
+        yield return new WaitForSeconds(0.3f);
+        MySoundManager.instance.PlayUhoH();
         yield return new WaitForSeconds(1.40f);
         Emoji.SetActive(false);
     }
