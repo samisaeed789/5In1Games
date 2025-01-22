@@ -8,6 +8,7 @@ public static class ValStorage
     public static string gameSel;
     public static int selLevel;
     public static int TrnsparVal;
+    public static bool IsSplashVidSeen;
 
     public static float timerforlane;
 
@@ -397,7 +398,6 @@ public static class ValStorage
         {
             SetpoliceCoins(val);
         }
-        Debug.LogError("get jeep coins ____"+GetjeepCoins());
     }
 
 
@@ -410,7 +410,6 @@ public static class ValStorage
         else if (gameMode == "jeep")
         {
             SetUnlockedJeepParkMode(val);
-
         }
         else if (gameMode == "truck")
         {
@@ -420,12 +419,10 @@ public static class ValStorage
         else if (gameMode == "bus")
         {
             SetUnlockedBusParkMode(val);
-
         }
         else if (gameMode == "police")
         {
             SetUnlockedPoliceParkMode(val);
-
         }
     }
     

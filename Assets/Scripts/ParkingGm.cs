@@ -562,7 +562,6 @@ public class ParkingGm : MonoBehaviour
     
     public void CarFinalPark() 
     {
-        Debug.LogError("no of times");
 
         carRb.isKinematic = true;
         canvas.alpha = 0f;
@@ -790,7 +789,6 @@ public class ParkingGm : MonoBehaviour
         StartCoroutine(CounterAnimation(CalculateTotalCoins()));
         int alreadycoins = ValStorage.GetCoins(GameMode);
         int totalcoins = alreadycoins + CalculateTotalCoins();
-        Debug.LogError("GameMode____" + GameMode);
         ValStorage.SetCoins(GameMode,totalcoins);
     }
     private int CalculateTotalCoins()

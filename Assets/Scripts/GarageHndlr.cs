@@ -54,8 +54,13 @@ public class GarageHndlr : MonoBehaviour
     public Image Durabilty;
 
     public UIAnimator[] Policechasebtn;
+
+    [SerializeField] MeshRenderer[] Floors;
+    [SerializeField] Material lowQualityMaterials;
+    [SerializeField] Material highQualityMaterials;
     private void Start()
     {
+        CheckAndApplyMaterial();
         InitializeCarData();
     }
 
@@ -218,5 +223,33 @@ public class GarageHndlr : MonoBehaviour
     {
         Car _currCar = GetCurrCar();
         return _currCar.CarNumber;
+    }
+  
+    void CheckAndApplyMaterial()
+    {
+
+        PlanarReflectionManager planarref = orbitcam.gameObject.GetComponent<PlanarReflectionManager>();
+        int totalRAM = SystemInfo.systemMemorySize;
+
+        if (totalRAM < 4096)
+        {
+            planarref.enabled = false;
+
+            foreach(MeshRenderer rend in Floors) 
+            {
+                    rend.material = lowQualityMaterials;
+            }
+           
+        }
+        else
+        {
+
+            planarref.enabled = true;
+
+            foreach (MeshRenderer rend in Floors)
+            {
+                rend.material = highQualityMaterials;
+            }
+        }
     }
 }

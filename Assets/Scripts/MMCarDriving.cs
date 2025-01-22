@@ -381,6 +381,28 @@ public class MMCarDriving : MonoBehaviour
         StartLoading("Splash");
     }
 
+    void CheckAndApplyMaterial()
+    {
+        // Get the total system RAM in MB
+        int totalRAM = SystemInfo.systemMemorySize;
 
+        // If total RAM is less than 4GB (4096MB), switch to lower quality material
+        //if (totalRAM < 4096)
+        //{
+        //    if (targetRenderer != null)
+        //    {
+        //        targetRenderer.material = lowQualityMaterial;
+        //    }
+        //    Debug.Log("Device has less than 4GB of RAM. Using low-quality materials.");
+        //}
+        //else
+        //{
+        //    if (targetRenderer != null)
+        //    {
+        //        targetRenderer.material = highQualityMaterial;
+        //    }
+        //    Debug.Log("Device has 4GB or more of RAM. Using high-quality materials.");
+        //}
+    }
 
 }

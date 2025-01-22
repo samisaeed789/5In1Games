@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameSel : MonoBehaviour
 {
     [Header("GamePanels")]
+    public GameObject VidScreen;
     public GameObject firstScreenPanel;
     public GameObject SecondScreenPanel;
     public GameObject carDrivingPanel;
@@ -23,15 +25,28 @@ public class GameSel : MonoBehaviour
     public GameObject cityBus;
     public GameObject policeChase;
 
-
+    public VideoPlayer videoPlayer; 
+    
     MySoundManager soundmngr;
 
     private void Start()
     {
+        if (ValStorage.IsSplashVidSeen == false) 
+        {
+            VidScreen.SetActive(true);
+            videoPlayer.loopPointReached += OnVideoComplete;
+        }
+    }
+
+    void OnVideoComplete(VideoPlayer vp)
+    {
+       
+        VidScreen.SetActive(false);
         if (MySoundManager.instance)
             soundmngr = MySoundManager.instance;
 
         soundmngr.SetBGM(true);
+        ValStorage.IsSplashVidSeen = true;
     }
     public void MoreDetails(string panelName)
     {
@@ -149,8 +164,7 @@ public class GameSel : MonoBehaviour
             policeChase.SetActive(isPoliceChaseGame);
         }
 
-        //if (soundmngr)
-        //    soundmngr.SetBGM(false);
+        
 
     }
 
