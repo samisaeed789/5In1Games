@@ -11,6 +11,10 @@ TagManager:
   - ptha
   - SaveCheckpoint
   - CheckPoint
+  - Enemy
+  - hurdl
+  - CarBody
+  - CarTire
   layers:
   - Default
   - TransparentFX
@@ -28,7 +32,7 @@ TagManager:
   - container
   - arrow
   - light
-  - 
+  - roadmap
   - 
   - 
   - 
