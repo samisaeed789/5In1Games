@@ -12,6 +12,10 @@ public static class ValStorage
 
     public static float timerforlane;
 
+
+    public static bool IsSwatPurchased;
+    public static bool IsFordPurchased;
+    public static bool IsRegularPurchased;
    //public static int GetCoins() 
    //{
    //   return  PlayerPrefs.GetInt("Coins");
@@ -453,5 +457,42 @@ public static class ValStorage
         }
         return 0;
     }
+
+    public static bool GetCarUnLocked(CarType car)
+    {
+        if (car == CarType.Regular)
+        {
+            return IsRegularPurchased;
+        }
+        if (car == CarType.Ford)
+        {
+            return IsFordPurchased;
+
+        }
+        if (car == CarType.Swat)
+        {
+            return IsSwatPurchased;
+        }
+
+        return false;
+    }
+
+    public static void SetCarUnLocked(CarType car)
+    {
+        if (car == CarType.Regular)
+        {
+             IsRegularPurchased = true; 
+        }
+        if (car == CarType.Ford)
+        {
+             IsFordPurchased = true; 
+
+        }
+        if (car == CarType.Swat)
+        {
+             IsSwatPurchased=true;
+        }
+    }
+
 
 }

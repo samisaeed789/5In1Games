@@ -4,35 +4,52 @@ using UnityEngine;
 
 public class CarEnter : MonoBehaviour
 {
-    [SerializeField] bool Swat;
-    [SerializeField] bool Ford;
-    [SerializeField] bool Regular;
+    GameObject LockedBtn;
+    GameObject UnLockedBtn;
     GM_PoliceDrive gm;
+   
+    
+    public CarType carType;
+
     private void Start()
     {
         gm = GM_PoliceDrive.instance;
+        LockedBtn = gm.LockedBtn;
+        UnLockedBtn = gm.UnLockedBtn;
+        ValStorage.IsRegularPurchased = true;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (Swat)
-            {
-                if (GM_PoliceDrive.instance) 
-                {
-                    gm.SetGP(1);
-                }
-            }
-            if (Ford)
-            {
-                    gm.SetGP(2);
-            }
+        
+            gm?.SetCarType(carType);
 
-            if (Regular)
+            if (ValStorage.GetCarUnLocked(carType)) 
             {
-                gm.SetGP(0);
+                LockedBtn.SetActive(false);
+                UnLockedBtn.SetActive(true);
             }
+            else 
+            {
+                LockedBtn.SetActive(true);
+                UnLockedBtn.SetActive(false);
+            }
+        }
+    } 
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+        
+            gm?.SetCarType(CarType.None);
+            LockedBtn.SetActive(false);
+            UnLockedBtn.SetActive(false);
+           
         }
     }
 
+
 }
+    
