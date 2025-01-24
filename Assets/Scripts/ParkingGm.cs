@@ -368,7 +368,7 @@ public class ParkingGm : MonoBehaviour
                 CoinsEarnedlvltxt = rewardedCoinstruck;
                 TotalCompltxt = CoinsTotaltruck;
                 NxtBtnSccs = nextbtncomptruck;
-
+                ControlsJeep.SetMobileController(ValStorage.GetControls());
                 GameMode = "truck";
 
 

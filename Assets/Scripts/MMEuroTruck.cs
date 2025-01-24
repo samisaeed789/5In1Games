@@ -1,124 +1,504 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class CombineMeshesEditor : EditorWindow
+public class MMEuroTruck : MonoBehaviour
 {
-    // This will hold the selected objects in the editor
-    private GameObject[] selectedObjects;
+    [Header("Panels")]
+    public GameObject MMPanel;
+    public GameObject modeSelPanel;
+    public GameObject lvlSelPanel;
+    public GameObject garagePanel;
+    public GameObject loadingPanel;
+    public GameObject settingsPanel;
+    public GameObject exitPanel;
+    public GameObject carPurhasedPanel;
+    public GameObject notEnoughCoinsPanel;
 
-    [MenuItem("Tools/Combine Meshes")]
-    public static void ShowWindow()
+    [Header("UI")]
+    public Text[] allCoinstxt;
+
+
+
+    [Header("Loading")]
+    public Image loadingImage;
+    public float loadingDuration = 5f;
+
+    [Header("Settings")]
+    public GameObject controlPnl;
+    public GameObject soundPnl;
+    public GameObject soundActvBtn;
+    public GameObject cntrlActvBtn;
+    public GameObject cntrl_Steering_chk;
+    public GameObject cntrl_Arrw_chk; 
+    public GameObject cntrl_Tilt_chk; 
+    
+    public GameObject music_chk;
+    public GameObject sound_chk;
+
+
+
+    [SerializeField] float volumeChangeAmount = 0.1f; 
+    [Header("Music-Volume")]
+    public Image fillBar;
+
+    [Header("Sound-Volume")]
+   public Image soundfillBar;
+
+
+
+
+
+
+
+    [Header("Levels")]
+    public Button[] LvlCards;
+
+
+    public GameObject Garage;
+    MySoundManager soundmngr;
+    private void Start()
     {
-        // Open the editor window when the menu item is clicked
-        GetWindow<CombineMeshesEditor>("Combine Meshes");
+        SetControlsTTNGS();
+        Setsliders();
+        SetCoins();
+
+
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+        if (soundmngr)
+            soundmngr.SetEuroTruckBGM(true);
+
+    }
+    public void ButtonActivity(string panelName)
+    {
+        switch (panelName)
+        {
+
+            case "MM":
+                PanelActivity(MM: true);
+                break;
+            case "ModeSel":
+                PanelActivity(ModeSel: true);
+                break;
+            case "LvlSel":
+                PanelActivity(LvlSel: true);
+                Garage.SetActive(false);
+                break;
+            case "Garage":
+                PanelActivity(Garage: true);
+                break;
+            case "SettingsPnl":
+                PanelActivity(SettingsPnl: true);
+                break;
+            case "exitPanel":
+                PanelActivity(ExitPnl: true);
+                break;
+            
+            case "Loading":
+                PanelActivity(Loading: true);
+                break;
+            default:
+                break;
+        }
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
     }
 
-    private void OnGUI()
+    public void PanelActivity(bool MM = false, bool ModeSel = false, bool LvlSel = false, bool ExitPnl = false, bool SettingsPnl = false, bool Garage = false, bool Loading = false)
     {
-        // Display a button to combine meshes
-        if (GUILayout.Button("Combine Selected Meshes"))
+        if (MMPanel)
         {
-            CombineMeshes();
+            MMPanel.SetActive(MM);
+        }
+        if (modeSelPanel)
+        {
+            modeSelPanel.SetActive(ModeSel);
+        }
+        if (lvlSelPanel)
+        {
+            lvlSelPanel.SetActive(LvlSel);
+        }
+        if (garagePanel)
+        {
+            garagePanel.SetActive(Garage);
+        }
+        if (loadingPanel)
+        {
+            loadingPanel.SetActive(Loading);
+        }
+        if (settingsPanel)
+        {
+            settingsPanel.SetActive(SettingsPnl);
+        } 
+        if (exitPanel)
+        {
+            exitPanel.SetActive(ExitPnl);
         }
     }
 
-    private void CombineMeshes()
+    public void ExitPanel(bool val) 
     {
-        // Get selected GameObjects in the scene
-        selectedObjects = Selection.gameObjects;
 
-        // Check if any objects are selected
-        if (selectedObjects.Length == 0)
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
+        exitPanel.SetActive(val);
+    }
+    public void SettingsPanel(bool val) 
+    {
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
+        settingsPanel.SetActive(val);
+    }
+    
+
+    public void SelectedLvl(int i) 
+    {
+        ValStorage.selLevel = i;
+        ButtonActivity("Garage");
+        SetGarage();
+
+
+        if (soundmngr)
+            soundmngr.PlayJeepClickSound();
+    }
+    void SetGarage() 
+    {
+        Garage.SetActive(true);
+    }
+
+
+    public void SelectedMode(string S) 
+    {
+        switch (S)
         {
-            Debug.LogWarning("No objects selected. Please select objects to combine.");
-            return;
+            case "Drive":
+                CheckUnlocked(0);
+                break;
+            case "Parking":
+                CheckUnlocked(ValStorage.GetUnlockedEuroTruckParkMode());
+                break;
+            default:
+                break;
         }
+        ButtonActivity("LvlSel");
+        
+        
+        soundmngr?.PlayEuroClickSound();
+    }
 
-        // Filter selected objects to only include meshes with MeshFilters
-        MeshFilter[] meshFilters = new MeshFilter[selectedObjects.Length];
-        int meshFilterCount = 0;
 
-        // List to hold materials for the new combined mesh
-        Material[] combinedMaterials = new Material[0];
+    public void SelectedCar()
+    {
+        ButtonActivity("Loading");
+    }
 
-        foreach (var obj in selectedObjects)
+    public void LoadNxtScene()
+    {
+
+        soundmngr?.PlayEuroClickSound();
+        StartLoading("Parking");
+    }
+
+    AsyncOperation asyncLoad;
+    public void StartLoading(string sceneName)
+    {
+
+        ButtonActivity("Loading");
+        GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
+        ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
+
+        asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncLoad.allowSceneActivation = false;
+        DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)
+                .SetEase(Ease.Linear)
+                .OnKill(() => OnLoadingComplete());
+    }
+
+    void OnLoadingComplete()
+    {
+        asyncLoad.allowSceneActivation = true;
+    }
+
+
+
+    void CheckUnlocked(int unlocledlvls)
+    {
+        int numUnlockedLevels = unlocledlvls;
+        for (int i = 1; i <= LvlCards.Length; i++)
         {
-            MeshFilter meshFilter = obj.GetComponent<MeshFilter>();
-            if (meshFilter != null)
+            Button levelButton = LvlCards[i - 1];
+
+            if (levelButton != null)
             {
-                meshFilters[meshFilterCount++] = meshFilter;
-                // Collect materials from each MeshRenderer
-                MeshRenderer renderer = obj.GetComponent<MeshRenderer>();
-                if (renderer != null)
+                if (i <= numUnlockedLevels)
                 {
-                    Material[] materials = renderer.sharedMaterials;
-                    combinedMaterials = CombineMaterialArrays(combinedMaterials, materials);
+                    levelButton.interactable = true;
+                    levelButton.transform.GetChild(0).gameObject.SetActive(false);
+
+                }
+                else
+                {
+                    levelButton.interactable = false;
+                    levelButton.transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
         }
-
-        // Create an array to store meshes to combine
-        Mesh[] meshesToCombine = new Mesh[meshFilterCount];
-        Matrix4x4[] transforms = new Matrix4x4[meshFilterCount];
-
-        for (int i = 0; i < meshFilterCount; i++)
-        {
-            meshesToCombine[i] = meshFilters[i].sharedMesh;
-            transforms[i] = meshFilters[i].transform.localToWorldMatrix;
-        }
-
-        // Combine meshes using Mesh.CombineMeshes
-        Mesh combinedMesh = new Mesh();
-        combinedMesh.CombineMeshes(GetCombineInstanceArray(meshesToCombine, transforms));
-
-        // Create a new GameObject to hold the combined mesh
-        GameObject combinedObject = new GameObject("CombinedMeshObject");
-
-        // Add a MeshFilter and MeshRenderer to the new object
-        MeshFilter meshFilterCombined = combinedObject.AddComponent<MeshFilter>();
-        meshFilterCombined.mesh = combinedMesh;
-
-        // Set the combined materials
-        MeshRenderer meshRendererCombined = combinedObject.AddComponent<MeshRenderer>();
-        meshRendererCombined.sharedMaterials = combinedMaterials;
-
-        // Optional: If you want to remove the original objects
-        foreach (var obj in selectedObjects)
-        {
-            DestroyImmediate(obj);
-        }
-
-        // Select the new combined object
-        Selection.activeGameObject = combinedObject;
     }
 
-    // Helper function to combine CombineInstance[] for Mesh.CombineMeshes
-    private CombineInstance[] GetCombineInstanceArray(Mesh[] meshes, Matrix4x4[] transforms)
+    public void Cntrlbtn() 
     {
-        CombineInstance[] combineInstances = new CombineInstance[meshes.Length];
 
-        for (int i = 0; i < meshes.Length; i++)
-        {
-            combineInstances[i] = new CombineInstance
-            {
-                mesh = meshes[i],
-                transform = transforms[i]
-            };
-        }
+        soundmngr?.PlayEuroClickSound();
+        SettngsActivity(isControl:true);
+    }
+    public void Soundbtn() 
+    {
 
-        return combineInstances;
+        soundmngr?.PlayEuroClickSound();
+        SettngsActivity(isSfx:true);
     }
 
-    // Helper function to combine materials from multiple meshes
-    private Material[] CombineMaterialArrays(Material[] existingMaterials, Material[] newMaterials)
+    public void SettngsActivity(bool isSfx = false, bool isControl = false)
     {
-        int existingLength = existingMaterials.Length;
-        int newLength = newMaterials.Length;
+        if (soundPnl)
+        {
+            soundPnl.SetActive(isSfx);
+            soundActvBtn.SetActive(isSfx);
+        }
+        if (controlPnl)
+        {
+            controlPnl.SetActive(isControl);
+            cntrlActvBtn.SetActive(isControl);
+        }
+    }
 
-        Material[] combinedMaterials = new Material[existingLength + newLength];
-        existingMaterials.CopyTo(combinedMaterials, 0);
-        newMaterials.CopyTo(combinedMaterials, existingLength);
+    public void SetControlsTTNGS()
+    {
+        if (ValStorage.GetControls() == 0)
+        {
+            ControlsActivity(isArrow: true);
+        }
+        if (ValStorage.GetControls() == 2)
+        {
+            ControlsActivity(isSteer: true);
+        }
+        if (ValStorage.GetControls() == 1)
+        {
+            ControlsActivity(isTilt: true);
+        }
+    }
+    
+    public void Setsliders()
+    {
+        fillBar.fillAmount = ValStorage.GetMVolume();
+        soundfillBar.fillAmount = ValStorage.GetSVolume();
+    }
+    
+    public void ControlsActivity(bool isSteer = false, bool isArrow = false,bool isTilt = false)
+    {
+        if (cntrl_Steering_chk)
+        {
+            cntrl_Steering_chk.SetActive(isSteer);
+        }
+        if (cntrl_Arrw_chk)
+        {
+            cntrl_Arrw_chk.SetActive(isArrow);
+        }
+        if (cntrl_Tilt_chk)
+        {
+            cntrl_Tilt_chk.SetActive(isTilt);
+        }
+    }
 
-        return combinedMaterials;
+    public void Cntrl_btn_activity(string s) 
+    {
+        switch (s)
+        {
+
+            case "Steer":
+                ValStorage.SetControls(2);
+                ControlsActivity(isSteer:true);
+                break;
+            
+            case "Arrow":
+                ValStorage.SetControls(0);
+                ControlsActivity(isArrow:true);
+                break; 
+            
+            case "Tilt":
+                ValStorage.SetControls(1);
+                ControlsActivity(isTilt:true);
+                break;
+           
+            default:
+                break;
+        }
+
+    }
+
+    public void Musicchkbox() 
+    {
+        if (music_chk.activeSelf)
+        {
+            ValStorage.SetMusicMute(0);
+            music_chk.SetActive(false);
+        }
+        else 
+        {
+            ValStorage.SetMusicMute(1);
+            music_chk.SetActive(true);
+        }
+
+            soundmngr?.PlayEuroClickSound();
+    } 
+    
+    public void Soundchkbox() 
+    {
+        if (sound_chk.activeSelf)
+        {
+            ValStorage.SetSoundMute(0);
+            sound_chk.SetActive(false);
+        }
+        else
+        {
+            ValStorage.SetSoundMute(1);
+            sound_chk.SetActive(true);
+        }
+
+
+            soundmngr?.PlayEuroClickSound();
+    }
+
+    public void SetCoins()
+    {
+
+        foreach (Text txt in allCoinstxt)
+        {
+            txt.text = ValStorage.GetCoins("truck").ToString();
+        }
+    }
+
+    //public void OnMSliderValueChanged(float value)
+    //{
+    //    ValStorage.SetMVolume(value);
+
+    //}
+    //public void OnSSliderValueChanged(float value)
+    //{
+
+    //    ValStorage.SetSVolume(value);
+
+    //}
+
+
+
+    public void GoToPrevScene()
+    {
+
+            soundmngr?.PlayEuroClickSound();
+
+        StartLoading("Splash");
+    }
+
+    public void OnVolumeChanged(float value)
+    {
+        soundmngr?.musicValueChanged(value);
+    }
+
+    public void OnSVolChanged(float value)
+    {
+        soundmngr?.soundValueChanged(value);
+    }
+
+
+    public void AdjustVolume(float changeAmount, bool isMusic)
+    {
+        // Determine if it's music volume or sound volume
+        if (isMusic)
+        {
+            float vol = Mathf.Clamp(ValStorage.GetMVolume() + changeAmount, 0f, 1f); // Adjust and clamp volume for music
+            ValStorage.SetMVolume(vol);
+        }
+        else
+        {
+            float soundvol = Mathf.Clamp(ValStorage.GetSVolume() + changeAmount, 0f, 1f); // Adjust and clamp volume for sound effects
+            ValStorage.SetSVolume(soundvol);
+        }
+
+        UpdateVolume(); // Update both volume and UI
+    }
+
+    // This method updates both music and sound volumes
+    private void UpdateVolume()
+    {
+        // Set the volume for music and sound effects
+        soundmngr.BGM.volume = ValStorage.GetMVolume(); // Music volume
+        soundmngr.Effectsource.volume = ValStorage.GetSVolume(); // Sound effect volume
+
+        // Update the fill bars for both music and sound
+        UpdateFillBar();
+    }
+
+    // This method updates the fill bars based on the current volume levels
+    private void UpdateFillBar()
+    {
+        // Update fill bars
+        if (fillBar != null)
+        {
+            fillBar.fillAmount = ValStorage.GetMVolume(); // Set music fill bar
+        }
+
+        if (soundfillBar != null)
+        {
+            soundfillBar.fillAmount = ValStorage.GetSVolume();  // Set sound fill bar
+        }
+
+
+
+        soundmngr?.PlayButtonClickSound();
+    }
+
+    // Public methods to handle button clicks
+    public void DecreaseMusicVolume()
+    {
+        AdjustVolume(-volumeChangeAmount, true); // Decrease music volume
+    }
+
+    public void IncreaseMusicVolume()
+    {
+        AdjustVolume(volumeChangeAmount, true); // Increase music volume
+    }
+
+    public void DecreaseSoundVolume()
+    {
+        AdjustVolume(-volumeChangeAmount, false); // Decrease sound volume
+    }
+
+    public void IncreaseSoundVolume()
+    {
+        AdjustVolume(volumeChangeAmount, false); // Increase sound volume
+    }
+
+
+    public void sttngstab(string S)
+    {
+
+        if (S == "SFX")
+        {
+            SettngsActivity(isSfx: true);
+
+        }
+        if (S == "Control")
+        {
+            SettngsActivity(isControl: true);
+        }
+            soundmngr?.PlayEuroClickSound();
     }
 }

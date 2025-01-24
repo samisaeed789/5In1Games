@@ -77,10 +77,10 @@ public class MMPolice : MonoBehaviour
         //    soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
         //}
 
-        //ValStorage.SetUnlockedPoliceDriveMode(0);
+        ValStorage.SetUnlockedPoliceDriveMode(1);
         //ValStorage.SetUnlockedPoliceParkMode(5);
 
-       
+
 
 
         if (MySoundManager.instance)
@@ -179,10 +179,13 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(0);// CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
+                CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());// CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
+                ValStorage.modeSel = "Drive";
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedPoliceParkMode());
+                ValStorage.modeSel = "Parking";
+
                 break;
             default:
                 break;
@@ -198,7 +201,21 @@ public class MMPolice : MonoBehaviour
 
     public void LoadNxtScene()
     {
-        StartLoading("Parking");
+        string S = ValStorage.modeSel;
+        switch (S)
+        {
+            case "Drive":
+                StartLoading("DriveModePolice");
+                break;
+            case "Parking":
+                StartLoading("Parking");
+
+                break;
+            default:
+                break;
+        }
+      
+      
     }
 
     AsyncOperation asyncLoad;
