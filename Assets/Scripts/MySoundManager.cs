@@ -73,6 +73,8 @@ public class MySoundManager : MonoBehaviour {
     public AudioClip Revv5;
     public AudioClip Unlock;
     public AudioClip UhOh;
+    public AudioClip PoliceChatter;
+    public AudioClip TypingSound;
 
 
   
@@ -145,6 +147,19 @@ public class MySoundManager : MonoBehaviour {
 		}
 	}
 
+
+	public void PlayChatterSound(bool check)
+	{
+		if (check)
+		{
+			BGM.clip = PoliceChatter;
+			BGM.Play();
+		}
+		else
+		{
+			BGM.Pause();
+		}
+	}
 	public void PlayLevelFailSound()
 	{
 		
@@ -333,6 +348,23 @@ public class MySoundManager : MonoBehaviour {
 		soundValue = val;
 		Effectsource.volume = soundValue;
 		Effectsource.PlayOneShot(cash);
+	}
+	
+	public void PlayTypeSound(bool val)
+	{
+		if (val)
+		{
+			BGM.clip = TypingSound;
+			BGM.Play();
+
+		}
+		else
+		{
+			if (BGM)
+			{
+				BGM.Pause();
+			}
+		}
 	}
 
 	public void PlaycoinSound()

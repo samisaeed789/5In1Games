@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,14 +17,21 @@ public static class ValStorage
     public static bool IsSwatPurchased;
     public static bool IsFordPurchased;
     public static bool IsRegularPurchased;
-   //public static int GetCoins() 
-   //{
-   //   return  PlayerPrefs.GetInt("Coins");
-   //}
+    //public static int GetCoins() 
+    //{
+    //   return  PlayerPrefs.GetInt("Coins");
+    //}
 
 
 
+    // Create a static event that other classes can subscribe to
+    public static event Action OnEnemyDestroyed;
 
+    // Method to trigger the event
+    public static void TriggerEnemyDestroyed()
+    {
+        OnEnemyDestroyed?.Invoke();
+    }
 
     public static void SetCarNumber(int val)
     {

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI; 
 
@@ -6,10 +7,13 @@ public class EnemyCarHealth : MonoBehaviour
     public float health =1f;
     public Image healthBar; 
     public ParticleSystem smokeEffect; 
-    public ParticleSystem blastEffect; 
+ //   public ParticleSystem blastEffect; 
     public GameObject destroyedCarPrefab;
-    public float destructionForce = 1000f;
-    public GameObject[] OffCar;
+    //  public float destructionForce = 1000f;
+    // public GameObject[] OffCar;
+
+    public event Action OnEnemyDestroyed;
+
     public void ReduceHealth(float percentage)
     {
         health -= percentage;
@@ -46,7 +50,7 @@ public class EnemyCarHealth : MonoBehaviour
         //{
         //    g.SetActive(false);
         //}
-
+        ValStorage.TriggerEnemyDestroyed();
         Instantiate(destroyedCarPrefab,this.transform.position,this.transform.rotation);
         Destroy(this.gameObject);
     }
