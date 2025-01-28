@@ -438,6 +438,31 @@ public static class ValStorage
         }
     }
     
+    public static void SetUnlockedModeLevelDrive(string gameMode, int val)
+    {
+        if (gameMode == "car")
+        {
+            SetUnlockedCarDriveMode(val);
+        }
+        else if (gameMode == "jeep")
+        {
+            SetUnlockedJeepDriveMode(val);
+        }
+        else if (gameMode == "truck")
+        {
+            SetUnlockedEuroTruckDriveMode(val);
+        }
+
+        else if (gameMode == "bus")
+        {
+            SetUnlockedBusParkMode(val);
+        }
+        else if (gameMode == "police")
+        {
+            SetUnlockedPoliceDriveMode(val);
+        }
+    }
+    
     public static int GetUnlockedModeLevel(string gameMode)
     {
         if (gameMode == "car")
@@ -461,6 +486,34 @@ public static class ValStorage
         else if (gameMode == "police")
         {
             return GetUnlockedPoliceParkMode();
+
+        }
+        return 0;
+    }
+    
+    public static int GetUnlockedModeLevelDrive(string gameMode)
+    {
+        if (gameMode == "car")
+        {
+            return GetUnlockedCarDriveMode();
+        }
+        else if (gameMode == "jeep")
+        {
+            return GetUnlockedJeepDriveMode();
+
+        }
+        else if (gameMode == "truck")
+        {
+            return GetUnlockedEuroTruckDriveMode();
+        }
+        else if (gameMode == "bus")
+        {
+            return GetUnlockedBusDriveMode();
+
+        }
+        else if (gameMode == "police")
+        {
+            return GetUnlockedPoliceDriveMode();
 
         }
         return 0;

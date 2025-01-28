@@ -15,7 +15,7 @@ public enum CarType
 [System.Serializable]
 public class CSData
 {
-    public TimelineAsset timelines;
+    public PlayableDirector playable;
     public GameObject CSLevel;
 }
 public class GM_PoliceDrive : MonoBehaviour
@@ -44,8 +44,8 @@ public class GM_PoliceDrive : MonoBehaviour
 
     [Header("CSDATA")]
     [SerializeField] GameObject CS;
+    [SerializeField] CSData[] csdata;
     [SerializeField] PlayableDirector playableDirector;
-    [SerializeField] CSData[] CSdata;
 
 
 
@@ -64,8 +64,14 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] TypingEffect objtyping;
     [SerializeField] GameObject ok;
 
+    [Header("CompPanel")]
+    [SerializeField] Text CoinsEarnedlvltxt;
+    [SerializeField] GameObject NxtBtnSccs;
+    [SerializeField] Text TotalCompltxt;
 
 
+    bool stopAnimation;
+    float elapsedTime = 0f;
     MySoundManager soundManager;
     public static GM_PoliceDrive instance;
 
@@ -81,10 +87,7 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (playableDirector != null)
-        {
-            playableDirector.stopped += OnTimelineFinished;
-        }
+      
         if (objtyping != null)
         {
             objtyping.OnTypingFinished += typingfinished;
@@ -97,7 +100,7 @@ public class GM_PoliceDrive : MonoBehaviour
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         PlayTimeline(currLvl);
-
+        Contrls(false);
         ValStorage.SetCarUnLocked(CarType.Swat);
         ValStorage.SetCarUnLocked(CarType.Regular);
     }
@@ -105,16 +108,24 @@ public class GM_PoliceDrive : MonoBehaviour
     public void PlayTimeline(int index)
     {
         CS.SetActive(true);
-        CSdata[index].CSLevel.SetActive(true);
-        if (index >= 0 && index < CSdata.Length)
+        csdata[index].CSLevel.SetActive(true);
+        playableDirector= csdata[index].playable;
+        if (playableDirector != null)
         {
-            playableDirector.playableAsset = CSdata[index].timelines;//  timelines[index];
-            playableDirector.Play();
+            playableDirector.stopped += OnTimelineFinished;
         }
-        else
-        {
-            Debug.LogError("Timeline index out of range");
-        }
+        //GameObject cutscenelvl = CSlvl[index];//.SetActive(true);
+        //cutscenelvl.SetActive(true);
+        //  playableDirector= cutscenelvl.transform.GetChild(0).GetComponent<>()
+        //if (index >= 0 && index < CSdata.Length)
+        //{
+        //    playableDirector.playableAsset = CSdata[index].timelines;//  timelines[index];
+        //    playableDirector.Play();
+        //}
+        //else
+        //{
+        //    Debug.LogError("Timeline index out of range");
+        //}
     }
 
     public void SetCarType(CarType carType)
@@ -130,9 +141,10 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         GP.SetActive(true);
         CarSel.SetActive(false);
-        map.gameObject.SetActive(true);
+        //map.gameObject.SetActive(true);
         EnemyCars[currLvl].SetActive(true);
         CarType car = GetCurrentCarType();
+        Contrls(true);
         switch (car)
         {
             case CarType.Regular:
@@ -219,9 +231,100 @@ public class GM_PoliceDrive : MonoBehaviour
         soundManager?.PlayChatterSound(true);
         GP.SetActive(false);
         Finalpolice.SetActive(true);
-        yield return new WaitForSeconds(5f);
+        StartCoroutine(CompletePanel());
+    }
+    IEnumerator CompletePanel()
+    {
+
+        UnlckNxtLvl();
+        yield return new WaitForSeconds(10f);
         soundManager?.PlayChatterSound(false);
+        delComp();
+
+        //if (soundManager)
+        //{
+        //    soundManager.PlayCompleteSound(false);
+        //   // CarSound(false);
+        //}
+
+    }
+    void UnlckNxtLvl()
+    {
+
+        int currlvl = ValStorage.selLevel;
+        int unlockdlvls = ValStorage.GetUnlockedModeLevelDrive("police");
+
+        if (currlvl == unlockdlvls && currlvl < 5)
+        {
+            ValStorage.SetUnlockedModeLevelDrive("police", unlockdlvls + 1);
+        }
+
+        if (currlvl == 5)
+        {
+            NxtBtnSccs?.SetActive(false);
+        }
+    }
+
+    void delComp()
+    {
+        UIBlocker.SetActive(false);
         completePanel.SetActive(true);
+        SetCoinsinPanel();
+    }
+    void SetCoinsinPanel()
+    {
+        CoinsEarnedlvltxt.text = 300.ToString();
+        StartCoroutine(CounterAnimation(CalculateTotalCoins()));
+        int alreadycoins = ValStorage.GetCoins("police");
+        int totalcoins = alreadycoins + CalculateTotalCoins();
+        ValStorage.SetCoins("police", totalcoins);
+    }
+
+    private int CalculateTotalCoins()
+    {
+        int coinsFromTime = Mathf.FloorToInt(elapsedTime * 2);
+
+        int total = 300 + coinsFromTime;
+        return total;
+    }
+    private IEnumerator CounterAnimation(int totalCoins)
+    {
+        yield return new WaitForSeconds(1f);
+        int duration = 3; // Total duration for the animation
+        float elapsedTime = 0f; // Time elapsed since the start of the animation
+        int currentCoins = 0;
+
+        // Play sound if available
+        if (soundManager)
+            soundManager.PlaycoinSound();
+
+        // Calculate the number of coins per second
+        int coinsPerSecond = totalCoins / duration;
+
+        // Loop until the animation reaches the total coins
+        while (elapsedTime < duration && !stopAnimation)
+        {
+            elapsedTime += Time.deltaTime; // Accumulate elapsed time
+            currentCoins = Mathf.FloorToInt(coinsPerSecond * elapsedTime); // Increment coins
+
+            // Make sure currentCoins does not exceed totalCoins
+            currentCoins = Mathf.Min(currentCoins, totalCoins);
+
+            // Update the UI or text with the current number of coins
+            if (TotalCompltxt != null)
+                TotalCompltxt.text = currentCoins.ToString();
+
+            yield return null; // Wait until the next frame
+        }
+
+        // Ensure the final count is exactly totalCoins
+
+        if (TotalCompltxt != null)
+            TotalCompltxt.text = totalCoins.ToString();
+
+        // Stop sound if available
+        if (soundManager)
+            soundManager.StopcoinSound();
     }
     private void OnDisable()
     {
@@ -235,4 +338,18 @@ public class GM_PoliceDrive : MonoBehaviour
         }
         ValStorage.OnEnemyDestroyed -= HandleEnemyDestroyed;
     }
+    void Contrls(bool isOn) 
+    {
+        if (isOn) 
+        {
+            Can.alpha = 1;
+        }
+        else 
+        {
+            Can.alpha = 0;
+        }
+        Can.interactable = isOn;
+        Can.blocksRaycasts = isOn;
+    }
+   
 }
