@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 
@@ -34,6 +35,8 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] RCC_Demo Controls;
     [SerializeField] Text rewardedCoins;
     [SerializeField] GameObject nextbtncomp;
+    [SerializeField] GameObject WaterSplashs;
+    [SerializeField] RCC_Camera rcc_cam;
 
 
     [SerializeField] GameObject CarSel;
@@ -69,7 +72,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject NxtBtnSccs;
     [SerializeField] Text TotalCompltxt;
 
-
+    GameObject carController;
     bool stopAnimation;
     float elapsedTime = 0f;
     MySoundManager soundManager;
@@ -83,7 +86,6 @@ public class GM_PoliceDrive : MonoBehaviour
         if (instance == null)
             instance = this;
 
-        ValStorage.selLevel = 1;
     }
     private void OnEnable()
     {
@@ -97,16 +99,19 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
+        ValStorage.selLevel = 1;
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
-        PlayTimeline(currLvl);
+        StartCoroutine(PlayTimeline(currLvl)); 
         Contrls(false);
         ValStorage.SetCarUnLocked(CarType.Swat);
         ValStorage.SetCarUnLocked(CarType.Regular);
     }
 
-    public void PlayTimeline(int index)
+    IEnumerator PlayTimeline(int index)
     {
+        yield return new WaitForSeconds(4f);
+        Loading.SetActive(false);
         CS.SetActive(true);
         csdata[index].CSLevel.SetActive(true);
         playableDirector= csdata[index].playable;
@@ -114,18 +119,7 @@ public class GM_PoliceDrive : MonoBehaviour
         {
             playableDirector.stopped += OnTimelineFinished;
         }
-        //GameObject cutscenelvl = CSlvl[index];//.SetActive(true);
-        //cutscenelvl.SetActive(true);
-        //  playableDirector= cutscenelvl.transform.GetChild(0).GetComponent<>()
-        //if (index >= 0 && index < CSdata.Length)
-        //{
-        //    playableDirector.playableAsset = CSdata[index].timelines;//  timelines[index];
-        //    playableDirector.Play();
-        //}
-        //else
-        //{
-        //    Debug.LogError("Timeline index out of range");
-        //}
+       
     }
 
     public void SetCarType(CarType carType)
@@ -137,31 +131,37 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         return currentCarType;
     }
+    
     public void SetGP() 
     {
+        soundManager?.PlaypoliceClickSound();
+
         GP.SetActive(true);
         CarSel.SetActive(false);
-        //map.gameObject.SetActive(true);
         EnemyCars[currLvl].SetActive(true);
+        soundManager?.PlayPoliceSiren(true);
+        soundManager?.SetBGM(true);
+
         CarType car = GetCurrentCarType();
         Contrls(true);
         switch (car)
         {
             case CarType.Regular:
-                Cars[0].SetActive(true);
-                map.target = Cars[0].transform;
+                carController = Cars[0];
                 break;
             case CarType.Ford:
-                Cars[2].SetActive(true);
-                map.target = Cars[2].transform;
+                carController = Cars[2];
                 break;
             case CarType.Swat:
-                Cars[1].SetActive(true);
-                map.target = Cars[1].transform;
+                carController = Cars[1];
                 break;
             default:
                 break;
         }
+
+        carController.SetActive(true);
+        map.target = carController.transform;
+
     }
 
     public void UnlockCar() 
@@ -200,8 +200,11 @@ public class GM_PoliceDrive : MonoBehaviour
         CarSel.SetActive(true);
         PlayObj();
     }
+    Canvas can;
     void PlayObj() 
     {
+        can = Controls.GetComponent<Canvas>();
+        can.sortingOrder = 1000;
         objtyping.fullText = Objectives[currLvl];
         ObjPanel.SetActive(true);
     }
@@ -214,10 +217,12 @@ public class GM_PoliceDrive : MonoBehaviour
 
     public void OkObj() 
     {
+        soundManager?.PlaypoliceClickSound();
+
         ObjPanel.SetActive(false);
         ThirdPersonCntrls.SetActive(true);
         soundManager?.SetBGM(true);
-
+        can.sortingOrder = 1;
     }
 
     void HandleEnemyDestroyed() 
@@ -229,24 +234,20 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         yield return new WaitForSeconds(8f);
         soundManager?.PlayChatterSound(true);
+        soundManager?.PlayPoliceSiren(true);
+
         GP.SetActive(false);
         Finalpolice.SetActive(true);
         StartCoroutine(CompletePanel());
     }
+ 
     IEnumerator CompletePanel()
     {
-
         UnlckNxtLvl();
         yield return new WaitForSeconds(10f);
         soundManager?.PlayChatterSound(false);
+        soundManager?.PlayPoliceSiren(false);
         delComp();
-
-        //if (soundManager)
-        //{
-        //    soundManager.PlayCompleteSound(false);
-        //   // CarSound(false);
-        //}
-
     }
     void UnlckNxtLvl()
     {
@@ -271,6 +272,8 @@ public class GM_PoliceDrive : MonoBehaviour
         completePanel.SetActive(true);
         SetCoinsinPanel();
     }
+
+
     void SetCoinsinPanel()
     {
         CoinsEarnedlvltxt.text = 300.ToString();
@@ -279,7 +282,121 @@ public class GM_PoliceDrive : MonoBehaviour
         int totalcoins = alreadycoins + CalculateTotalCoins();
         ValStorage.SetCoins("police", totalcoins);
     }
+    public void NextLvlBtn()
+    {
+        soundManager?.PlaypoliceClickSound();
 
+        Loading.SetActive(true);
+        LoadBar.SetActive(true);
+
+        StopCoinAnimation();
+        if (currLvl < 5)
+        {
+            ValStorage.selLevel += 1;
+            StartCoroutine(LoadAsyncScene("DriveModePolice"));
+        }
+    }
+
+
+    public void Pause()
+    {
+            soundManager?.PauseSounds();
+        
+        
+        soundManager.PlaypoliceClickSound();
+
+
+        if (soundManager)
+            soundManager.PlayButtonClickSound();
+
+        CarSound(false);
+        pausePanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void Resume()
+    {
+        soundManager?.PlaypoliceClickSound();
+        soundManager?.ResumeSounds();
+
+        soundManager?.PlayPoliceSiren(true);
+        CarSound(true);
+        Time.timeScale = 1f;
+        pausePanel.SetActive(false);
+    }
+    void CarSound(bool IsActive)
+    {
+        Transform child = carController.transform.Find("All Audio Sources");
+        if (child != null)
+        {
+            child.gameObject.SetActive(IsActive);
+        }
+        else
+        {
+            UnityEngine.Debug.LogError("Object not found!");
+        }
+    }
+
+    public void Home()
+    {
+        soundManager?.PlaypoliceClickSound();
+
+        Time.timeScale = 1f;
+        StopCoinAnimation();
+        Loading.SetActive(true);
+        LoadBar.SetActive(true);
+        StartCoroutine(LoadAsyncScene("MM"));
+    }
+    public void Restart()
+    {
+        soundManager?.PlaypoliceClickSound();
+
+        Time.timeScale = 1f;
+        StopCoinAnimation();
+        Loading.SetActive(true);
+        LoadBar.SetActive(true);
+        StartCoroutine(LoadAsyncScene("DriveModePolice"));
+    }
+    public void ChangeControl()
+    {
+        soundManager?.PlaypoliceClickSound();
+        int currentind = ValStorage.GetControls();
+
+        currentind = (currentind + 1) % 3;
+        Controls.SetMobileController(currentind);
+        ValStorage.SetControls(currentind);
+
+    }
+    IEnumerator LoadAsyncScene(string sceneName)
+    {
+        float timer = 0f;
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncLoad.allowSceneActivation = false;
+
+        while (timer < 5f)
+        {
+            if (timer < 5f)
+            {
+                timer += Time.deltaTime;
+                float progress = Mathf.Clamp01(timer / 5f);
+                loadingBar.fillAmount = progress;
+
+            }
+            else
+            {
+                loadingBar.fillAmount = 1f;
+                asyncLoad.allowSceneActivation = true;
+            }
+            yield return null;
+        }
+       
+        yield return new WaitForSeconds(0.1f);
+        asyncLoad.allowSceneActivation = true;
+    }
+    public void StopCoinAnimation()
+    {
+        stopAnimation = true;
+    }
     private int CalculateTotalCoins()
     {
         int coinsFromTime = Mathf.FloorToInt(elapsedTime * 2);
@@ -351,5 +468,43 @@ public class GM_PoliceDrive : MonoBehaviour
         Can.interactable = isOn;
         Can.blocksRaycasts = isOn;
     }
-   
+    public void PlayHorn()
+    {
+        if (soundManager)
+        {
+            soundManager.SetBGM(true);  // Start playing background music
+        }
+    }
+
+    public void OnButtonPressed()
+    {
+
+        if (!soundManager)
+        {
+            return;
+        }
+        soundManager.PlayHorn("Car");
+    }
+
+    public void OnButtonReleased()
+    {
+
+        if (soundManager)
+        {
+            soundManager.StopHorn();
+        }
+    }
+
+    public void click() 
+    {
+        soundManager?.PlaypoliceClickSound();
+    }
+    
+    public void CarFellOcean() 
+    {
+        rcc_cam.cameraTarget = null;
+        rcc_cam.enabled = false;
+      //  Instantiate(WaterSplashs,carController.transform.position,Quaternion.identity);
+
+    }
 }

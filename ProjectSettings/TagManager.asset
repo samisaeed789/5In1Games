@@ -15,6 +15,7 @@ TagManager:
   - hurdl
   - CarBody
   - CarTire
+  - Water
   layers:
   - Default
   - TransparentFX

@@ -985,7 +985,6 @@ public class ParkingGm : MonoBehaviour
         currentind = (currentind + 1) % 3;
         Controls.SetMobileController(currentind);
         ValStorage.SetControls(currentind);
-
     }
 
     public void Pause()

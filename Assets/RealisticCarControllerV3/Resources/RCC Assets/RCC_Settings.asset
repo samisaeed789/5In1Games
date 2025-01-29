@@ -483,10 +483,10 @@ MonoBehaviour:
     sidewaysExtremumValue: 2
     sidewaysAsymptoteSlip: 0.2
     sidewaysAsymptoteValue: 2
-  useAutomaticGear: 1
+  useAutomaticGear: 0
   useAutomaticClutch: 1
   runEngineAtAwake: 1
-  autoReverse: 1
+  autoReverse: 0
   autoReset: 1
   contactParticles: {fileID: 0}
   scratchParticles: {fileID: 0}
@@ -495,7 +495,7 @@ MonoBehaviour:
   uiType: 0
   useTelemetry: 0
   mobileController: 0
-  mobileControllerEnabled: 0
+  mobileControllerEnabled: 1
   UIButtonSensitivity: 10
   UIButtonGravity: 10
   gyroSensitivity: 2.5

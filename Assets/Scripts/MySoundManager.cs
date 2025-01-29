@@ -74,6 +74,7 @@ public class MySoundManager : MonoBehaviour {
     public AudioClip Unlock;
     public AudioClip UhOh;
     public AudioClip PoliceChatter;
+    public AudioClip PoliceSiren;
     public AudioClip TypingSound;
 
 
@@ -148,16 +149,25 @@ public class MySoundManager : MonoBehaviour {
 	}
 
 
-	public void PlayChatterSound(bool check)
+	public void PlayChatterSound(bool val)
 	{
-		if (check)
-		{
-			BGM.clip = PoliceChatter;
-			BGM.Play();
-		}
+		if (val)
+			Effectsource.PlayOneShot(PoliceChatter);
+
 		else
+			Effectsource.Stop();
+	}
+	public void PlayPoliceSiren(bool effect) 
+	{
+		if (effect) 
 		{
-			BGM.Pause();
+			Effectsource.loop = true;
+			Effectsource.clip = PoliceSiren;
+			Effectsource.Play();
+		}
+        else 
+		{
+			Effectsource.Stop();
 		}
 	}
 	public void PlayLevelFailSound()

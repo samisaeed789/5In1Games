@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ae957ae0394f3c540aa996296cb0a496, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2294fea9e80a01a439abae09c84251a5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3365,7 +3365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a778af13ee5d6634481fe2ea75fa5ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7d053243a81ba084e842965e939c8167, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5767,7 +5767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 94ca3af849c6d664fa6f38ddf8ba5235, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d871a852bbeec7499b3477d3c37d884, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13848,7 +13848,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7b90763405f5bb046aedfacf7bd821a6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 65382606bd836ed42b88cfc696f9be08, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15641,7 +15641,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4444b7f768b9d6a4dbf3af17eb139613, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acf0b08a03523ad45923297801484582, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17317,6 +17317,9 @@ MonoBehaviour:
   Revv5: {fileID: 0}
   Unlock: {fileID: 8300000, guid: bfe3f1750d8a27f488323744b82b9441, type: 3}
   UhOh: {fileID: 0}
+  PoliceChatter: {fileID: 0}
+  PoliceSiren: {fileID: 0}
+  TypingSound: {fileID: 0}
   levelcompleted: 0
   levelfailed: 0
 --- !u!82 &1847706528
