@@ -237,6 +237,7 @@ public class GM_PoliceDrive : MonoBehaviour
         soundManager?.PlayPoliceSiren(true);
 
         GP.SetActive(false);
+        Contrls(false);
         Finalpolice.SetActive(true);
         StartCoroutine(CompletePanel());
     }
@@ -488,7 +489,6 @@ public class GM_PoliceDrive : MonoBehaviour
 
     public void OnButtonReleased()
     {
-
         if (soundManager)
         {
             soundManager.StopHorn();
@@ -504,7 +504,20 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         rcc_cam.cameraTarget = null;
         rcc_cam.enabled = false;
-      //  Instantiate(WaterSplashs,carController.transform.position,Quaternion.identity);
+        Contrls(false);
 
+        soundManager?.SetBGM(false);
+        soundManager?.PlayPoliceSiren(false);
+        soundManager?.SplashSound();
+
+
+        CarSound(false);
+        Invoke(nameof(DelFail),4f);
+    }
+    void DelFail() 
+    {
+        carController.SetActive(false);
+        failPanel.SetActive(true);
+    
     }
 }

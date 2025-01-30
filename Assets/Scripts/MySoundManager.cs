@@ -76,6 +76,7 @@ public class MySoundManager : MonoBehaviour {
     public AudioClip PoliceChatter;
     public AudioClip PoliceSiren;
     public AudioClip TypingSound;
+    public AudioClip WaterSplash;
 
 
   
@@ -147,8 +148,6 @@ public class MySoundManager : MonoBehaviour {
 			BGM.Pause();
 		}
 	}
-
-
 	public void PlayChatterSound(bool val)
 	{
 		if (val)
@@ -170,12 +169,13 @@ public class MySoundManager : MonoBehaviour {
 			Effectsource.Stop();
 		}
 	}
+	
+
+
 	public void PlayLevelFailSound()
 	{
-		
 			Effectsource.PlayOneShot(fail);
 			BGM.Pause();
-		
 	}
 
 	public void SetSelectionScreenMusic (bool check, float val)
@@ -311,6 +311,11 @@ public class MySoundManager : MonoBehaviour {
 	{
 		Effectsource.PlayOneShot(Excellent);
 
+	}
+	
+	public void SplashSound()
+	{
+		Effectsource.PlayOneShot(WaterSplash);
 	}
 	
 	public void DiscourageSound()
