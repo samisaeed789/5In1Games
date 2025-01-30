@@ -31,10 +31,18 @@ public class GameSel : MonoBehaviour
 
     private void Start()
     {
+        if (MySoundManager.instance)
+            soundmngr = MySoundManager.instance;
+
+
         if (ValStorage.IsSplashVidSeen == false) 
         {
             VidScreen.SetActive(true);
             videoPlayer.loopPointReached += OnVideoComplete;
+        }
+        else 
+        {
+            soundmngr.SetBGM(true);
         }
     }
 
@@ -42,8 +50,7 @@ public class GameSel : MonoBehaviour
     {
        
         VidScreen.SetActive(false);
-        if (MySoundManager.instance)
-            soundmngr = MySoundManager.instance;
+        
 
         soundmngr.SetBGM(true);
         ValStorage.IsSplashVidSeen = true;

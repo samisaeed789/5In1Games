@@ -338,4 +338,16 @@ public class MMBusGame : MonoBehaviour
     {
         StartLoading("Splash");
     }
+
+
+    public void PP()
+    {
+        Application.OpenURL("https://privacypolicyforgamesfact.blogspot.com/2023/09/privacy-policy-for-games-fact.html");
+    }
+
+    public void MoreGames()
+    {
+        Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
+    }
+
 }

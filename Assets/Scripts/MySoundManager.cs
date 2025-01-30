@@ -220,6 +220,18 @@ public class MySoundManager : MonoBehaviour {
 			}
 		}
 	}
+	
+	public void SoundMute (bool check)
+	{
+		if (check) {
+			Effectsource.volume = 0;
+			
+		}
+		else {
+			Effectsource.volume = 1;
+
+		}
+	}
 	public void SetBusBGM (bool check)
 	{
 		if (check) {

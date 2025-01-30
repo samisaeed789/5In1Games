@@ -245,10 +245,12 @@ public class MMCarDriving : MonoBehaviour
 
     public void Cntrlbtn() 
     {
+        soundmanager?.PlayButtonClickSound();
         SettngsActivity(isControl:true);
     }
     public void Soundbtn() 
     {
+        soundmanager?.PlayButtonClickSound();
         SettngsActivity(isSfx:true);
     }
 
@@ -280,25 +282,27 @@ public class MMCarDriving : MonoBehaviour
     
     public void Setmusicsound()
     {
-        if (ValStorage.IsMusicMute())
-        {
-            music_chk.SetActive(false);
-        }
-        else 
-        {
-            music_chk.SetActive(true);
-        }
+        //if (ValStorage.IsMusicMute())
+        //{
+        //    music_chk.SetActive(false);
+        //}
+        //else 
+        //{
+        //    music_chk.SetActive(true);
+        //}
 
 
-        if (ValStorage.IsSoundMute())
-        {
-            sound_chk.SetActive(false);
-        }
-        else 
-        {
-            sound_chk.SetActive(true);
+        //if (ValStorage.IsSoundMute())
+        //{
+        //    sound_chk.SetActive(false);
+        //}
+        //else 
+        //{
+        //    sound_chk.SetActive(true);
 
-        }
+        //}
+        music_chk.SetActive(false);
+        sound_chk.SetActive(true);
     }
 
     public void ControlsActivity(bool isSteer = false, bool isArrow = false)
@@ -342,12 +346,14 @@ public class MMCarDriving : MonoBehaviour
             soundmanager.PlayButtonClickSound();
         if (music_chk.activeSelf)
         {
-            ValStorage.SetMusicMute(0);
+            //ValStorage.SetMusicMute(0);
+            soundmanager?.SetBGM(false);
             music_chk.SetActive(false);
         }
         else 
         {
-            ValStorage.SetMusicMute(1);
+            //ValStorage.SetMusicMute(1);
+            soundmanager?.SetBGM(true);
             music_chk.SetActive(true);
         }
     } 
@@ -358,12 +364,14 @@ public class MMCarDriving : MonoBehaviour
             soundmanager.PlayButtonClickSound();
         if (sound_chk.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+            //ValStorage.SetSoundMute(0);
+            soundmanager?.SoundMute(true);
             sound_chk.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            //  ValStorage.SetSoundMute(1);
+            soundmanager?.SoundMute(false);
             sound_chk.SetActive(true);
         }
     }
@@ -404,5 +412,16 @@ public class MMCarDriving : MonoBehaviour
         //    Debug.Log("Device has 4GB or more of RAM. Using high-quality materials.");
         //}
     }
+    public void PP()
+    {
+        soundmanager?.PlayButtonClickSound();
+        Application.OpenURL("https://privacypolicyforgamesfact.blogspot.com/2023/09/privacy-policy-for-games-fact.html");
+    }
 
+    public void MoreGames()
+    {
+        soundmanager?.PlayButtonClickSound();
+        Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
+    }
+    
 }
