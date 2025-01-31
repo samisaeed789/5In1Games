@@ -562,13 +562,10 @@ public class ParkingGm : MonoBehaviour
     
     public void CarFinalPark() 
     {
-
         carRb.isKinematic = true;
         canvas.alpha = 0f;
         UIBlocker.SetActive(true);
 
-
-        // StartDance();
         if (soundManager)
         {
             soundManager.PlayCompleteSound(true);
@@ -577,11 +574,10 @@ public class ParkingGm : MonoBehaviour
     }
     void Celeb() 
     {
-
+        PlayInterAD();
         RCC_CameraCarSelection celebCam = rccCam.gameObject.GetComponent<RCC_CameraCarSelection>();
         celebConftti.Play();
         celebCam.enabled = true;
-       // celeb.SetActive(true);
         IsTimerRunning = false;
         StartCoroutine(CompletePanel());
     } 
@@ -706,14 +702,7 @@ public class ParkingGm : MonoBehaviour
         emojiPanel.SetActive(true);
         yield return new WaitForSeconds(4f);
 
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdmobInterstitial();
-
-
-
         Invoke(nameof(delFail),0.2f);
-
-       
     }
 
 
@@ -722,10 +711,7 @@ public class ParkingGm : MonoBehaviour
         emojiPanel.SetActive(false);
         UIBlocker.SetActive(false);
         failPanel.SetActive(true);
-
-
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdMobRectangleBannerBottomLeft();
+        PlayRectBanner(true);
     }
 
     IEnumerator CompletePanel() 
@@ -740,12 +726,6 @@ public class ParkingGm : MonoBehaviour
             CarSound(false);
         }
 
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdmobInterstitial();
-
-
-       // Invoke(nameof(delComp), 0.2f);
-
         delComp();
     }
 
@@ -754,12 +734,8 @@ public class ParkingGm : MonoBehaviour
     {
         UIBlocker.SetActive(false);
         completePanel.SetActive(true);
-
+        PlayRectBanner(true);
         SetCoinsinPanel();
-
-
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdMobRectangleBannerBottomLeft();
     }
 
     void GetComplPnl() 
@@ -842,43 +818,39 @@ public class ParkingGm : MonoBehaviour
         Time.timeScale = 1f;
         StopCoinAnimation();
         Loading.SetActive(true);
-       
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdmobInterstitial();
-
         if (ValStorage.GetGameSel() == "CarDrive") 
         {
             LoadBar.SetActive(true);
-            StartCoroutine(StartLoading("Parking",0f));
+            loadingText.text = $"{Mathf.FloorToInt(0)}%";
+            StartCoroutine(StartLoading("Parking"));
         }
         else 
         {
             LoadBar.SetActive(true);
-            Invoke(nameof(delrestart), 0.2f);
+            //Invoke(nameof(delrestart), 0.2f);
+            StartCoroutine(LoadAsyncScene("Parking"));
         }
     }
 
     public void LoadNxtScene()
     {
-        StartLoading("Parking",0f);
+        StartLoading("Parking");
     }
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName,float delaytime)
+    public IEnumerator StartLoading(string sceneName)
     {
-        yield return new WaitForSeconds(delaytime);
-      
+        PlayInterAD();
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0f, value => UpdateLoadingText(value), 100f, 5f)
                .SetEase(Ease.Linear)
                .OnKill(() => OnLoadingComplete());
-
-
     }
     void UpdateLoadingText(float value)
     {
-
         loadingText.text = $"{Mathf.FloorToInt(value)}%";
     }
 
@@ -886,6 +858,8 @@ public class ParkingGm : MonoBehaviour
 
     void OnLoadingComplete()
     {
+        PlayRectBanner(false);
+
         asyncLoad.allowSceneActivation = true;
         sphere.enabled = false;
     }
@@ -907,12 +881,11 @@ public class ParkingGm : MonoBehaviour
         {
             loadingText.text = 0f.ToString()+"%";
             LoadBar.SetActive(true);
-            StartCoroutine(StartLoading("MM",0f));
+            StartCoroutine(StartLoading("MM"));
         }
         else 
         {
             StartCoroutine(LoadAsyncScene("MM"));
-
         }
     }
 
@@ -925,20 +898,17 @@ public class ParkingGm : MonoBehaviour
         if (currentlvl < 5)
         {
             ValStorage.selLevel += 1;
-            //StartCoroutine(StartLoading("Parking",0f));
 
             if (ValStorage.GetGameSel() == "CarDrive")
             {
                 loadingText.text = 0f.ToString() + "%";
                 LoadBar.SetActive(true);
-                StartCoroutine(StartLoading("Parking", 0f));
+                StartCoroutine(StartLoading("Parking"));
             }
             else
             {
                 StartCoroutine(LoadAsyncScene("Parking"));
-
             }
-
         }
     }
 
@@ -977,9 +947,9 @@ public class ParkingGm : MonoBehaviour
     public void ChangeControl()
     {
 
-        if (soundManager)
-            soundManager.PlayButtonClickSound();
+        soundManager?.PlayButtonClickSound();
 
+        PlayInterAD();
         int currentind = ValStorage.GetControls();
 
         currentind = (currentind + 1) % 3;
@@ -989,25 +959,12 @@ public class ParkingGm : MonoBehaviour
 
     public void Pause()
     {
-        if (soundManager)
-            soundManager.PauseSounds();
-
-
-        if (soundManager)
-            soundManager.PlayButtonClickSound();
-
+        soundManager?.PauseSounds();
+        soundManager?.PlayButtonClickSound();
+        PlayInterAD();
         CarSound(false);
-
-
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdmobInterstitial();
-
-
         pausePanel.SetActive(true);
-
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdMobRectangleBannerBottomLeft();
-
+        PlayRectBanner(true);
         Time.timeScale = 0f;
     }
     void CarSound(bool IsActive)
@@ -1026,14 +983,9 @@ public class ParkingGm : MonoBehaviour
 
     public void Resume()
     {
-        if (soundManager)
-            soundManager.ResumeSounds();
-
-       // CheckMusis();
-
+        soundManager?.ResumeSounds();
         CarSound(true);
-        //if (AdsManager.instance)
-        //    AdsManager.instance.hideAdmobBottomLeftBanner();
+        PlayRectBanner(false);
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
     }
@@ -1162,10 +1114,9 @@ public class ParkingGm : MonoBehaviour
     }
     IEnumerator LoadAsyncScene(string sceneName)
     {
-        //if (AdsManager.instance)
-        //    AdsManager.instance.showAdMobRectangleBannerBottomLeft();
-
-
+        PlayInterAD();
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         float timer = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -1177,25 +1128,18 @@ public class ParkingGm : MonoBehaviour
                 timer += Time.deltaTime;
                 float progress = Mathf.Clamp01(timer / 5f);  
                 loadingBar.fillAmount = progress;
-              
-                //percentageText.text = $"{Mathf.RoundToInt(progress * 100)}%";
             }
             else
             {
-                
                 loadingBar.fillAmount = 1f;
                 percentageText.text = "100%";
-
-                // Allow the scene to activate
                 asyncLoad.allowSceneActivation = true;
             }
             yield return null;
         }
-      //  sphere.enabled = false;
 
-        //if (AdsManager.instance)
-        //    AdsManager.instance.hideAdmobBottomLeftBanner();
         yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 
@@ -1321,6 +1265,23 @@ public class ParkingGm : MonoBehaviour
     public void OnSVolChanged(float value)
     {
         soundManager?.soundValueChanged(value);
+    }
+
+    public void PlayRectBanner(bool val)
+    {
+        if (val)
+            AdsController.Instance?.ShowBannerAd_Admob(1);
+
+        else
+        {
+            AdsController.Instance?.HideBannerAd_Admob(1);
+        }
+    }
+
+
+    public void PlayInterAD()
+    {
+        AdsController.Instance?.ShowInterstitialAd_Admob();
     }
 }
 

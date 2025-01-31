@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class MM : MonoBehaviour
 {
-    
-    
-    
+
     [Header("SplashPanels")]
     public GameObject carDrivinggame;
     public GameObject euroTruckgame;
@@ -14,10 +12,9 @@ public class MM : MonoBehaviour
     public GameObject cityBusgame;
     public GameObject policeChasegame;
 
-
-
     private void Start()
     {
+        AdsController.Instance?.ShowBannerAd_Admob(0);
         SelectedGame();
     }
 

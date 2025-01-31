@@ -205,28 +205,28 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                StartLoading("DriveModePolice");
+                StartCoroutine(StartLoading("DriveModePolice"));
                 break;
             case "Parking":
-                StartLoading("Parking");
+               StartCoroutine(StartLoading("Parking"));
 
                 break;
             default:
                 break;
         }
-      
-      
     }
 
     AsyncOperation asyncLoad;
-    public void StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName)
     {
-
+        soundmngr?.PlaypoliceClickSound();
+        ButtonActivity("Loading");
+        loadingImage.fillAmount = 0f;
+        PlayInterAD();
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
-
-
-        ButtonActivity("Loading");
         garage.SetActive(false);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -237,6 +237,7 @@ public class MMPolice : MonoBehaviour
 
     void OnLoadingComplete()
     {
+        PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 
@@ -391,10 +392,9 @@ public class MMPolice : MonoBehaviour
         ValStorage.SetSVolume(value);
     }
 
-
     public void GoToPrevScene()
     {
-        StartLoading("Splash");
+      StartCoroutine(StartLoading("Splash"));
     }
     public void OnVolumeChanged(float value)
     {
@@ -414,5 +414,22 @@ public class MMPolice : MonoBehaviour
     {
         Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
     }
+    public void PlayRectBanner(bool val)
+    {
+        if (val)
+            AdsController.Instance?.ShowBannerAd_Admob(1);
+
+        else
+        {
+            AdsController.Instance?.HideBannerAd_Admob(1);
+        }
+    }
+
+
+    public void PlayInterAD()
+    {
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+    }
+
 
 }

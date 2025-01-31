@@ -843,7 +843,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE
+    Android: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE;Admob_Simple_Rizwan
     EmbeddedLinux: DOTWEEN;BCG_RCC
     GameCoreScarlett: DOTWEEN;BCG_RCC
     GameCoreXboxOne: DOTWEEN;BCG_RCC
@@ -858,7 +858,7 @@ PlayerSettings:
     WebGL: DOTWEEN;BCG_RCC
     Windows Store Apps: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE
     XboxOne: DOTWEEN;BCG_RCC
-    iPhone: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE
+    iPhone: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE;Admob_Simple_Rizwan
     tvOS: DOTWEEN;BCG_RCC
   additionalCompilerArguments: {}
   platformArchitecture: {}

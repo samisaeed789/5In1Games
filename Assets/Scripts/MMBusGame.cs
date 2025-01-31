@@ -190,36 +190,34 @@ public class MMBusGame : MonoBehaviour
     }
 
 
-    public void LoadNxtScene()
+    public void LoadNxtScene(string s)
     {
-        StartLoading("Parking");
+        StartCoroutine(StartLoading(s));
     }
 
     AsyncOperation asyncLoad;
-    public void StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName)
     {
-        if (soundmngr)
-            soundmngr.PlayBusClickSound();
-
-
-
+        soundmngr?.PlayBusClickSound();
+        ButtonActivity("Loading");
+        loadingImage.fillAmount = 0f;
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         GarageHndlr garagehandler= garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
 
-        ButtonActivity("Loading");
         garage.SetActive(false);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
        DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)
                .SetEase(Ease.Linear)
                .OnKill(() => OnLoadingComplete());
-
-
-
     }
 
     void OnLoadingComplete()
     {
+        PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 
@@ -336,7 +334,7 @@ public class MMBusGame : MonoBehaviour
 
     public void GotPrevScene() 
     {
-        StartLoading("Splash");
+        StartCoroutine(StartLoading("Splash"));
     }
 
 
@@ -349,5 +347,18 @@ public class MMBusGame : MonoBehaviour
     {
         Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
     }
+    public void PlayInterAD()
+    {
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+    }
+    public void PlayRectBanner(bool val)
+    {
+        if (val)
+            AdsController.Instance?.ShowBannerAd_Admob(1);
 
+        else
+        {
+            AdsController.Instance?.HideBannerAd_Admob(1);
+        }
+    }
 }

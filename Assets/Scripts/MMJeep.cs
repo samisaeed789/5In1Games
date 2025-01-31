@@ -211,22 +211,22 @@ public class MMJeep : MonoBehaviour
         ButtonActivity("Loading");
     }
 
-    public void LoadNxtScene()
+    public void LoadNxtScene(string s)
     {
-
-        if (soundmngr)
-            soundmngr.PlayJeepClickSound();
-        StartLoading("Parking");
+        StartLoading(s);
     }
 
     AsyncOperation asyncLoad;
-    public void StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName)
     {
-
+        soundmngr?.PlayJeepClickSound();
+        ButtonActivity("Loading");
+        loadingImage.fillAmount = 0f;
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
 
-        ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0, value => loadingImage.fillAmount = value, 1f, loadingDuration)
@@ -236,6 +236,7 @@ public class MMJeep : MonoBehaviour
 
     void OnLoadingComplete()
     {
+        PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 
@@ -422,10 +423,7 @@ public class MMJeep : MonoBehaviour
     public void GoToPrevScene()
     {
 
-        if (soundmngr)
-            soundmngr.PlayJeepClickSound();
-
-        StartLoading("Splash");
+      StartCoroutine(StartLoading("Splash"));
     }
 
     public void OnVolumeChanged(float value)
@@ -446,6 +444,22 @@ public class MMJeep : MonoBehaviour
     public void MoreGames()
     {
         Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
+    }
+    public void PlayRectBanner(bool val)
+    {
+        if (val)
+            AdsController.Instance?.ShowBannerAd_Admob(1);
+
+        else
+        {
+            AdsController.Instance?.HideBannerAd_Admob(1);
+        }
+    }
+
+
+    public void PlayInterAD()
+    {
+        AdsController.Instance?.ShowInterstitialAd_Admob();
     }
 
 }

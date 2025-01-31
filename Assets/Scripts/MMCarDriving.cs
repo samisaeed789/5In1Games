@@ -146,6 +146,9 @@ public class MMCarDriving : MonoBehaviour
     
     public void SelectedMode(string S) 
     {
+
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+
         switch (S)
         {
             case "Drive":
@@ -173,32 +176,30 @@ public class MMCarDriving : MonoBehaviour
             soundmanager.PlayButtonClickSound();
     }
 
-    public void LoadNxtScene()
+    public void LoadNxtScene(string scene)
     {
-        StartLoading("Parking");
-       
         if (soundmanager)
-            soundmanager.PlayButtonClickSound(scifi:true);
+            soundmanager.PlayButtonClickSound(scifi: true);
+       
+        StartCoroutine(StartLoading(scene)); 
     }
 
 
 
 
-  
+
     AsyncOperation asyncLoad;
-    public void StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName)
     {
-        if (soundmanager)
-            soundmanager.PlayButtonClickSound(scifi: true);
-
-
-        
+        ButtonActivity("Loading");
+        loadingText.text = 0f.ToString();
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+        yield return new WaitForSeconds(0.1f);
+        PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         if(garagehandler!=null)
             ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
 
-
-        ButtonActivity("Loading");
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0f, value => UpdateLoadingText(value), 100f, loadingDuration)
@@ -214,6 +215,7 @@ public class MMCarDriving : MonoBehaviour
 
     void OnLoadingComplete()
     {
+        PlayRectBanner(false);
         sphereanim.enabled = false;
         asyncLoad.allowSceneActivation = true;
     }
@@ -386,32 +388,11 @@ public class MMCarDriving : MonoBehaviour
 
     public void LoadPrevScene() 
     {
-        StartLoading("Splash");
+        soundmanager?.PlayButtonClickSound();
+        StartCoroutine(StartLoading("Splash")); 
     }
 
-    void CheckAndApplyMaterial()
-    {
-        // Get the total system RAM in MB
-        int totalRAM = SystemInfo.systemMemorySize;
-
-        // If total RAM is less than 4GB (4096MB), switch to lower quality material
-        //if (totalRAM < 4096)
-        //{
-        //    if (targetRenderer != null)
-        //    {
-        //        targetRenderer.material = lowQualityMaterial;
-        //    }
-        //    Debug.Log("Device has less than 4GB of RAM. Using low-quality materials.");
-        //}
-        //else
-        //{
-        //    if (targetRenderer != null)
-        //    {
-        //        targetRenderer.material = highQualityMaterial;
-        //    }
-        //    Debug.Log("Device has 4GB or more of RAM. Using high-quality materials.");
-        //}
-    }
+   
     public void PP()
     {
         soundmanager?.PlayButtonClickSound();
@@ -424,4 +405,19 @@ public class MMCarDriving : MonoBehaviour
         Application.OpenURL("https://play.google.com/store/apps/developer?id=Games+Fact");
     }
     
+
+    public void PlayInterAD() 
+    {
+        AdsController.Instance?.ShowInterstitialAd_Admob();
+    }
+    public void PlayRectBanner(bool val) 
+    {
+        if(val)
+            AdsController.Instance?.ShowBannerAd_Admob(1);
+
+        else 
+        {
+            AdsController.Instance?.HideBannerAd_Admob(1);
+        }
+    }
 }
