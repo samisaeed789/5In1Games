@@ -48,10 +48,7 @@ public class GameSel : MonoBehaviour
 
     void OnVideoComplete(VideoPlayer vp)
     {
-       
         VidScreen.SetActive(false);
-        
-
         soundmngr.SetBGM(true);
         ValStorage.IsSplashVidSeen = true;
     }
@@ -112,7 +109,7 @@ public class GameSel : MonoBehaviour
 
     public void PlayNow(string panelName)
     {
-      
+        soundmngr?.PlayButtonClickSound();
         switch (panelName)
         {
             case "CarDrive":
@@ -143,8 +140,6 @@ public class GameSel : MonoBehaviour
                 break;
         }
 
-        if (soundmngr)
-            soundmngr.PlayButtonClickSound();
     }
 
 
