@@ -51,9 +51,10 @@ public class MMCarDriving : MonoBehaviour
     private void Start()
     {
         SetControlsTTNGS();
-        Setmusicsound();
         SetCoins();
-       
+        enablecheckboxes();
+
+
         if(MySoundManager.instance)
             soundmanager = MySoundManager.instance;
 
@@ -348,14 +349,12 @@ public class MMCarDriving : MonoBehaviour
             soundmanager.PlayButtonClickSound();
         if (music_chk.activeSelf)
         {
-            //ValStorage.SetMusicMute(0);
-            soundmanager?.SetBGM(false);
+            soundmanager?.MusicMute(true);
             music_chk.SetActive(false);
         }
         else 
         {
-            //ValStorage.SetMusicMute(1);
-            soundmanager?.SetBGM(true);
+            soundmanager?.MusicMute(false);
             music_chk.SetActive(true);
         }
     } 
@@ -419,5 +418,10 @@ public class MMCarDriving : MonoBehaviour
         {
             AdsController.Instance?.HideBannerAd_Admob(1);
         }
+    }
+    void enablecheckboxes()
+    {
+        music_chk.SetActive(true);
+        sound_chk.SetActive(true);
     }
 }

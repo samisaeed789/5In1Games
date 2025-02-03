@@ -65,16 +65,9 @@ public class MMJeep : MonoBehaviour
         SetControlsTTNGS();
         Setsliders();
         SetCoins();
+       // enablecheckboxes();
 
-        //if (musicSlider != null)
-        //{
-        //    musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
-        //}
-        //if (soundSlider != null)
-        //{
-        //    soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
-        //}
-
+        
 
 
         if (MySoundManager.instance)
@@ -213,7 +206,7 @@ public class MMJeep : MonoBehaviour
 
     public void LoadNxtScene(string s)
     {
-        StartLoading(s);
+      StartCoroutine(StartLoading(s));
     }
 
     AsyncOperation asyncLoad;
@@ -363,37 +356,37 @@ public class MMJeep : MonoBehaviour
 
     public void Musicchkbox() 
     {
+            soundmngr?.PlayJeepClickSound();
+
         if (music_chk.activeSelf)
         {
-            ValStorage.SetMusicMute(0);
+            soundmngr?.MusicMute(true);
             music_chk.SetActive(false);
         }
-        else 
+        else
         {
-            ValStorage.SetMusicMute(1);
+            soundmngr?.MusicMute(false);
             music_chk.SetActive(true);
         }
-
-        if (soundmngr)
-            soundmngr.PlayJeepClickSound();
     } 
     
     public void Soundchkbox() 
     {
+      
+
         if (sound_chk.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+            if (soundmngr)
+                soundmngr.PlayJeepClickSound();
+
+            soundmngr?.SoundMute(true);
             sound_chk.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            soundmngr?.SoundMute(false);
             sound_chk.SetActive(true);
         }
-
-
-        if (soundmngr)
-            soundmngr.PlayJeepClickSound();
     }
 
     public void SetCoins()
@@ -461,5 +454,9 @@ public class MMJeep : MonoBehaviour
     {
         AdsController.Instance?.ShowInterstitialAd_Admob();
     }
-
+    void enablecheckboxes()
+    {
+        music_chk.SetActive(true);
+        sound_chk.SetActive(true);
+    }
 }

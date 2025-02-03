@@ -65,7 +65,7 @@ public class MMEuroTruck : MonoBehaviour
         SetControlsTTNGS();
         Setsliders();
         SetCoins();
-
+       // enablecheckboxes();
 
         if (MySoundManager.instance)
             soundmngr = MySoundManager.instance;
@@ -348,35 +348,32 @@ public class MMEuroTruck : MonoBehaviour
 
     public void Musicchkbox() 
     {
+         soundmngr?.PlayEuroClickSound();
         if (music_chk.activeSelf)
         {
-            ValStorage.SetMusicMute(0);
+            soundmngr?.MusicMute(true);
             music_chk.SetActive(false);
         }
-        else 
+        else
         {
-            ValStorage.SetMusicMute(1);
+            soundmngr?.MusicMute(false);
             music_chk.SetActive(true);
         }
-
-            soundmngr?.PlayEuroClickSound();
     } 
     
     public void Soundchkbox() 
     {
         if (sound_chk.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+            soundmngr?.PlayEuroClickSound();
+            soundmngr?.SoundMute(true);
             sound_chk.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            soundmngr?.SoundMute(false);
             sound_chk.SetActive(true);
         }
-
-
-            soundmngr?.PlayEuroClickSound();
     }
 
     public void SetCoins()
@@ -527,5 +524,9 @@ public class MMEuroTruck : MonoBehaviour
     {
         AdsController.Instance?.ShowInterstitialAd_Admob();
     }
-
+    void enablecheckboxes()
+    {
+        music_chk.SetActive(true);
+        sound_chk.SetActive(true);
+    }
 }

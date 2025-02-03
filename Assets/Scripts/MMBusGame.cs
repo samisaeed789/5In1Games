@@ -53,9 +53,9 @@ public class MMBusGame : MonoBehaviour
     private void Start()
     {
         SetControlsTTNGS();
-        Setmusicsound();
+      //  Setmusicsound();
         SetCoins();
-
+        enablecheckboxes();
     
 
 
@@ -223,33 +223,30 @@ public class MMBusGame : MonoBehaviour
 
     public void Soundchkbox()
     {
-
-        if (soundmngr)
-            soundmngr.PlayBusClickSound();
         if (sound_actv.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+            soundmngr?.PlayBusClickSound();
+            soundmngr?.SoundMute(true);
             sound_actv.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            soundmngr?.SoundMute(false);
             sound_actv.SetActive(true);
         }
     }
     public void Musicchkbox()
     {
-
-        if (soundmngr)
-            soundmngr.PlayBusClickSound();
+        soundmngr?.PlayBusClickSound();
         if (music_actv.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+
+            soundmngr?.MusicMute(true);
             music_actv.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            soundmngr?.MusicMute(false);
             music_actv.SetActive(true);
         }
     }
@@ -360,5 +357,11 @@ public class MMBusGame : MonoBehaviour
         {
             AdsController.Instance?.HideBannerAd_Admob(1);
         }
+    }
+
+    void enablecheckboxes() 
+    {
+        music_actv.SetActive(true);
+        sound_actv.SetActive(true);
     }
 }

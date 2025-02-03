@@ -232,6 +232,19 @@ public class MySoundManager : MonoBehaviour {
 
 		}
 	}
+	
+	public void MusicMute (bool check)
+	{
+		if (check) {
+			BGM.Pause();
+			
+		}
+		else {
+			BGM.Play();
+
+
+		}
+	}
 	public void SetBusBGM (bool check)
 	{
 		if (check) {

@@ -67,7 +67,7 @@ public class MMPolice : MonoBehaviour
         SetControlsTTNGS();
         Setsliders();
         SetCoins();
-
+       // enablecheckboxes();
         //if (musicSlider != null)
         //{
         //    musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
@@ -349,14 +349,15 @@ public class MMPolice : MonoBehaviour
 
     public void Musicchkbox() 
     {
+        soundmngr?.PlaypoliceClickSound();
         if (music_chk.activeSelf)
         {
-            ValStorage.SetMusicMute(0);
+            soundmngr?.MusicMute(true);
             music_chk.SetActive(false);
         }
-        else 
+        else
         {
-            ValStorage.SetMusicMute(1);
+            soundmngr?.MusicMute(false);
             music_chk.SetActive(true);
         }
     } 
@@ -365,12 +366,13 @@ public class MMPolice : MonoBehaviour
     {
         if (sound_chk.activeSelf)
         {
-            ValStorage.SetSoundMute(0);
+            soundmngr?.PlaypoliceClickSound();
+            soundmngr?.SoundMute(true);
             sound_chk.SetActive(false);
         }
         else
         {
-            ValStorage.SetSoundMute(1);
+            soundmngr?.SoundMute(false);
             sound_chk.SetActive(true);
         }
     }
@@ -430,6 +432,10 @@ public class MMPolice : MonoBehaviour
     {
         AdsController.Instance?.ShowInterstitialAd_Admob();
     }
-
+    void enablecheckboxes()
+    {
+        music_chk.SetActive(true);
+        sound_chk.SetActive(true);
+    }
 
 }
