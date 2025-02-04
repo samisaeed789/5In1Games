@@ -843,7 +843,7 @@ PlayerSettings:
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE;Admob_Simple_Rizwan
+    Android: DOTWEEN;BCG_RCC;CF_FORCE_MOBILE_MODE;Admob_Simple_Rizwan;GLEY_PEDESTRIAN_SYSTEM
     EmbeddedLinux: DOTWEEN;BCG_RCC
     GameCoreScarlett: DOTWEEN;BCG_RCC
     GameCoreXboxOne: DOTWEEN;BCG_RCC

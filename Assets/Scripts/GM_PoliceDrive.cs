@@ -99,7 +99,7 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
-        ValStorage.selLevel = 1;
+        ValStorage.selLevel = 3;
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         StartCoroutine(PlayTimeline(currLvl)); 
