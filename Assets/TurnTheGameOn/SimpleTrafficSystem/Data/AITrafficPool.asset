@@ -13,17 +13,9 @@ MonoBehaviour:
   m_Name: AITrafficPool
   m_EditorClassIdentifier: 
   trafficPrefabs:
-  - {fileID: 3569640239038258424, guid: 4fa72858a3a144b883ba6761eb90cf06, type: 3}
-  - {fileID: 3569640239038258424, guid: 34cb7fda8a55cde488b4c7c41d9c88b6, type: 3}
-  - {fileID: 3569640239038258424, guid: 168e1e4800618c84580b88d609bb2945, type: 3}
-  - {fileID: 3569640239038258424, guid: f6d690909499d1b429e198bd6e7f95aa, type: 3}
-  - {fileID: 3569640239038258424, guid: ce99c455af2b972479f40b54c18aa8da, type: 3}
-  - {fileID: 3569640239038258424, guid: 33eb95bc810aad34180e91f589aa7fff, type: 3}
-  - {fileID: 3569640239038258424, guid: 81808cbe8f5e702439660aa40f53591b, type: 3}
-  - {fileID: 3569640239038258424, guid: 5264bfc256584b94db757e11d0a50448, type: 3}
-  - {fileID: 3569640239038258424, guid: 405ed787b2cbad34c9dd867072d5ae7a, type: 3}
-  - {fileID: 3569640239038258424, guid: da034b94db7386e44bf69b0b71b87cac, type: 3}
-  density: 200
+  - {fileID: 4618068866282990223, guid: f671b777b87b7d44ea2b0faca88cab52, type: 3}
+  - {fileID: 4087630824931333279, guid: 88bb5a675d8fb6f42bc353e41cb4bfae, type: 3}
+  density: 2
   spawnRate: 2
   minSpawnZone: 22.7
   cullHeadLight: 58
