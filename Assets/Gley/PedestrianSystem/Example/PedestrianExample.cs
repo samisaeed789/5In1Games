@@ -17,20 +17,20 @@ namespace Gley.PedestrianSystem.Internal
                 if ( _time > _crossingTimer )
                 {
                     _time = 0;
-                    API.SetCrossingState("TrafficLightsIntersection1", !API.GetCrossingState("TrafficLightsIntersection1"));
-                    API.SetCrossingState("TrafficLightsCrossing2", !API.GetCrossingState("TrafficLightsCrossing2"));
+                 //   API.SetCrossingState("TrafficLightsIntersection1", !API.GetCrossingState("TrafficLightsIntersection1"));
+                   // API.SetCrossingState("TrafficLightsCrossing2", !API.GetCrossingState("TrafficLightsCrossing2"));
                 }
 
 
                 // Manual change the crossing state.
                 if (Input.GetKeyDown(KeyCode.Alpha1))
                 {
-                    API.SetCrossingState("TrafficLightsIntersection1", !API.GetCrossingState("TrafficLightsIntersection1"));
+                   // API.SetCrossingState("TrafficLightsIntersection1", !API.GetCrossingState("TrafficLightsIntersection1"));
                 }
 
                 if(Input.GetKeyDown(KeyCode.Alpha2))
                 {
-                    API.SetCrossingState("TrafficLightsCrossing2", !API.GetCrossingState("TrafficLightsCrossing2"));
+                   // API.SetCrossingState("TrafficLightsCrossing2", !API.GetCrossingState("TrafficLightsCrossing2"));
                 }
             }
 
