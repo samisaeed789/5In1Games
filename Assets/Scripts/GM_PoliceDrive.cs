@@ -237,6 +237,7 @@ public class GM_PoliceDrive : MonoBehaviour
         soundManager?.PlayPoliceSiren(true);
 
         GP.SetActive(false);
+        rcc_cam.gameObject.SetActive(false);
         Contrls(false);
         Finalpolice.SetActive(true);
         StartCoroutine(CompletePanel());
