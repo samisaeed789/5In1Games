@@ -4,7 +4,7 @@ using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
-
+using MTAssets.EasyMinimapSystem;
 public enum CarType
 {
     Regular,
@@ -43,6 +43,9 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject GP;
     [SerializeField] GameObject Finalpolice;
     [SerializeField] GameObject ThirdPersonCntrls;
+    [SerializeField] GameObject Traffic;
+    [SerializeField] MinimapRenderer mapMan;
+    [SerializeField] MinimapRoutes mapRoutes;
 
 
     [Header("CSDATA")]
@@ -55,7 +58,6 @@ public class GM_PoliceDrive : MonoBehaviour
     [Header("LevelData")]
     [SerializeField] GameObject[] Cars;
     [SerializeField] GameObject[] EnemyCars;
-    [SerializeField] MiniMapController map;
     [SerializeField]public GameObject LockedBtn;
     [SerializeField]public GameObject UnLockedBtn;
 
@@ -99,7 +101,7 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
-        ValStorage.selLevel = 3;
+        //ValStorage.selLevel = 1;
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         StartCoroutine(PlayTimeline(currLvl)); 
@@ -136,12 +138,13 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         soundManager?.PlaypoliceClickSound();
 
+        GameObject Enemy = EnemyCars[currLvl];
+
         GP.SetActive(true);
         CarSel.SetActive(false);
-        EnemyCars[currLvl].SetActive(true);
+        Enemy.SetActive(true);
         soundManager?.PlayPoliceSiren(true);
         soundManager?.SetBGM(true);
-
         CarType car = GetCurrentCarType();
         Contrls(true);
         switch (car)
@@ -158,10 +161,12 @@ public class GM_PoliceDrive : MonoBehaviour
             default:
                 break;
         }
-
+        Traffic.SetActive(true);    
         carController.SetActive(true);
-        map.target = carController.transform;
-
+        mapRoutes.startingPoint = carController.transform;
+        mapRoutes.destinationPoint = Enemy.transform;
+        MinimapCamera playerMap = carController.GetComponent<MinimapCamera>();
+        mapMan.minimapCameraToShow = playerMap;
     }
 
     public void UnlockCar() 
@@ -232,6 +237,9 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     IEnumerator deldestroyed() 
     {
+        mapMan.gameObject.SetActive(false);
+        mapRoutes.gameObject.SetActive(false);
+        Traffic.SetActive(false);
         yield return new WaitForSeconds(8f);
         soundManager?.PlayChatterSound(true);
         soundManager?.PlayPoliceSiren(true);
@@ -256,10 +264,12 @@ public class GM_PoliceDrive : MonoBehaviour
 
         int currlvl = ValStorage.selLevel;
         int unlockdlvls = ValStorage.GetUnlockedModeLevelDrive("police");
-
+        Debug.LogError("unlckdlvls___"+unlockdlvls);
         if (currlvl == unlockdlvls && currlvl < 5)
         {
             ValStorage.SetUnlockedModeLevelDrive("police", unlockdlvls + 1);
+            Debug.LogError("ValStorage.GetUnlockedModeLevelDrive();_____" + ValStorage.GetUnlockedModeLevelDrive("police"));
+
         }
 
         if (currlvl == 5)

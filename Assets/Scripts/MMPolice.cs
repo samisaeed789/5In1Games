@@ -67,19 +67,7 @@ public class MMPolice : MonoBehaviour
         SetControlsTTNGS();
         Setsliders();
         SetCoins();
-       // enablecheckboxes();
-        //if (musicSlider != null)
-        //{
-        //    musicSlider.onValueChanged.AddListener(OnMSliderValueChanged);
-        //}
-        //if (soundSlider != null)
-        //{
-        //    soundSlider.onValueChanged.AddListener(OnSSliderValueChanged);
-        //}
-
-        ValStorage.SetUnlockedPoliceDriveMode(1);
-        //ValStorage.SetUnlockedPoliceParkMode(5);
-
+      
 
 
 
@@ -93,7 +81,6 @@ public class MMPolice : MonoBehaviour
     {
         switch (panelName)
         {
-
             case "MM":
                 PanelActivity(MM: true);
                 break;
@@ -179,7 +166,7 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());// CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode());
+                CheckUnlocked(ValStorage.GetUnlockedPoliceDriveMode()); //ValStorage.GetUnlockedModeLevelDrive("police"));
                 ValStorage.modeSel = "Drive";
                 break;
             case "Parking":
