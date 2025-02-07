@@ -6,7 +6,7 @@ namespace Gley.PedestrianSystem
     public class PedestrianSystemComponent : MonoBehaviour
     {
         [Tooltip("Player is used to instantiate pedestrians out of view")]
-        [SerializeField] private Transform _player;
+        [SerializeField] public Transform _player;
 
         [Tooltip("Max number of pedestrians")]
         [SerializeField] private int _nrOfPedestrians = 1;

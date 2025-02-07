@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Timeline;
 using UnityEngine.UI;
 using MTAssets.EasyMinimapSystem;
+using Gley.PedestrianSystem;
 public enum CarType
 {
     Regular,
@@ -46,6 +47,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject Traffic;
     [SerializeField] MinimapRenderer mapMan;
     [SerializeField] MinimapRoutes mapRoutes;
+    [SerializeField] PedestrianSystemComponent PedestrianMan;
 
 
     [Header("CSDATA")]
@@ -101,7 +103,7 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
-        //ValStorage.selLevel = 1;
+        ValStorage.selLevel = 1;
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         StartCoroutine(PlayTimeline(currLvl)); 
@@ -163,6 +165,8 @@ public class GM_PoliceDrive : MonoBehaviour
         }
         Traffic.SetActive(true);    
         carController.SetActive(true);
+        PedestrianMan._player = carController.transform;
+        PedestrianMan.gameObject.SetActive(true);
         mapRoutes.startingPoint = carController.transform;
         mapRoutes.destinationPoint = Enemy.transform;
         MinimapCamera playerMap = carController.GetComponent<MinimapCamera>();
