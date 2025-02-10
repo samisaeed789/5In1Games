@@ -11,6 +11,8 @@ public class CarEnter : MonoBehaviour
     
     public CarType carType;
 
+    public bool IsWatchAd;
+
     private void Start()
     {
         gm = GM_PoliceDrive.instance;

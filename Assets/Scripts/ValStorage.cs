@@ -528,7 +528,6 @@ public static class ValStorage
         if (car == CarType.Ford)
         {
             return IsFordPurchased;
-
         }
         if (car == CarType.Swat)
         {

@@ -246,7 +246,8 @@ public class ParkingGm : MonoBehaviour
     {
 
         soundManager = MySoundManager.instance;
-
+        RCC_Settings.Instance.useAutomaticGear = false;
+        RCC_Settings.Instance.autoReverse = false;
         // UpdateVolume();
         // SetButtonTransparency(ValStorage.GetTransparency());
         //  Controls.SetMobileController(ValStorage.GetControls());
