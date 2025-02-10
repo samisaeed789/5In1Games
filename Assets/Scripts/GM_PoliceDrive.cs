@@ -38,6 +38,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject nextbtncomp;
     [SerializeField] GameObject WaterSplashs;
     [SerializeField] RCC_Camera rcc_cam;
+    [SerializeField] RCC_CameraCarSelection rcc_carselcam;
 
 
     [SerializeField] GameObject CarSel;
@@ -76,6 +77,8 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject NxtBtnSccs;
     [SerializeField] Text TotalCompltxt;
 
+
+    RCC_CarControllerV3 carcontroller;// = carController.GetComponent<RCC_CarControllerV3>();
     GameObject carController;
     bool stopAnimation;
     float elapsedTime = 0f;
@@ -103,8 +106,10 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
+        ValStorage.selLevel = 1;
         RCC_Settings.Instance.useAutomaticGear = true;
         RCC_Settings.Instance.autoReverse = true;
+
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         StartCoroutine(PlayTimeline(currLvl)); 
@@ -164,6 +169,9 @@ public class GM_PoliceDrive : MonoBehaviour
         }
         Traffic.SetActive(true);    
         carController.SetActive(true);
+        carcontroller = carController.GetComponent<RCC_CarControllerV3>();
+        rcc_carselcam.target = carController.transform;
+        stering();
         PedestrianMan._player = carController.transform;
         PedestrianMan.gameObject.SetActive(true);
         mapRoutes.startingPoint = carController.transform;
@@ -236,10 +244,15 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     IEnumerator deldestroyed() 
     {
+        carcontroller.canControl = false;
         mapMan.gameObject.SetActive(false);
         mapRoutes.gameObject.SetActive(false);
         Traffic.SetActive(false);
-        yield return new WaitForSeconds(8f);
+        rcc_carselcam.enabled = true;
+        rcc_cam.enabled = false;
+        Rigidbody RB = carController.GetComponent<Rigidbody>();
+        RB.isKinematic = true;
+        yield return new WaitForSeconds(12f);
         soundManager?.PlayChatterSound(true);
         soundManager?.PlayPoliceSiren(true);
         GP.SetActive(false);
@@ -570,5 +583,16 @@ public class GM_PoliceDrive : MonoBehaviour
         CS.SetActive(false);
         CarSel.SetActive(true);
         PlayObj();
+    }
+
+    public void stering()
+    {
+        Invoke(nameof(delay), 2f);
+    }
+    private void delay()
+    {
+      
+        carcontroller.steeringType = RCC_CarControllerV3.SteeringType.Simple;
+        carcontroller.steeringSensitivityFactor = .65f;
     }
 }

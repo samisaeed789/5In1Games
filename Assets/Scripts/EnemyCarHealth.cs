@@ -6,7 +6,10 @@ public class EnemyCarHealth : MonoBehaviour
 {
     public float health =1f;
     public Image healthBar; 
-    public ParticleSystem smokeEffect; 
+    public ParticleSystem smokeEffect;
+
+    [SerializeField] RCC_AICarController ai;
+        [SerializeField]Rigidbody rb;
  //   public ParticleSystem blastEffect; 
     public GameObject destroyedCarPrefab;
     //  public float destructionForce = 1000f;
@@ -28,12 +31,14 @@ public class EnemyCarHealth : MonoBehaviour
         if (health <= 0.3f && !smokeEffect.isPlaying)
         {
             StartSmoke();
+            DestroyCar();
+            healthBar.gameObject.SetActive(false);
         }
 
-        if (health <= 0f)
-        {
-            DestroyCar();
-        }
+        //if (health <= 0f)
+        //{
+        //    DestroyCar();
+        //}
     }
 
     private void StartSmoke()
@@ -50,11 +55,13 @@ public class EnemyCarHealth : MonoBehaviour
         //{
         //    g.SetActive(false);
         //}
+        rb.isKinematic = true;
+        ai.enabled = false;
         ValStorage.TriggerEnemyDestroyed();
-        Instantiate(destroyedCarPrefab,this.transform.position,this.transform.rotation);
-        Destroy(this.gameObject);
+       // Instantiate(destroyedCarPrefab,this.transform.position,this.transform.rotation);
+        //Destroy(this.gameObject);
     }
-
    
+
 
 }
