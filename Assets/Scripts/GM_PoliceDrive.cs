@@ -63,6 +63,8 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject[] EnemyCars;
     [SerializeField]public GameObject LockedBtn;
     [SerializeField]public GameObject UnLockedBtn;
+    [SerializeField]public GameObject WatchVidSwat;
+    [SerializeField]public GameObject WatchVidFord;
 
 
 
@@ -78,7 +80,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] Text TotalCompltxt;
 
 
-    RCC_CarControllerV3 carcontroller;// = carController.GetComponent<RCC_CarControllerV3>();
+    RCC_CarControllerV3 carcontroller;
     GameObject carController;
     bool stopAnimation;
     float elapsedTime = 0f;
@@ -110,6 +112,8 @@ public class GM_PoliceDrive : MonoBehaviour
         RCC_Settings.Instance.useAutomaticGear = true;
         RCC_Settings.Instance.autoReverse = true;
 
+
+        CheckPurchasedCars();
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
         StartCoroutine(PlayTimeline(currLvl)); 
@@ -186,7 +190,6 @@ public class GM_PoliceDrive : MonoBehaviour
     {
             soundManager?.PlayLevelFailSound();
 
-     //   CarSound(false);
         Can.alpha = 0f;
         UIBlocker.SetActive(true);
         StartCoroutine(FailPanel());
@@ -282,7 +285,6 @@ public class GM_PoliceDrive : MonoBehaviour
         if (currlvl == unlockdlvls && currlvl < 5)
         {
             ValStorage.SetUnlockedModeLevelDrive("police", unlockdlvls + 1);
-            Debug.LogError("ValStorage.GetUnlockedModeLevelDrive();_____" + ValStorage.GetUnlockedModeLevelDrive("police"));
         }
 
         if (currlvl == 5)
@@ -440,8 +442,8 @@ public class GM_PoliceDrive : MonoBehaviour
     private IEnumerator CounterAnimation(int totalCoins)
     {
         yield return new WaitForSeconds(1f);
-        int duration = 3; // Total duration for the animation
-        float elapsedTime = 0f; // Time elapsed since the start of the animation
+        int duration = 3; 
+        float elapsedTime = 0f; 
         int currentCoins = 0;
 
         if (soundManager)
@@ -564,7 +566,6 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     public void PlayRewardADSkip() 
     {
-        Debug.LogError("Clicked");
         AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipCS);
     }
     public void PlayRewardCarUnlck() 
@@ -591,8 +592,20 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void delay()
     {
-      
         carcontroller.steeringType = RCC_CarControllerV3.SteeringType.Simple;
         carcontroller.steeringSensitivityFactor = .65f;
+    }
+    void CheckPurchasedCars() 
+    {
+        if (ValStorage.GetCarUnLocked(CarType.Ford)) 
+        {
+            WatchVidFord.SetActive(false);
+
+        }
+        if (ValStorage.GetCarUnLocked(CarType.Swat)) 
+        {
+            WatchVidSwat.SetActive(false);
+
+        }
     }
 }

@@ -8,6 +8,7 @@ namespace Gley.PedestrianSystem
         Player,
         DynamicObject,
         StaticObject,
-        Pedestrian
+        Pedestrian,
+        RCC
     }
 }
