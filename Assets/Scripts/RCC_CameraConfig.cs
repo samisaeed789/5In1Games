@@ -89,4 +89,13 @@ public class RCC_CameraConfig : MonoBehaviour {
 
     }
 
+ 
+    public void setcam(float dist, float heigt) 
+    {
+        RCC_Camera cam = RCC_SceneManager.Instance.activePlayerCamera;
+
+        cam.TPSDistance = dist;
+        cam.TPSHeight = heigt;
+    }
+
 }

@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
-using UnityEngine.Timeline;
 using UnityEngine.UI;
 using MTAssets.EasyMinimapSystem;
 using Gley.PedestrianSystem;
@@ -33,6 +33,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField] GameObject UIBlocker;
     [SerializeField] Image loadingBar;
     [SerializeField] CanvasGroup Can;
+    [SerializeField] CanvasGroup CarSelCan;
     [SerializeField] RCC_Demo Controls;
     [SerializeField] Text rewardedCoins;
     [SerializeField] GameObject nextbtncomp;
@@ -65,6 +66,7 @@ public class GM_PoliceDrive : MonoBehaviour
     [SerializeField]public GameObject UnLockedBtn;
     [SerializeField]public GameObject WatchVidSwat;
     [SerializeField]public GameObject WatchVidFord;
+    [SerializeField]public GameObject Env;
 
 
 
@@ -108,11 +110,8 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void Start()
     {
-        ValStorage.selLevel = 1;
         RCC_Settings.Instance.useAutomaticGear = true;
         RCC_Settings.Instance.autoReverse = true;
-
-
         CheckPurchasedCars();
         soundManager = MySoundManager.instance;
         currLvl = ValStorage.selLevel-1;
@@ -124,6 +123,7 @@ public class GM_PoliceDrive : MonoBehaviour
     IEnumerator PlayTimeline(int index)
     {
         yield return new WaitForSeconds(4f);
+        Env.SetActive(true);
         Loading.SetActive(false);
         CS.SetActive(true);
         csdata[index].CSLevel.SetActive(true);
@@ -188,7 +188,7 @@ public class GM_PoliceDrive : MonoBehaviour
 
     public void FailLevel()
     {
-            soundManager?.PlayLevelFailSound();
+        soundManager?.PlayLevelFailSound();
 
         Can.alpha = 0f;
         UIBlocker.SetActive(true);
@@ -238,6 +238,10 @@ public class GM_PoliceDrive : MonoBehaviour
         ThirdPersonCntrls.SetActive(true);
         soundManager?.SetBGM(true);
         can.sortingOrder = 1;
+
+        CarSelCan.alpha = 1;
+        CarSelCan.interactable = true;
+        CarSelCan.blocksRaycasts = true;
     }
 
     void HandleEnemyDestroyed() 
@@ -281,7 +285,6 @@ public class GM_PoliceDrive : MonoBehaviour
         PlayInterAD();
         int currlvl = ValStorage.selLevel;
         int unlockdlvls = ValStorage.GetUnlockedModeLevelDrive("police");
-        Debug.LogError("unlckdlvls___"+unlockdlvls);
         if (currlvl == unlockdlvls && currlvl < 5)
         {
             ValStorage.SetUnlockedModeLevelDrive("police", unlockdlvls + 1);
@@ -389,13 +392,10 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         soundManager?.PlaypoliceClickSound();
         PlayInterAD();
-
         int currentind = ValStorage.GetControls();
-
         currentind = (currentind + 1) % 3;
         Controls.SetMobileController(currentind);
         ValStorage.SetControls(currentind);
-
     }
     IEnumerator LoadAsyncScene(string sceneName)
     {
@@ -406,7 +406,6 @@ public class GM_PoliceDrive : MonoBehaviour
         float timer = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
-
         while (timer < 5f)
         {
             if (timer < 5f)
@@ -425,7 +424,6 @@ public class GM_PoliceDrive : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
         PlayRectBanner(false);
-
         asyncLoad.allowSceneActivation = true;
     }
     public void StopCoinAnimation()
@@ -458,14 +456,12 @@ public class GM_PoliceDrive : MonoBehaviour
 
             currentCoins = Mathf.Min(currentCoins, totalCoins);
 
-            // Update the UI or text with the current number of coins
             if (TotalCompltxt != null)
                 TotalCompltxt.text = currentCoins.ToString();
 
             yield return null; // Wait until the next frame
         }
 
-        // Ensure the final count is exactly totalCoins
 
         if (TotalCompltxt != null)
             TotalCompltxt.text = totalCoins.ToString();
@@ -503,7 +499,7 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         if (soundManager)
         {
-            soundManager.SetBGM(true);  // Start playing background music
+            soundManager.SetBGM(true);  
         }
     }
 
@@ -600,12 +596,10 @@ public class GM_PoliceDrive : MonoBehaviour
         if (ValStorage.GetCarUnLocked(CarType.Ford)) 
         {
             WatchVidFord.SetActive(false);
-
         }
         if (ValStorage.GetCarUnLocked(CarType.Swat)) 
         {
             WatchVidSwat.SetActive(false);
-
         }
     }
 }

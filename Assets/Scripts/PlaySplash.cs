@@ -16,6 +16,4 @@ public class PlaySplash : MonoBehaviour
             Splash.Play();
         }
     }
-
-
 }

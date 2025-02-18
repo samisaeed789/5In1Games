@@ -164,8 +164,8 @@ public class RCC_Camera : MonoBehaviour {
     private int direction = 1;
     private int lastDirection = 1;
 
-    [Range(0f, 20f)] public float TPSDistance = 6f;     // The distance for TPS camera mode.
-    [Range(0f, 10f)] public float TPSHeight = 2f;       // The height we want the camera to be above the target for TPS camera mode.
+    [Range(0f, 40f)] public float TPSDistance = 6f;     // The distance for TPS camera mode.
+    [Range(0f, 20f)] public float TPSHeight = 2f;       // The height we want the camera to be above the target for TPS camera mode.
     [Range(0f, 1f)] public float TPSRotationDamping = .7f;      // Rotation movement damper.
     [Range(0f, 25f)] public float TPSTiltMaximum = 15f;     // Maximum tilt angle related with rigidbody local velocity.
     [Range(0f, 10f)] public float TPSTiltMultiplier = 1.5f;     // Tilt angle multiplier.
