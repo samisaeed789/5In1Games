@@ -9,20 +9,30 @@ public class TypingEffect : MonoBehaviour
     public string fullText;     // The full text to display
     public float typingSpeed = 0.05f;  // Typing speed (in seconds per character)
     public event Action OnTypingFinished;
+
+    private Coroutine typingCoroutine;
     MySoundManager soundman;
     private void OnEnable()
     {
         soundman = MySoundManager.instance;
-        // Start the typing effect when the GameObject is enabled
         if (textComponent != null)
         {
-            textComponent.text = "";  // Clear the text initially
             StartCoroutine(TypeText());
         }
     }
 
     private IEnumerator TypeText()
     {
+        //textComponent.text = "";
+        //soundman?.PlayTypeSound(true);
+        //foreach (char letter in fullText)
+        //{
+        //    textComponent.text += letter;
+        //    yield return new WaitForSeconds(typingSpeed);
+        //}
+        //OnTypingFinished?.Invoke();
+
+        textComponent.text = "";
         soundman?.PlayTypeSound(true);
         foreach (char letter in fullText)
         {
@@ -30,5 +40,15 @@ public class TypingEffect : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
         OnTypingFinished?.Invoke();
+    }
+
+    public void settext(string s) 
+    {
+        fullText = s; // Removed unnecessary ToString()
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine); // Stop previous coroutine to prevent overlap
+        }
+        typingCoroutine = StartCoroutine(TypeText());
     }
 }
