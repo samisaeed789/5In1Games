@@ -9,8 +9,22 @@ public struct CameraData
     public float height;   
     public float distance; 
 }
+
+
 public class CamCustom : MonoBehaviour
 {
+
+
+
+    [Header("TruckData")]
+    public GameObject DummyTrailer;
+    public GameObject Trailer;
+    public GameObject linerend;
+    public GameObject csHook;
+    public Transform hookPoint;
+    public RCC_CarControllerV3 Truck;
+
+
     public CameraData truck;
     public CameraData trailer;
     RCC_Camera cam; 
@@ -18,7 +32,7 @@ public class CamCustom : MonoBehaviour
     private void Start()
     {
         cam = RCC_SceneManager.Instance.activePlayerCamera;
-       
+        ONtruckDataLoaded();
     }
     public void setcamTruck()
     {
@@ -30,5 +44,10 @@ public class CamCustom : MonoBehaviour
     {
         cam.TPSDistance = trailer.distance;
         cam.TPSHeight = trailer.height;
+    }
+
+    void ONtruckDataLoaded() 
+    {
+        GM_Euro_Drive.instance.SetData(this);
     }
 }

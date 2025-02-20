@@ -12,6 +12,7 @@ public class TriggerEuroTruck : MonoBehaviour
         if (other.gameObject.CompareTag("Player")) 
         {
             GM_Euro_Drive.instance.HookTrailerTimeline();// index);
+            this.gameObject.SetActive(false);
         }
     }
 

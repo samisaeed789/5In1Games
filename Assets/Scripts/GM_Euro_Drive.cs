@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Gley.PedestrianSystem;
 using System.Collections;
 using UnityEngine;
@@ -14,6 +15,14 @@ public class ETData
     public GameObject[] Off;
     public GameObject lineRender ;
 }
+
+[System.Serializable]
+public class Level
+{
+    public PlayableDirector CS;
+    public GameObject LVL;
+    public GameObject tRUCK;
+}
 public class GM_Euro_Drive : MonoBehaviour
 {
 
@@ -25,6 +34,7 @@ public class GM_Euro_Drive : MonoBehaviour
     [Header("GPDATA")]
     [SerializeField] GameObject HookPoint;
     [SerializeField] GameObject Gp;
+    [SerializeField] GameObject IgnitionBtn;
     [SerializeField] ETData[] truckdata;
     [SerializeField] GameObject[] Levels;
     [SerializeField] GameObject[] DummyTrailers;
@@ -34,17 +44,22 @@ public class GM_Euro_Drive : MonoBehaviour
     [SerializeField] ParticleSystem ShowerConfti;
     [SerializeField] PedestrianSystemComponent PedestrianMan;
     [SerializeField] GameObject Traffic;
+    [SerializeField] Level[] lvl_data;
+
+    
 
 
 
     [Header("CSDATA")]
-    [SerializeField] GameObject CS;
-    [SerializeField] CSData[] csdata;
+
+    [SerializeField] GameObject CSStart;
+    [SerializeField] GameObject CSHook;
     PlayableDirector playableDirector;
 
 
     [SerializeField] int currlevel;
     [SerializeField] RCC_Camera rccCam;
+    [SerializeField] Camera shakeCam;
     [SerializeField] RCC_CameraCarSelection CarselCam;
     [HideInInspector] int indexTruck;
     public static GM_Euro_Drive instance;
@@ -58,20 +73,48 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        SetTruck(currlevel);
-        DeactivatePrevLvls();
-        Levels[currlevel].SetActive(true);
 
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SetCam(3f,false));
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(startTimelines());
+
+
+        //DeactivatePrevLvls();
+        //Levels[currlevel].SetActive(true);
+
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SetCam(3f,false));
+    }
+
+
+    IEnumerator startTimelines()
+    {
+        yield return null;
+        playableDirector = lvl_data[currlevel].CS;
+        CSStart.SetActive(true);
+        playableDirector.gameObject.SetActive(true);
+        if (playableDirector != null)
+        {
+            playableDirector.stopped += OnstartTLFinished;
+        }
+    }
+
+
+    void OnstartTLFinished(PlayableDirector director) 
+    {
+        SetTruck(currlevel);
+        lvl_data[currlevel].LVL.SetActive(true);
+        IgnitionBtn.SetActive(true);
     }
 
 
     void SetTruck(int lvl) 
     {
-        truck = truckdata[lvl].Truck.GetComponent<RCC_CarControllerV3>();
-        truck.enabled = true;
-        truck.canControl= true;
+        truck = lvldata.Truck;
+        if (truck) 
+        {
+            truck.enabled = true;
+            truck.canControl = true;
+        }
     }
     void DeactivatePrevLvls() 
     {
@@ -92,8 +135,8 @@ public class GM_Euro_Drive : MonoBehaviour
         rccCam.gameObject.SetActive(false);
         Gp.SetActive(false);
         CS.SetActive(true);
-        csdata[currlevel].CSLevel.SetActive(true);
-        playableDirector = csdata[currlevel].playable;
+        playableDirector = lvldata.csHook.GetComponent<PlayableDirector>();
+        lvldata.csHook.SetActive(true);
 
         if (playableDirector != null)
         {
@@ -195,4 +238,19 @@ public class GM_Euro_Drive : MonoBehaviour
         }
     }
 
+    CamCustom lvldata;
+    public void SetData(CamCustom leveldata) 
+    {
+        lvldata = leveldata;
+    }
+
+
+    public void Shakecam()
+    {
+        shakeCam.DOShakePosition(0.5f, 0.5f, 10, 90f).OnKill(() => OnShakeComplete());
+    }
+    void OnShakeComplete()
+    {
+        Contols(true);
+    }
 }
