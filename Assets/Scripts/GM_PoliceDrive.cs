@@ -73,7 +73,7 @@ public class GM_PoliceDrive : MonoBehaviour
 
     [Header("ObjPanels")]
     [SerializeField] string[] Objectives;
-    [SerializeField] TypingEffect objtyping;
+    [SerializeField] TypingEffect1 objtyping;
     [SerializeField] GameObject ok;
 
     [Header("CompPanel")]
