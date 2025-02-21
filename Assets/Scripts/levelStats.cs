@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class levelStats : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+
+    [Header("LvlData")]
+    public GameObject DummyTrailer;
+    public GameObject Trailer;
+    public GameObject linerend;
+    public GameObject csHook;
+    public Transform hookPoint;
+    public RCC_CarControllerV3 Truck;
+
+
+    private void Awake()
     {
-        
+        ONtruckDataLoaded();
     }
 
-    // Update is called once per frame
-    void Update()
+    void ONtruckDataLoaded()
     {
-        
+        GM_Euro_Drive.instance.SetData(this);
     }
+
+
 }

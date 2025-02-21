@@ -336,7 +336,6 @@ public class GM_PoliceDrive : MonoBehaviour
         PlayRectBanner(true);
         soundManager.PlaypoliceClickSound();
 
-
         if (soundManager)
             soundManager.PlayButtonClickSound();
 

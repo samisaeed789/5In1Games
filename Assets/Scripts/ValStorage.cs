@@ -145,6 +145,11 @@ public static class ValStorage
 
     public static int GetUnlockedEuroTruckDriveMode()
     {
+        if (!PlayerPrefs.HasKey("UnlockedEuroTruckDriveMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedEuroTruckDriveMode", 1);
+        }
+
         return PlayerPrefs.GetInt("UnlockedEuroTruckDriveMode", 0);
     }
 

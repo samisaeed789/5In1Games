@@ -17,7 +17,7 @@ public class TypingEffect : MonoBehaviour
         soundman = MySoundManager.instance;
         if (textComponent != null)
         {
-            StartCoroutine(TypeText());
+          //  StartCoroutine(TypeText());
         }
     }
 
@@ -44,11 +44,13 @@ public class TypingEffect : MonoBehaviour
 
     public void settext(string s) 
     {
-        fullText = s; // Removed unnecessary ToString()
+        fullText = s; 
         if (typingCoroutine != null)
         {
-            StopCoroutine(typingCoroutine); // Stop previous coroutine to prevent overlap
+            StopCoroutine(typingCoroutine); 
         }
-        typingCoroutine = StartCoroutine(TypeText());
+        
+        if(textComponent!=null)
+            typingCoroutine = StartCoroutine(TypeText());
     }
 }

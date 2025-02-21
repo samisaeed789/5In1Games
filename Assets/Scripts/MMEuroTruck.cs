@@ -48,12 +48,6 @@ public class MMEuroTruck : MonoBehaviour
     [Header("Sound-Volume")]
    public Image soundfillBar;
 
-
-
-
-
-
-
     [Header("Levels")]
     public Button[] LvlCards;
 
@@ -144,7 +138,6 @@ public class MMEuroTruck : MonoBehaviour
 
     public void ExitPanel(bool val) 
     {
-
         if (soundmngr)
             soundmngr.PlayJeepClickSound();
         exitPanel.SetActive(val);
@@ -179,10 +172,14 @@ public class MMEuroTruck : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(0);
+                CheckUnlocked(ValStorage.GetUnlockedEuroTruckDriveMode());
+                ValStorage.modeSel = "Drive";
+
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedEuroTruckParkMode());
+                ValStorage.modeSel = "Parking";
+
                 break;
             default:
                 break;
@@ -202,7 +199,21 @@ public class MMEuroTruck : MonoBehaviour
     public void LoadNxtScene(string s)
     {
 
-       StartCoroutine(StartLoading(s));
+     //  StartCoroutine(StartLoading(s));
+
+        string S = ValStorage.modeSel;
+        switch (S)
+        {
+            case "Drive":
+                StartCoroutine(StartLoading("EuroTruckMode"));
+                break;
+            case "Parking":
+                StartCoroutine(StartLoading("Parking"));
+
+                break;
+            default:
+                break;
+        }
     }
 
     AsyncOperation asyncLoad;
