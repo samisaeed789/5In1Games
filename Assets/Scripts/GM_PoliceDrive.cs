@@ -548,25 +548,25 @@ public class GM_PoliceDrive : MonoBehaviour
 
     public void PlayRectBanner(bool val)
     {
-        if (val)
-            AdsController.Instance?.ShowBannerAd_Admob(1);
+      //  if (val)
+            //AdsController.Instance?.ShowBannerAd_Admob(1);
 
-        else
-        {
-            AdsController.Instance?.HideBannerAd_Admob(1);
-        }
+       // else
+       // {
+            //AdsController.Instance?.HideBannerAd_Admob(1);
+      //  }
     }
     public void PlayInterAD()
     {
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+       // AdsController.Instance?.ShowInterstitialAd_Admob();
     }
     public void PlayRewardADSkip() 
     {
-        AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipCS);
+        //AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipCS);
     }
     public void PlayRewardCarUnlck() 
     {
-        AdsController.Instance.ShowRewardedInterstitialAd_Admob(UnlockCar);
+       // AdsController.Instance.ShowRewardedInterstitialAd_Admob(UnlockCar);
     }
 
     public void UnlockCar()

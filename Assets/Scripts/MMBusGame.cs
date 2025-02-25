@@ -201,7 +201,7 @@ public class MMBusGame : MonoBehaviour
         soundmngr?.PlayBusClickSound();
         ButtonActivity("Loading");
         loadingImage.fillAmount = 0f;
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+      //  AdsController.Instance?.ShowInterstitialAd_Admob();
         yield return new WaitForSeconds(0.1f);
         PlayRectBanner(true);
         GarageHndlr garagehandler= garagePanel.GetComponent<GarageHndlr>();
@@ -346,17 +346,17 @@ public class MMBusGame : MonoBehaviour
     }
     public void PlayInterAD()
     {
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+       // AdsController.Instance?.ShowInterstitialAd_Admob();
     }
     public void PlayRectBanner(bool val)
     {
-        if (val)
-            AdsController.Instance?.ShowBannerAd_Admob(1);
+       // if (val)
+           // AdsController.Instance?.ShowBannerAd_Admob(1);
 
-        else
-        {
-            AdsController.Instance?.HideBannerAd_Admob(1);
-        }
+       // else
+        //{
+            //AdsController.Instance?.HideBannerAd_Admob(1);
+       // }
     }
 
     void enablecheckboxes() 

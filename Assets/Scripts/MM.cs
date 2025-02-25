@@ -14,7 +14,7 @@ public class MM : MonoBehaviour
 
     private void Start()
     {
-        AdsController.Instance?.ShowBannerAd_Admob(0);
+        //AdsController.Instance?.ShowBannerAd_Admob(0);
         SelectedGame();
     }
 

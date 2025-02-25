@@ -148,7 +148,7 @@ public class MMCarDriving : MonoBehaviour
     public void SelectedMode(string S) 
     {
 
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+      //  AdsController.Instance?.ShowInterstitialAd_Admob();
 
         switch (S)
         {
@@ -194,7 +194,7 @@ public class MMCarDriving : MonoBehaviour
     {
         ButtonActivity("Loading");
         loadingText.text = 0f.ToString();
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+       // AdsController.Instance?.ShowInterstitialAd_Admob();
         yield return new WaitForSeconds(0.1f);
         PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
@@ -407,17 +407,17 @@ public class MMCarDriving : MonoBehaviour
 
     public void PlayInterAD() 
     {
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+       // AdsController.Instance?.ShowInterstitialAd_Admob();
     }
     public void PlayRectBanner(bool val) 
     {
-        if(val)
-            AdsController.Instance?.ShowBannerAd_Admob(1);
+       // if(val)
+           // AdsController.Instance?.ShowBannerAd_Admob(1);
 
-        else 
-        {
-            AdsController.Instance?.HideBannerAd_Admob(1);
-        }
+      //  else 
+      //  {
+       //     AdsController.Instance?.HideBannerAd_Admob(1);
+       // }
     }
     void enablecheckboxes()
     {

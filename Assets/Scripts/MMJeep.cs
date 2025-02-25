@@ -440,19 +440,19 @@ public class MMJeep : MonoBehaviour
     }
     public void PlayRectBanner(bool val)
     {
-        if (val)
-            AdsController.Instance?.ShowBannerAd_Admob(1);
+    //    if (val)
+          //  AdsController.Instance?.ShowBannerAd_Admob(1);
 
-        else
-        {
-            AdsController.Instance?.HideBannerAd_Admob(1);
-        }
+       // else
+       // {
+           // AdsController.Instance?.HideBannerAd_Admob(1);
+       // }
     }
 
 
     public void PlayInterAD()
     {
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+      //  AdsController.Instance?.ShowInterstitialAd_Admob();
     }
     void enablecheckboxes()
     {
