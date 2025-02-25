@@ -17,6 +17,7 @@ public class levelStats : MonoBehaviour
 
     private void Awake()
     {
+        Debug.LogError("called");
         ONtruckDataLoaded();
     }
 

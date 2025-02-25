@@ -120,6 +120,7 @@ public class GM_PoliceDrive : MonoBehaviour
         ValStorage.SetCarUnLocked(CarType.Regular);
     }
 
+
     IEnumerator PlayTimeline(int index)
     {
         yield return new WaitForSeconds(4f);
@@ -251,6 +252,7 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     IEnumerator deldestroyed() 
     {
+        Contrls(false);
         carcontroller.canControl = false;
         mapMan.gameObject.SetActive(false);
         mapRoutes.gameObject.SetActive(false);
@@ -264,7 +266,6 @@ public class GM_PoliceDrive : MonoBehaviour
         soundManager?.PlayPoliceSiren(true);
         GP.SetActive(false);
         rcc_cam.gameObject.SetActive(false);
-        Contrls(false);
         Finalpolice.SetActive(true);
         StartCoroutine(CompletePanel());
     }
@@ -587,8 +588,10 @@ public class GM_PoliceDrive : MonoBehaviour
     }
     private void delay()
     {
-        carcontroller.steeringType = RCC_CarControllerV3.SteeringType.Simple;
-        carcontroller.steeringSensitivityFactor = .65f;
+        RCC.SetBehavior(4);
+        //carcontroller.steeringType = RCC_CarControllerV3.SteeringType.Simple;
+        //carcontroller.steeringSensitivityFactor = .65f;
+        carcontroller.gameObject.layer = LayerMask.NameToLayer("Player");
     }
     void CheckPurchasedCars() 
     {

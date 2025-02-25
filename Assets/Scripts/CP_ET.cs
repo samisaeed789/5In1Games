@@ -13,7 +13,7 @@ public class CP_ET : MonoBehaviour
             if (gm == null)
                 gm = GM_Euro_Drive.instance;
 
-            gm.CollectablePlay(isConfetti:true);
+            gm.CollectablePlay();
             this.gameObject.SetActive(false);
         }
     }

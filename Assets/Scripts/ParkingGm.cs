@@ -628,23 +628,6 @@ public class ParkingGm : MonoBehaviour
 
 
 
-    //private void Update()
-    //{
-    //    if (taillights != null && HasBrakeStateChanged())
-    //    {
-    //        UpdateBrakeLightColor(BrakeBtn.pressing);
-    //        isBrakePressed = BrakeBtn.pressing;
-    //    }
-
-    //    if (IsTimerRunning)
-    //    {
-    //        elapsedTime += Time.deltaTime;
-    //        UpdateTimerText();
-    //    }
-
-
-
-    //}
 
 
     void UpdateTimerText()

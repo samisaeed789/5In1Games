@@ -71,12 +71,19 @@ public class GM_Euro_Drive : MonoBehaviour
     [SerializeField] RCC_CameraCarSelection CarselCam;
 
 
-    //Cache 
+    //Cache
+    [SerializeField] bool Test;
+    [SerializeField] int  Testlevel;
+
     [SerializeField] int currlevel;
     RCC_CarControllerV3 truck;
     levelStats lvldata;
     bool stopAnimation;
     float elapsedTime = 0f;
+    MySoundManager soundManager;
+    Rigidbody rb;
+
+
 
 
 
@@ -89,7 +96,18 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     private IEnumerator Start()
     {
-        currlevel = ValStorage.selLevel - 1;
+        if (Test) 
+        {
+            currlevel = Testlevel-1;
+        }
+        else 
+        {
+            currlevel = ValStorage.selLevel - 1;
+
+        }
+           
+        soundManager = MySoundManager.instance;
+
         yield return new WaitForSeconds(2f);
         LoadingPnl.SetActive(false);
         StartCoroutine(startTimelines());
@@ -102,6 +120,8 @@ public class GM_Euro_Drive : MonoBehaviour
         playableDirector = lvl_data[currlevel].CS;
         CSStart.SetActive(true);
         playableDirector.gameObject.SetActive(true);
+        soundManager?.SetBGM(true);
+
         if (playableDirector != null)
         {
             playableDirector.stopped += OnstartTLFinished;
@@ -111,6 +131,13 @@ public class GM_Euro_Drive : MonoBehaviour
 
     void OnstartTLFinished(PlayableDirector director) 
     {
+        SkipTL();
+    }
+
+
+
+    public void SkipTL() 
+    {
         DeactivatePrevLvls();
         Gp.SetActive(true);
         lvl_data[currlevel].LVL.SetActive(true);
@@ -118,9 +145,8 @@ public class GM_Euro_Drive : MonoBehaviour
         CSStart.SetActive(false);
         SetTruck(currlevel);
         IgnitionBtn.SetActive(true);
-        StartCoroutine(SetCam(3f, false));
+        StartCoroutine(SetCam(4.5f, false));
     }
-
 
     void SetTruck(int lvl) 
     {
@@ -131,6 +157,19 @@ public class GM_Euro_Drive : MonoBehaviour
             truck.canControl = true;
         }
         rb = truck.GetComponent<Rigidbody>();
+        stering();
+    }
+
+    public void stering()
+    {
+        Invoke(nameof(delay), 2f);
+    }
+    private void delay()
+    {
+        RCC.SetBehavior(0);
+        truck.steeringType = RCC_CarControllerV3.SteeringType.Simple;
+        truck.steeringSensitivityFactor = .65f;
+        truck.gameObject.layer = LayerMask.NameToLayer("Player");
     }
     void DeactivatePrevLvls() 
     {
@@ -180,7 +219,9 @@ public class GM_Euro_Drive : MonoBehaviour
         PedestrianMan.gameObject.SetActive(true);
         Traffic.SetActive(true);
     }
-    Rigidbody rb;
+
+  
+  
     void setpos(Transform pos) 
     {
         rb.isKinematic = true;
@@ -189,21 +230,11 @@ public class GM_Euro_Drive : MonoBehaviour
         rb.isKinematic = false;
     }
 
-    public void CollectablePlay(bool isConfetti = false, bool isCoin = false)
+    public void CollectablePlay()
     {
-        if (isConfetti)
-        {
-            CollectbleConfetti.Play();
-            //if (soundManager)
-            //    soundManager.PlayCollectSound();
-        }
+       CollectbleConfetti.Play();
+       soundManager?.PlayCollectSound();
 
-        if (isCoin)
-        {
-            CollectbleCoin.Play();
-            //if (soundManager)
-            //    soundManager.PlayCollectCoin();
-        }
     }
 
 
@@ -409,13 +440,15 @@ public class GM_Euro_Drive : MonoBehaviour
 
     public void SetData(levelStats leveldata) 
     {
-
         lvldata = leveldata;
     }
 
 
     public void Shakecam()
     {
+        soundManager?.PlayEngineSound();
+
+
         IgnitionBtn.SetActive(false);
         shakeCam.DOShakePosition(0.5f, 0.5f, 10, 90f).OnKill(() => OnShakeComplete());
     }
@@ -475,15 +508,10 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void PlayRewardADSkip()
     {
-        AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipCS);
+        AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipTL);
     }
 
-    void SkipCS()
-    {
-        CSStart.SetActive(false);
-        //CarSel.SetActive(true);
-        //PlayObj();
-    }
+  
 
     public void ChangeControl()
     {
@@ -521,4 +549,8 @@ public class GM_Euro_Drive : MonoBehaviour
         truck.gameObject.SetActive(false);
         failPanel.SetActive(true);
     }
+
+
+   
+
 }

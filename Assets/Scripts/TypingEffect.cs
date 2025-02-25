@@ -12,34 +12,16 @@ public class TypingEffect : MonoBehaviour
 
     private Coroutine typingCoroutine;
     MySoundManager soundman;
-    private void OnEnable()
-    {
-        soundman = MySoundManager.instance;
-        if (textComponent != null)
-        {
-          //  StartCoroutine(TypeText());
-        }
-    }
+    
 
     private IEnumerator TypeText()
     {
-        //textComponent.text = "";
-        //soundman?.PlayTypeSound(true);
-        //foreach (char letter in fullText)
-        //{
-        //    textComponent.text += letter;
-        //    yield return new WaitForSeconds(typingSpeed);
-        //}
-        //OnTypingFinished?.Invoke();
-
         textComponent.text = "";
-        soundman?.PlayTypeSound(true);
         foreach (char letter in fullText)
         {
             textComponent.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
-        OnTypingFinished?.Invoke();
     }
 
     public void settext(string s) 
