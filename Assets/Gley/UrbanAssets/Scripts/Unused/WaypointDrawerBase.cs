@@ -1,3 +1,0 @@
-﻿namespace Gley.UrbanSystem.Editor
-{
-}

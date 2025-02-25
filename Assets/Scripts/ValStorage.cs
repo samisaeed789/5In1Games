@@ -524,40 +524,40 @@ public static class ValStorage
         return 0;
     }
 
-    public static bool GetCarUnLocked(CarType car)
-    {
-        if (car == CarType.Regular)
-        {
-            return IsRegularPurchased;
-        }
-        if (car == CarType.Ford)
-        {
-            return IsFordPurchased;
-        }
-        if (car == CarType.Swat)
-        {
-            return IsSwatPurchased;
-        }
+ //   public static bool GetCarUnLocked(CarType car)
+   // {
+        //if (car == CarType.Regular)
+        //{
+        //    return IsRegularPurchased;
+        //}
+        //if (car == CarType.Ford)
+        //{
+        //    return IsFordPurchased;
+        //}
+        //if (car == CarType.Swat)
+        //{
+        //    return IsSwatPurchased;
+        //}
 
-        return false;
+   //     //return false;
     }
 
-    public static void SetCarUnLocked(CarType car)
-    {
-        if (car == CarType.Regular)
-        {
-             IsRegularPurchased = true; 
-        }
-        if (car == CarType.Ford)
-        {
-             IsFordPurchased = true; 
+    //public static void SetCarUnLocked(CarType car)
+    //{
+    //    if (car == CarType.Regular)
+    //    {
+    //         IsRegularPurchased = true; 
+    //    }
+    //    if (car == CarType.Ford)
+    //    {
+    //         IsFordPurchased = true; 
 
-        }
-        if (car == CarType.Swat)
-        {
-             IsSwatPurchased=true;
-        }
-    }
+    //    }
+    //    if (car == CarType.Swat)
+    //    {
+    //         IsSwatPurchased=true;
+    //    }
+    //}
 
 
-}
+

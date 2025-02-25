@@ -1,4 +1,0 @@
-namespace Gley.TrafficSystem.Internal
-{
-
-}

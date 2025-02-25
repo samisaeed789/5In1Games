@@ -1,5 +1,0 @@
-{
-    "folderName": "PedestrianSystem",
-    "longVersion": "1.0.3",
-    "shortVersion": 4
-}
