@@ -586,18 +586,13 @@ public class MySoundManager : MonoBehaviour {
 	{
 		SetBGM(false);
 		playindiSound(false);
-
 	}
 	
 	public void ResumeSounds() 
 	{
 		SetBGM(true);
 
-  //      if (GameMngr.instance) S
-		//{
-		//	bool play = GameMngr.instance.IsIndsiactive();
-		//	playindiSound(play);
-		//}
+ 
 	}
 	public void CarUnlock() 
 	{

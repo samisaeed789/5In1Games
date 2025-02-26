@@ -24,6 +24,7 @@ public class Level
 }
 public class GM_Euro_Drive : MonoBehaviour
 {
+    [SerializeField] GameObject Env;
 
     [Header("Canvas")]
     [SerializeField] CanvasGroup Controls;
@@ -35,6 +36,8 @@ public class GM_Euro_Drive : MonoBehaviour
     [SerializeField] GameObject failPanel;
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject LoadBar;
+    [SerializeField] GameObject Belt;
+    [SerializeField] GameObject Beltbtn;
     [SerializeField] Image loadingBar;
 
     [SerializeField] Text CoinsEarnedlvltxt;
@@ -50,6 +53,7 @@ public class GM_Euro_Drive : MonoBehaviour
     [SerializeField] ParticleSystem ShowerConfti;
     [SerializeField] Level[] lvl_data;
     [SerializeField] TrucksTrailer[] trucksntrailers;
+    [SerializeField] RCC_UIController brake;
 
     [Header("Managers")]
     [SerializeField] PedestrianSystemComponent PedestrianMan;
@@ -82,8 +86,15 @@ public class GM_Euro_Drive : MonoBehaviour
     float elapsedTime = 0f;
     MySoundManager soundManager;
     Rigidbody rb;
+    MeshRenderer[] brakeLight=null;
+    GameObject LeftIndi=null;
+    GameObject RightIndi=null;
 
 
+    bool isLeftIndicatorOn;
+    bool isRightIndicatorOn;
+    private Coroutine leftIndicatorCoroutine;
+    private Coroutine rightIndicatorCoroutine;
 
 
 
@@ -105,10 +116,14 @@ public class GM_Euro_Drive : MonoBehaviour
             currlevel = ValStorage.selLevel - 1;
 
         }
-           
+
+
+        RCC_Settings.Instance.useAutomaticGear = false;
+        RCC_Settings.Instance.autoReverse = false;
         soundManager = MySoundManager.instance;
 
         yield return new WaitForSeconds(2f);
+        Env.SetActive(true);
         LoadingPnl.SetActive(false);
         StartCoroutine(startTimelines());
     } 
@@ -202,7 +217,7 @@ public class GM_Euro_Drive : MonoBehaviour
 
     void OnTimelineFinished(PlayableDirector director)
     {
-        StartCoroutine(SetCam(3f, true));
+        StartCoroutine(SetCam(4.5f, true));
         setpos(lvldata.hookPoint);
         lvldata.DummyTrailer.SetActive(false);
         lvldata.linerend.SetActive(true);
@@ -294,7 +309,8 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void NextLvlBtn()
     {
-       // soundManager?.PlaypoliceClickSound();
+        soundManager?.PlayButtonClickSound();
+
         PlayInterAD();
         LoadingPnl.SetActive(true);
         LoadBar.SetActive(true);
@@ -314,14 +330,12 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void Pause()
     {
-       // soundManager?.PauseSounds();
+        soundManager?.PauseSounds();
         PlayInterAD();
         PlayRectBanner(true);
-      //  soundManager.PlaypoliceClickSound();
 
 
-      //  if (soundManager)
-          //  soundManager.PlayButtonClickSound();
+        soundManager?.PlayButtonClickSound();
 
         CarSound(false);
         pausePanel.SetActive(true);
@@ -343,7 +357,7 @@ public class GM_Euro_Drive : MonoBehaviour
 
     public void Home()
     {
-       // soundManager?.PlaypoliceClickSound();
+        soundManager?.PlayButtonClickSound();
         PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
@@ -353,7 +367,7 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void Restart()
     {
-       // soundManager?.PlaypoliceClickSound();
+        soundManager?.PlayButtonClickSound();
         PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
@@ -363,10 +377,9 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void Resume()
     {
-       // soundManager?.PlaypoliceClickSound();
-       // soundManager?.ResumeSounds();
+        soundManager?.PlayButtonClickSound();
+        soundManager?.ResumeSounds();
         PlayRectBanner(false);
-       // soundManager?.PlayPoliceSiren(true);
         CarSound(true);
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
@@ -397,8 +410,7 @@ public class GM_Euro_Drive : MonoBehaviour
         float elapsedTime = 0f;
         int currentCoins = 0;
 
-        //if (soundManager)
-        //    soundManager.PlaycoinSound();
+       
 
         int coinsPerSecond = totalCoins / duration;
 
@@ -419,9 +431,6 @@ public class GM_Euro_Drive : MonoBehaviour
         if (TotalCompltxt != null)
             TotalCompltxt.text = totalCoins.ToString();
 
-        //// Stop sound if available
-        //if (soundManager)
-        //    soundManager.StopcoinSound();
     }
     IEnumerator SetCam(float delay,bool IsTrailer=false) 
     {
@@ -441,8 +450,16 @@ public class GM_Euro_Drive : MonoBehaviour
     public void SetData(levelStats leveldata) 
     {
         lvldata = leveldata;
-    }
+        brakeLight = lvldata.brakeLight;
 
+
+        //if (lvldata.indiLeft != null)
+        //    LeftIndi = lvldata.indiLeft;
+
+        //if (lvldata.indiRight != null)
+        //    RightIndi = lvldata.indiRight;
+
+    }
 
     public void Shakecam()
     {
@@ -515,33 +532,33 @@ public class GM_Euro_Drive : MonoBehaviour
 
     public void ChangeControl()
     {
-      //  soundManager?.PlaypoliceClickSound();
+        soundManager?.PlayButtonClickSound();
+
         PlayInterAD();
         int currentind = ValStorage.GetControls();
         currentind = (currentind + 1) % 3;
         RccControls.SetMobileController(currentind);
         ValStorage.SetControls(currentind);
     }
-    public void PlayHorn()
-    {
-        //if (soundManager)
-        //{
-        //    soundManager.SetBGM(true);
-        //}
-    }
+   
     public void CarFellOcean()
     {
         rccCam.cameraTarget = null;
         rccCam.enabled = false;
         Contols(false);
 
-        //soundManager?.SetBGM(false);
-        //soundManager?.PlayPoliceSiren(false);
-        //soundManager?.SplashSound();
 
+        soundManager?.SetBGM(false);
+        soundManager?.SplashSound();
 
         CarSound(false);
         Invoke(nameof(DelFail), 4f);
+
+
+
+
+
+
     }
 
     void DelFail()
@@ -551,6 +568,94 @@ public class GM_Euro_Drive : MonoBehaviour
     }
 
 
-   
 
+    public void OnButtonPressed()
+    {
+        soundManager?.PlayHorn("Bus");  
+    }
+
+    public void OnButtonReleased()
+    {
+            soundManager?.StopHorn();
+       
+    }
+
+
+    private void Update()
+    {
+        if (brakeLight != null)
+        {
+            HandleBrakeLights();
+        }
+    }
+    private void HandleBrakeLights()
+    {
+
+        SetLightsState(brakeLight, brake.pressing);
+    }
+
+
+    private void SetLightsState(MeshRenderer[] lights, bool state)
+    {
+        foreach (var light in lights)
+        {
+            if (light != null)
+                light.enabled = state;
+        }
+    }
+
+
+    public void HandleIndicatorLeft()
+    {
+
+        soundManager?.PlayButtonClickSound();
+
+
+
+        lvldata.indiRight?.SetActive(false);
+
+        lvldata.indiLeft?.SetActive(!lvldata.indiLeft.activeSelf);
+
+       
+    }
+
+    public void HandleIndicatorRight()
+    {
+        soundManager?.PlayButtonClickSound();
+
+        lvldata.indiLeft?.SetActive(false);
+
+        lvldata.indiRight.SetActive(!lvldata.indiRight.activeSelf);
+    }
+
+    private IEnumerator BlinkIndicator(MeshRenderer[] indicators)
+    {
+        while (true)
+        {
+            SetLightsState(indicators, true);
+            yield return new WaitForSeconds(0.5f);
+            SetLightsState(indicators, false);
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+
+    public void ToggleSeatBelt()
+    {
+
+        soundManager?.PlayButtonClickSound();
+
+        if (soundManager)
+            soundManager.PlayButtonClickSound();
+
+
+        Belt.SetActive(true);
+        Beltbtn.SetActive(false);
+        Invoke(nameof(delayoff), 1.05f);
+    }
+
+    void delayoff()
+    {
+        Belt.SetActive(false);
+    }
 }

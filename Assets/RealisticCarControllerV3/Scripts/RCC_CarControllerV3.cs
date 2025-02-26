@@ -353,8 +353,8 @@ public class RCC_CarControllerV3 : RCC_Core {
     // Min / Max sound pitches and volumes.
     [Range(0f, 1f)] public float minEngineSoundPitch = .75f;
     [Range(1f, 2f)] public float maxEngineSoundPitch = 1.75f;
-    [Range(0f, 1f)] public float minEngineSoundVolume = .05f;
-    [Range(0f, 1f)] public float maxEngineSoundVolume = .85f;
+    [Range(0f, 2f)] public float minEngineSoundVolume = .05f;
+    [Range(0f, 2f)] public float maxEngineSoundVolume = .85f;
     [Range(0f, 1f)] public float idleEngineSoundVolume = .85f;
 
     // Positions of the created audio sources.

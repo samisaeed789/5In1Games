@@ -14,10 +14,14 @@ public class levelStats : MonoBehaviour
     public Transform hookPoint;
     public RCC_CarControllerV3 Truck;
 
+    public MeshRenderer[] brakeLight=null;
+    public GameObject indiLeft=null;
+    public GameObject indiRight=null;
+
+
 
     private void Awake()
     {
-        Debug.LogError("called");
         ONtruckDataLoaded();
     }
 
