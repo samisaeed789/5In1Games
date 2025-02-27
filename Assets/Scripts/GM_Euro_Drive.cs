@@ -172,7 +172,7 @@ public class GM_Euro_Drive : MonoBehaviour
             truck.canControl = true;
         }
         rb = truck.GetComponent<Rigidbody>();
-       // stering();
+        stering();
     }
 
     public void stering()
@@ -265,7 +265,9 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     public void HandleCeleb(Transform pos)
     {
-        //soundManager?.SetBGM(false);
+        soundManager?.SetBGM(false);
+        soundManager?.PlayCompleteSound(true);
+
         Contols(false);
         fadeanim.SetActive(true);
         StartCoroutine(delCeleb(pos));
@@ -411,7 +413,9 @@ public class GM_Euro_Drive : MonoBehaviour
         float elapsedTime = 0f;
         int currentCoins = 0;
 
-
+        // Play sound if available
+        if (soundManager)
+            soundManager.PlaycoinSound();
         int coinsPerSecond = totalCoins / duration;
 
         while (elapsedTime < duration && !stopAnimation)
@@ -430,6 +434,10 @@ public class GM_Euro_Drive : MonoBehaviour
 
         if (TotalCompltxt != null)
             TotalCompltxt.text = totalCoins.ToString();
+
+        // Stop sound if available
+        if (soundManager)
+            soundManager.StopcoinSound();
 
     }
     IEnumerator SetCam(float delay,bool IsTrailer=false) 
