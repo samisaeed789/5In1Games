@@ -172,7 +172,7 @@ public class GM_Euro_Drive : MonoBehaviour
             truck.canControl = true;
         }
         rb = truck.GetComponent<Rigidbody>();
-        stering();
+       // stering();
     }
 
     public void stering()
@@ -324,6 +324,7 @@ public class GM_Euro_Drive : MonoBehaviour
     }
     void delComp()
     {
+        soundManager?.SetBGM(false);
         PlayRectBanner(true);
         CompletePanel.SetActive(true);
         SetCoinsinPanel();
@@ -410,7 +411,6 @@ public class GM_Euro_Drive : MonoBehaviour
         float elapsedTime = 0f;
         int currentCoins = 0;
 
-       
 
         int coinsPerSecond = totalCoins / duration;
 
@@ -451,27 +451,16 @@ public class GM_Euro_Drive : MonoBehaviour
     {
         lvldata = leveldata;
         brakeLight = lvldata.brakeLight;
-
-
-        //if (lvldata.indiLeft != null)
-        //    LeftIndi = lvldata.indiLeft;
-
-        //if (lvldata.indiRight != null)
-        //    RightIndi = lvldata.indiRight;
-
     }
 
     public void Shakecam()
     {
         soundManager?.PlayEngineSound();
-
-
         IgnitionBtn.SetActive(false);
         shakeCam.DOShakePosition(0.5f, 0.5f, 10, 90f).OnKill(() => OnShakeComplete());
     }
     void OnShakeComplete()
     {
-        
         Contols(true);
         rb.isKinematic = false;
 
@@ -550,14 +539,8 @@ public class GM_Euro_Drive : MonoBehaviour
 
         soundManager?.SetBGM(false);
         soundManager?.SplashSound();
-
         CarSound(false);
         Invoke(nameof(DelFail), 4f);
-
-
-
-
-
 
     }
 
@@ -603,22 +586,14 @@ public class GM_Euro_Drive : MonoBehaviour
                 light.enabled = state;
         }
     }
-
-
     public void HandleIndicatorLeft()
     {
-
         soundManager?.PlayButtonClickSound();
-
-
 
         lvldata.indiRight?.SetActive(false);
 
         lvldata.indiLeft?.SetActive(!lvldata.indiLeft.activeSelf);
-
-       
     }
-
     public void HandleIndicatorRight()
     {
         soundManager?.PlayButtonClickSound();
@@ -627,7 +602,6 @@ public class GM_Euro_Drive : MonoBehaviour
 
         lvldata.indiRight.SetActive(!lvldata.indiRight.activeSelf);
     }
-
     private IEnumerator BlinkIndicator(MeshRenderer[] indicators)
     {
         while (true)
@@ -638,8 +612,6 @@ public class GM_Euro_Drive : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-
     public void ToggleSeatBelt()
     {
 
@@ -647,7 +619,6 @@ public class GM_Euro_Drive : MonoBehaviour
 
         if (soundManager)
             soundManager.PlayButtonClickSound();
-
 
         Belt.SetActive(true);
         Beltbtn.SetActive(false);

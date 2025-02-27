@@ -20,7 +20,8 @@ public class TypingEffect : MonoBehaviour
         foreach (char letter in fullText)
         {
             textComponent.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            //yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
     }
 

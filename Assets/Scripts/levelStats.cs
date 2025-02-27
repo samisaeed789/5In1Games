@@ -5,7 +5,6 @@ using UnityEngine;
 public class levelStats : MonoBehaviour
 {
 
-
     [Header("LvlData")]
     public GameObject DummyTrailer;
     public GameObject Trailer;
@@ -17,7 +16,6 @@ public class levelStats : MonoBehaviour
     public MeshRenderer[] brakeLight=null;
     public GameObject indiLeft=null;
     public GameObject indiRight=null;
-
 
 
     private void Awake()
