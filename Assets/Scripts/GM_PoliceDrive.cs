@@ -108,13 +108,20 @@ public class GM_PoliceDrive : MonoBehaviour
 
         ValStorage.OnEnemyDestroyed += HandleEnemyDestroyed;
     }
+    [SerializeField]bool Test;
+    [SerializeField] int testlvl;
     private void Start()
     {
         RCC_Settings.Instance.useAutomaticGear = true;
         RCC_Settings.Instance.autoReverse = true;
         CheckPurchasedCars();
         soundManager = MySoundManager.instance;
-        currLvl = ValStorage.selLevel-1;
+       
+        if (Test)
+            currLvl = testlvl-1;
+        else
+            currLvl = ValStorage.selLevel-1;
+        
         StartCoroutine(PlayTimeline(currLvl)); 
         Contrls(false);
         ValStorage.SetCarUnLocked(CarType.Regular);
@@ -262,18 +269,18 @@ public class GM_PoliceDrive : MonoBehaviour
         Rigidbody RB = carController.GetComponent<Rigidbody>();
         RB.isKinematic = true;
         yield return new WaitForSeconds(12f);
-        soundManager?.PlayChatterSound(true);
-        soundManager?.PlayPoliceSiren(true);
-        GP.SetActive(false);
-        rcc_cam.gameObject.SetActive(false);
-        Finalpolice.SetActive(true);
+        //soundManager?.PlayChatterSound(true);
+        //soundManager?.PlayPoliceSiren(true);
+        //GP.SetActive(false);
+        //rcc_cam.gameObject.SetActive(false);
+        //Finalpolice.SetActive(true);
         StartCoroutine(CompletePanel());
     }
  
     IEnumerator CompletePanel()
     {
         UnlckNxtLvl();
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(0f);
         PlayInterAD();
         soundManager?.PlayChatterSound(false);
         soundManager?.PlayPoliceSiren(false);
@@ -575,7 +582,7 @@ public class GM_PoliceDrive : MonoBehaviour
         ValStorage.SetCarUnLocked(car);
         SetGP();
     }
-    void SkipCS() 
+    public void SkipCS() 
     {
         CS.SetActive(false);
         CarSel.SetActive(true);

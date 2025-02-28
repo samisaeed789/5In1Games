@@ -182,7 +182,7 @@ public class GM_Euro_Drive : MonoBehaviour
     private void delay()
     {
         RCC.SetBehavior(0);
-        truck.steeringType = RCC_CarControllerV3.SteeringType.Simple;
+      //  truck.steeringType = RCC_CarControllerV3.SteeringType.Simple;
         truck.steeringSensitivityFactor = .65f;
         truck.gameObject.layer = LayerMask.NameToLayer("Player");
     }
