@@ -166,7 +166,7 @@ public class RCC_UIDashboardDisplay : MonoBehaviour {
         if (KMHLabel) {
 
             if (RCC_Settings.Instance.units == RCC_Settings.Units.KMH)
-                KMHLabel.text = Inputs.KMH.ToString("0") + "\nKMH";
+                KMHLabel.text = Inputs.KMH.ToString("0");// + "\nKMH";
             else
                 KMHLabel.text = (Inputs.KMH * 0.62f).ToString("0") + "\nMPH";
 

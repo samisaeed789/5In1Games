@@ -248,9 +248,7 @@ public class ParkingGm : MonoBehaviour
         soundManager = MySoundManager.instance;
         RCC_Settings.Instance.useAutomaticGear = false;
         RCC_Settings.Instance.autoReverse = false;
-        // UpdateVolume();
-        // SetButtonTransparency(ValStorage.GetTransparency());
-        //  Controls.SetMobileController(ValStorage.GetControls());
+       
         volumeSlider.value = ValStorage.GetMVolume();
         soundvolumeSlider.value = ValStorage.GetSVolume();
 
@@ -575,7 +573,7 @@ public class ParkingGm : MonoBehaviour
     }
     void Celeb() 
     {
-        PlayInterAD();
+      //  PlayInterAD();
         RCC_CameraCarSelection celebCam = rccCam.gameObject.GetComponent<RCC_CameraCarSelection>();
         celebConftti.Play();
         celebCam.enabled = true;
@@ -695,7 +693,7 @@ public class ParkingGm : MonoBehaviour
         emojiPanel.SetActive(false);
         UIBlocker.SetActive(false);
         failPanel.SetActive(true);
-        PlayRectBanner(true);
+        //PlayRectBanner(true);
     }
 
     IEnumerator CompletePanel() 
@@ -718,7 +716,7 @@ public class ParkingGm : MonoBehaviour
     {
         UIBlocker.SetActive(false);
         completePanel.SetActive(true);
-        PlayRectBanner(true);
+      //  PlayRectBanner(true);
         SetCoinsinPanel();
     }
 
@@ -824,9 +822,9 @@ public class ParkingGm : MonoBehaviour
     AsyncOperation asyncLoad;
     public IEnumerator StartLoading(string sceneName)
     {
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(true);
+       // PlayInterAD();
+        yield return new WaitForSeconds(0f);
+       // PlayRectBanner(true);
         asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
         DOTween.To(() => 0f, value => UpdateLoadingText(value), 100f, 5f)
@@ -842,7 +840,7 @@ public class ParkingGm : MonoBehaviour
 
     void OnLoadingComplete()
     {
-        PlayRectBanner(false);
+       // PlayRectBanner(false);
 
         asyncLoad.allowSceneActivation = true;
         sphere.enabled = false;
@@ -933,7 +931,7 @@ public class ParkingGm : MonoBehaviour
 
         soundManager?.PlayButtonClickSound();
 
-        PlayInterAD();
+      //  PlayInterAD();
         int currentind = ValStorage.GetControls();
 
         currentind = (currentind + 1) % 3;
@@ -945,10 +943,10 @@ public class ParkingGm : MonoBehaviour
     {
         soundManager?.PauseSounds();
         soundManager?.PlayButtonClickSound();
-        PlayInterAD();
+       // PlayInterAD();
         CarSound(false);
         pausePanel.SetActive(true);
-        PlayRectBanner(true);
+      //  PlayRectBanner(true);
         Time.timeScale = 0f;
     }
     void CarSound(bool IsActive)
@@ -969,7 +967,7 @@ public class ParkingGm : MonoBehaviour
     {
         soundManager?.ResumeSounds();
         CarSound(true);
-        PlayRectBanner(false);
+     //   PlayRectBanner(false);
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
     }
@@ -1098,9 +1096,9 @@ public class ParkingGm : MonoBehaviour
     }
     IEnumerator LoadAsyncScene(string sceneName)
     {
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(true);
+      //  PlayInterAD();
+        yield return new WaitForSeconds(0f);
+       // PlayRectBanner(true);
         float timer = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -1122,8 +1120,8 @@ public class ParkingGm : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(false);
+        yield return new WaitForSeconds(0f);
+      //  PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 

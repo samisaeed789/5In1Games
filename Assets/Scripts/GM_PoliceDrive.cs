@@ -125,6 +125,8 @@ public class GM_PoliceDrive : MonoBehaviour
         StartCoroutine(PlayTimeline(currLvl)); 
         Contrls(false);
         ValStorage.SetCarUnLocked(CarType.Regular);
+        ValStorage.SetCarUnLocked(CarType.Ford);
+        ValStorage.SetCarUnLocked(CarType.Swat);
     }
 
 
@@ -212,7 +214,7 @@ public class GM_PoliceDrive : MonoBehaviour
 
     void delFail()
     {
-        PlayRectBanner(true);
+        //PlayRectBanner(true);
         UIBlocker.SetActive(false);
         failPanel.SetActive(true);
     }
@@ -281,16 +283,16 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         UnlckNxtLvl();
         yield return new WaitForSeconds(0f);
-        PlayInterAD();
+       // PlayInterAD();
         soundManager?.PlayChatterSound(false);
         soundManager?.PlayPoliceSiren(false);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0f);
 
         delComp();
     }
     void UnlckNxtLvl()
     {
-        PlayInterAD();
+       // PlayInterAD();
         int currlvl = ValStorage.selLevel;
         int unlockdlvls = ValStorage.GetUnlockedModeLevelDrive("police");
         if (currlvl == unlockdlvls && currlvl < 5)
@@ -306,7 +308,7 @@ public class GM_PoliceDrive : MonoBehaviour
 
     void delComp()
     {
-        PlayRectBanner(true);
+       // PlayRectBanner(true);
         UIBlocker.SetActive(false);
         completePanel.SetActive(true);
         SetCoinsinPanel();
@@ -324,7 +326,7 @@ public class GM_PoliceDrive : MonoBehaviour
     public void NextLvlBtn()
     {
         soundManager?.PlaypoliceClickSound();
-        PlayInterAD();
+       // PlayInterAD();
         Loading.SetActive(true);
         LoadBar.SetActive(true);
 
@@ -340,8 +342,8 @@ public class GM_PoliceDrive : MonoBehaviour
     public void Pause()
     {
         soundManager?.PauseSounds();
-        PlayInterAD();
-        PlayRectBanner(true);
+       // PlayInterAD();
+      //  PlayRectBanner(true);
         soundManager.PlaypoliceClickSound();
 
         if (soundManager)
@@ -356,7 +358,7 @@ public class GM_PoliceDrive : MonoBehaviour
     {
         soundManager?.PlaypoliceClickSound();
         soundManager?.ResumeSounds();
-        PlayRectBanner(false);
+       // PlayRectBanner(false);
         soundManager?.PlayPoliceSiren(true);
         CarSound(true);
         Time.timeScale = 1f;
@@ -378,7 +380,7 @@ public class GM_PoliceDrive : MonoBehaviour
     public void Home()
     {
         soundManager?.PlaypoliceClickSound();
-        PlayInterAD();
+       // PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
         Loading.SetActive(true);
@@ -388,7 +390,7 @@ public class GM_PoliceDrive : MonoBehaviour
     public void Restart()
     {
         soundManager?.PlaypoliceClickSound();
-        PlayInterAD();
+      //  PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
         Loading.SetActive(true);
@@ -398,7 +400,7 @@ public class GM_PoliceDrive : MonoBehaviour
     public void ChangeControl()
     {
         soundManager?.PlaypoliceClickSound();
-        PlayInterAD();
+     //   PlayInterAD();
         int currentind = ValStorage.GetControls();
         currentind = (currentind + 1) % 3;
         Controls.SetMobileController(currentind);
@@ -407,9 +409,9 @@ public class GM_PoliceDrive : MonoBehaviour
     IEnumerator LoadAsyncScene(string sceneName)
     {
         loadingBar.fillAmount = 0f;
-        PlayInterAD();
+      //  PlayInterAD();
         yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(true);
+       // PlayRectBanner(true);
         float timer = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -429,8 +431,8 @@ public class GM_PoliceDrive : MonoBehaviour
             }
             yield return null;
         }
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(false);
+        yield return new WaitForSeconds(0f);
+      //  PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
     public void StopCoinAnimation()
@@ -582,6 +584,8 @@ public class GM_PoliceDrive : MonoBehaviour
         ValStorage.SetCarUnLocked(car);
         SetGP();
     }
+
+
     public void SkipCS() 
     {
         CS.SetActive(false);

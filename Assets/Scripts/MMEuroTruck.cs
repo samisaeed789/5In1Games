@@ -198,17 +198,14 @@ public class MMEuroTruck : MonoBehaviour
 
     public void LoadNxtScene(string s)
     {
-
-     //  StartCoroutine(StartLoading(s));
-
         string S = ValStorage.modeSel;
         switch (S)
         {
             case "Drive":
-                StartCoroutine(StartLoading("EuroTruckMode"));
+                StartCoroutine(StartLoading("EuroTruckMode",true));
                 break;
             case "Parking":
-                StartCoroutine(StartLoading("Parking"));
+                StartCoroutine(StartLoading("Parking",true));
 
                 break;
             default:
@@ -217,13 +214,17 @@ public class MMEuroTruck : MonoBehaviour
     }
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName,bool IsAd=false)
     {
         soundmngr?.PlayEuroClickSound();
         ButtonActivity("Loading");
         loadingImage.fillAmount = 0f;
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
+        if (IsAd) 
+        {
+            PlayInterAD();
+            yield return new WaitForSeconds(0.1f);
+        }
+        
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
         PlayRectBanner(true);
@@ -412,7 +413,7 @@ public class MMEuroTruck : MonoBehaviour
 
     public void GoToPrevScene()
     {
-        StartCoroutine( StartLoading("Splash"));
+        StartCoroutine( StartLoading("Splash",false));
     }
 
     public void OnVolumeChanged(float value)

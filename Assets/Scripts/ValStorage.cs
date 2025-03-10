@@ -120,7 +120,11 @@ public static class ValStorage
 
     public static int GetUnlockedCarDriveMode()
     {
-       return PlayerPrefs.GetInt("UnlockedCarDriveMode", 0);
+        if (!PlayerPrefs.HasKey("UnlockedCarDriveMode"))
+        {
+            PlayerPrefs.SetInt("UnlockedCarDriveMode", 1);
+        }
+        return PlayerPrefs.GetInt("UnlockedCarDriveMode", 0);
     } 
     
     public static void SetUnlockedCarDriveMode(int val)

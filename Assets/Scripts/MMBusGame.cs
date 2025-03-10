@@ -192,17 +192,20 @@ public class MMBusGame : MonoBehaviour
 
     public void LoadNxtScene(string s)
     {
-        StartCoroutine(StartLoading(s));
+        StartCoroutine(StartLoading(s,true));
     }
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName, bool isAd = false)
     {
         soundmngr?.PlayBusClickSound();
         ButtonActivity("Loading");
         loadingImage.fillAmount = 0f;
-        AdsController.Instance?.ShowInterstitialAd_Admob();
-        yield return new WaitForSeconds(0.1f);
+        if (isAd) 
+        {
+            AdsController.Instance?.ShowInterstitialAd_Admob();
+            yield return new WaitForSeconds(0.1f);
+        }
         PlayRectBanner(true);
         GarageHndlr garagehandler= garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
@@ -214,6 +217,7 @@ public class MMBusGame : MonoBehaviour
                .SetEase(Ease.Linear)
                .OnKill(() => OnLoadingComplete());
     }
+
 
     void OnLoadingComplete()
     {

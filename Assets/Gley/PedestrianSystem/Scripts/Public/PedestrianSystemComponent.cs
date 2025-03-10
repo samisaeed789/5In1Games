@@ -49,5 +49,20 @@ namespace Gley.PedestrianSystem
 
             API.Initialize(_player, _nrOfPedestrians, _pedestrianPool, options);
         }
+
+        public void CarChange() 
+        {
+            PedestrianSystemOptions options = new PedestrianSystemOptions()
+            {
+                DisableWaypointsArea = new Area(_disableWaypointsArea),
+                DistanceToRemove = _distanceToRemove,
+                InitialDensity = _initialActivePedestrians,
+                MinDistanceToAdd = _minDistanceToAdd,
+                UseWaypointPriority = _useWaypointPriority,
+                DefaultPathLength = _defaultPathLength,
+            };
+
+            API.Initialize(_player, _nrOfPedestrians, _pedestrianPool, options);
+        }
     }
 }

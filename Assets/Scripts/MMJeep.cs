@@ -206,16 +206,21 @@ public class MMJeep : MonoBehaviour
 
     public void LoadNxtScene(string s)
     {
-      StartCoroutine(StartLoading(s));
+      StartCoroutine(StartLoading(s, true));
     }
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName,bool isAd=false)
     {
         soundmngr?.PlayJeepClickSound();
         ButtonActivity("Loading");
         loadingImage.fillAmount = 0f;
-        yield return new WaitForSeconds(0.1f);
+        if (isAd) 
+        {
+            PlayInterAD();
+            yield return new WaitForSeconds(0.1f);
+        }
+        
         PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
@@ -448,7 +453,6 @@ public class MMJeep : MonoBehaviour
             AdsController.Instance?.HideBannerAd_Admob(1);
         }
     }
-
 
     public void PlayInterAD()
     {

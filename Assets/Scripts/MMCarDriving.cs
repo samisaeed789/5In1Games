@@ -148,12 +148,12 @@ public class MMCarDriving : MonoBehaviour
     public void SelectedMode(string S) 
     {
 
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+        ValStorage.modeSel = S;
 
         switch (S)
         {
             case "Drive":
-                CheckUnlocked(0);//ValStorage.GetUnlockedCarDriveMode());
+                CheckUnlocked(ValStorage.GetUnlockedCarDriveMode());
                 break;
             case "Parking":
                 CheckUnlocked(ValStorage.GetUnlockedCarParkMode());
@@ -181,8 +181,21 @@ public class MMCarDriving : MonoBehaviour
     {
         if (soundmanager)
             soundmanager.PlayButtonClickSound(scifi: true);
-       
-        StartCoroutine(StartLoading(scene)); 
+
+        // StartCoroutine(StartLoading(scene)); 
+        string S = ValStorage.modeSel;
+        switch (S)
+        {
+            case "Drive":
+                StartCoroutine(StartLoading("CarDriveSchool",true));
+                break;
+            case "Parking":
+                StartCoroutine(StartLoading("Parking",true));
+
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -190,12 +203,15 @@ public class MMCarDriving : MonoBehaviour
 
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName,bool IsAd=false)
     {
         ButtonActivity("Loading");
         loadingText.text = 0f.ToString();
-        AdsController.Instance?.ShowInterstitialAd_Admob();
-        yield return new WaitForSeconds(0.1f);
+        if (IsAd) 
+        {
+            PlayInterAD();
+            yield return new WaitForSeconds(0.1f);
+        }
         PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         if(garagehandler!=null)

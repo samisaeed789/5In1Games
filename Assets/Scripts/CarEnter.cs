@@ -44,11 +44,9 @@ public class CarEnter : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-        
             gm?.SetCarType(CarType.None);
             LockedBtn.SetActive(false);
             UnLockedBtn.SetActive(false);
-           
         }
     }
 

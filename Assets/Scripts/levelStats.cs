@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class levelStats : MonoBehaviour
 {
@@ -17,16 +18,29 @@ public class levelStats : MonoBehaviour
     public GameObject indiLeft=null;
     public GameObject indiRight=null;
 
+    public Transform SpawnPoint;
+    public GameObject Dance;
 
     private void Awake()
     {
-        ONtruckDataLoaded();
-    }
+       int  selcar = ValStorage.GetCarNumber();
+       Transform SP = this.transform.GetChild(selcar - 1);
+       SpawnPoint = SP;
 
+       ONtruckDataLoaded();
+    }
+ 
     void ONtruckDataLoaded()
     {
-        GM_Euro_Drive.instance.SetData(this);
-    }
+        if(SceneManager.GetActiveScene().name== "EuroTruckMode")
+        {
+            GM_Euro_Drive.instance.SetData(this);
+        }
 
+        else if (SceneManager.GetActiveScene().name == "CarDriveSchool") 
+        {
+            GM_CD.instance.SetData(this);
+        }
+    }
 
 }

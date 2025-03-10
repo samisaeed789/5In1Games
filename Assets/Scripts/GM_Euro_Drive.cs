@@ -232,6 +232,7 @@ public class GM_Euro_Drive : MonoBehaviour
         rccCam.gameObject.SetActive(true);
         PedestrianMan._player = Car;
         PedestrianMan.gameObject.SetActive(true);
+
         Traffic.SetActive(true);
     }
 
@@ -289,14 +290,14 @@ public class GM_Euro_Drive : MonoBehaviour
     IEnumerator completePanel()
     {
         UnlckNxtLvl();
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
+       // PlayInterAD();
+        yield return new WaitForSeconds(0f);
         delComp();
     }
 
     void UnlckNxtLvl()
     {
-        PlayInterAD();
+       // PlayInterAD();
         int currlvl = ValStorage.selLevel;
         int unlockdlvls = ValStorage.GetUnlockedModeLevelDrive("truck");
         if (currlvl == unlockdlvls && currlvl < 5)
@@ -313,7 +314,7 @@ public class GM_Euro_Drive : MonoBehaviour
     {
         soundManager?.PlayButtonClickSound();
 
-        PlayInterAD();
+       // PlayInterAD();
         LoadingPnl.SetActive(true);
         LoadBar.SetActive(true);
 
@@ -327,15 +328,15 @@ public class GM_Euro_Drive : MonoBehaviour
     void delComp()
     {
         soundManager?.SetBGM(false);
-        PlayRectBanner(true);
+       // PlayRectBanner(true);
         CompletePanel.SetActive(true);
         SetCoinsinPanel();
     }
     public void Pause()
     {
         soundManager?.PauseSounds();
-        PlayInterAD();
-        PlayRectBanner(true);
+      //  PlayInterAD();
+       // PlayRectBanner(true);
 
 
         soundManager?.PlayButtonClickSound();
@@ -361,7 +362,7 @@ public class GM_Euro_Drive : MonoBehaviour
     public void Home()
     {
         soundManager?.PlayButtonClickSound();
-        PlayInterAD();
+      //  PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
         LoadingPnl.SetActive(true);
@@ -371,7 +372,7 @@ public class GM_Euro_Drive : MonoBehaviour
     public void Restart()
     {
         soundManager?.PlayButtonClickSound();
-        PlayInterAD();
+       // PlayInterAD();
         Time.timeScale = 1f;
         StopCoinAnimation();
         LoadingPnl.SetActive(true);
@@ -382,7 +383,7 @@ public class GM_Euro_Drive : MonoBehaviour
     {
         soundManager?.PlayButtonClickSound();
         soundManager?.ResumeSounds();
-        PlayRectBanner(false);
+      //  PlayRectBanner(false);
         CarSound(true);
         Time.timeScale = 1f;
         pausePanel.SetActive(false);
@@ -479,9 +480,9 @@ public class GM_Euro_Drive : MonoBehaviour
     IEnumerator LoadAsyncScene(string sceneName)
     {
         loadingBar.fillAmount = 0f;
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(true);
+       // PlayInterAD();
+        yield return new WaitForSeconds(0f);
+     //   PlayRectBanner(true);
         float timer = 0f;
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         asyncLoad.allowSceneActivation = false;
@@ -501,28 +502,28 @@ public class GM_Euro_Drive : MonoBehaviour
             }
             yield return null;
         }
-        yield return new WaitForSeconds(0.1f);
-        PlayRectBanner(false);
+        yield return new WaitForSeconds(0f);
+       // PlayRectBanner(false);
         asyncLoad.allowSceneActivation = true;
     }
 
     public void PlayRectBanner(bool val)
     {
-        if (val)
-            AdsController.Instance?.ShowBannerAd_Admob(1);
+        //if (val)
+        //    AdsController.Instance?.ShowBannerAd_Admob(1);
 
-        else
-        {
-            AdsController.Instance?.HideBannerAd_Admob(1);
-        }
+        //else
+        //{
+        //    AdsController.Instance?.HideBannerAd_Admob(1);
+        //}
     }
     public void PlayInterAD()
     {
-        AdsController.Instance?.ShowInterstitialAd_Admob();
+      //  AdsController.Instance?.ShowInterstitialAd_Admob();
     }
     public void PlayRewardADSkip()
     {
-        AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipTL);
+    //    AdsController.Instance.ShowRewardedInterstitialAd_Admob(SkipTL);
     }
 
   
@@ -531,7 +532,7 @@ public class GM_Euro_Drive : MonoBehaviour
     {
         soundManager?.PlayButtonClickSound();
 
-        PlayInterAD();
+       // PlayInterAD();
         int currentind = ValStorage.GetControls();
         currentind = (currentind + 1) % 3;
         RccControls.SetMobileController(currentind);
@@ -637,4 +638,6 @@ public class GM_Euro_Drive : MonoBehaviour
     {
         Belt.SetActive(false);
     }
+
+   
 }

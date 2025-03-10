@@ -2371,18 +2371,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1472826949}
         m_TargetAssemblyTypeName: MMCarDriving, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1472826949}
-        m_TargetAssemblyTypeName: MMCarDriving, Assembly-CSharp
         m_MethodName: ButtonActivity
         m_Mode: 5
         m_Arguments:
@@ -7756,18 +7744,6 @@ MonoBehaviour:
           m_StringArgument: LvlSel
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &136625889
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11127,8 +11103,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 709238266}
   m_HandleRect: {fileID: 709238265}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.7336623
+  m_Size: 0.8544247
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13128,7 +13104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238512066}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -19118,18 +19094,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1522264772}
         m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1522264772}
-        m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
         m_MethodName: SelectedMode
         m_Mode: 5
         m_Arguments:
@@ -19472,7 +19436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &357135648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26027,7 +25991,7 @@ MonoBehaviour:
   compressionAmount: 0.3
   releaseDuration: 1
   Dust: {fileID: 1570172130}
-  Pos: {fileID: 0}
+  Pos: {fileID: 1127066246}
 --- !u!4 &452781143 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1512095151485578940, guid: f5de036ec7f181e4fb39dc5132d110be, type: 3}
@@ -26898,18 +26862,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Drive
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1287244245}
-        m_TargetAssemblyTypeName: MMEuroTruck, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &469752827
@@ -43927,8 +43879,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 150852363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.1068031, y: 0}
+  m_AnchorMax: {x: 0.96122783, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -46861,9 +46813,6 @@ PrefabInstance:
       addedObject: {fileID: 1851981152}
     - targetCorrespondingSourceObject: {fileID: 1225046068523182603, guid: cb3ead9f18adb9f408b331e3824b3b36, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1935344605}
-    - targetCorrespondingSourceObject: {fileID: 1225046068523182603, guid: cb3ead9f18adb9f408b331e3824b3b36, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 681810835}
     - targetCorrespondingSourceObject: {fileID: 1225046068523182603, guid: cb3ead9f18adb9f408b331e3824b3b36, type: 3}
       insertIndex: -1
@@ -49484,7 +49433,7 @@ RectTransform:
   m_Father: {fileID: 1652941267}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.8042971, y: 1}
+  m_AnchorMax: {x: 0.76678175, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -53166,7 +53115,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 742625593}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.8042971
+  m_Size: 0.76678175
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -54305,7 +54254,8 @@ Transform:
   m_LocalPosition: {x: -3.1585, y: 1.7558227, z: 86.31757}
   m_LocalScale: {x: 1.5907187, y: 1.5907185, z: 1.5907185}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1935344605}
   m_Father: {fileID: 712060981}
   m_LocalEulerAnglesHint: {x: -90, y: -0, z: 0}
 --- !u!23 &848247147
@@ -55603,6 +55553,18 @@ MonoBehaviour:
           m_StringArgument: ModeSel
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1522264772}
+        m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
+        m_MethodName: PlayInterAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &867019170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56415,6 +56377,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ModeSel
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 253901129}
+        m_TargetAssemblyTypeName: MMJeep, Assembly-CSharp
+        m_MethodName: PlayInterAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &879679307
@@ -80301,18 +80275,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 253901129}
         m_TargetAssemblyTypeName: MMJeep, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 253901129}
-        m_TargetAssemblyTypeName: MMJeep, Assembly-CSharp
         m_MethodName: ButtonActivity
         m_Mode: 5
         m_Arguments:
@@ -80443,18 +80405,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522264772}
-        m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1522264772}
         m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
         m_MethodName: SelectedMode
@@ -84304,18 +84254,6 @@ MonoBehaviour:
           m_StringArgument: Parking
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1287244245}
-        m_TargetAssemblyTypeName: MMEuroTruck, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &1333878094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84796,18 +84734,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1287244245}
-        m_TargetAssemblyTypeName: MMEuroTruck, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1287244245}
         m_TargetAssemblyTypeName: MMEuroTruck, Assembly-CSharp
         m_MethodName: ButtonActivity
@@ -88572,6 +88498,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: ModeSel
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1472826949}
+        m_TargetAssemblyTypeName: MMCarDriving, Assembly-CSharp
+        m_MethodName: PlayInterAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1410482773
@@ -116890,18 +116828,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1149836037}
         m_TargetAssemblyTypeName: MMBusGame, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1149836037}
-        m_TargetAssemblyTypeName: MMBusGame, Assembly-CSharp
         m_MethodName: SelectedMode
         m_Mode: 5
         m_Arguments:
@@ -117032,18 +116958,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1522264772}
-        m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1522264772}
         m_TargetAssemblyTypeName: MMPolice, Assembly-CSharp
         m_MethodName: ButtonActivity
@@ -120390,6 +120304,18 @@ MonoBehaviour:
           m_StringArgument: ModeSel
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1287244245}
+        m_TargetAssemblyTypeName: MMEuroTruck, Assembly-CSharp
+        m_MethodName: PlayInterAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1873381883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123245,6 +123171,18 @@ MonoBehaviour:
           m_StringArgument: ModeSel
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1149836037}
+        m_TargetAssemblyTypeName: MMBusGame, Assembly-CSharp
+        m_MethodName: PlayInterAD
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1918688125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123861,14 +123799,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935344604}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -14.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 1.9855804, y: 63.378643, z: -1.1037817}
+  m_LocalScale: {x: 0.6286467, y: 0.62864655, z: 0.62864655}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1722663049}
   - {fileID: 347536486}
-  m_Father: {fileID: 712060981}
+  m_Father: {fileID: 848247146}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1935344606
 Animator:
@@ -127873,18 +127811,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1149836037}
         m_TargetAssemblyTypeName: MMBusGame, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1149836037}
-        m_TargetAssemblyTypeName: MMBusGame, Assembly-CSharp
         m_MethodName: ButtonActivity
         m_Mode: 5
         m_Arguments:
@@ -128586,18 +128512,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 253901129}
         m_TargetAssemblyTypeName: MMJeep, Assembly-CSharp
-        m_MethodName: PlayInterAD
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 253901129}
-        m_TargetAssemblyTypeName: MMJeep, Assembly-CSharp
         m_MethodName: SelectedMode
         m_Mode: 5
         m_Arguments:
@@ -129096,7 +129010,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2023411163}
   m_OnClick:
     m_PersistentCalls:
@@ -129110,7 +129024,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Driving
+          m_StringArgument: Drive
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2023411163
@@ -133075,7 +132989,7 @@ MonoBehaviour:
     m_onFinishedAction:
       m_PersistentCalls:
         m_Calls: []
-  m_timer: 1.375307
+  m_timer: 1.3454169
   m_currentAnimSetupIndex: 0
   m_audioSourceContainer: {fileID: 592951493}
   m_audioSources:

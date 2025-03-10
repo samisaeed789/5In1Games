@@ -1129,6 +1129,16 @@
             }
         }
         #endregion
-        
+        public void DisableAll()
+        {
+            for (int i = 0; i < carCount; i++)
+            {
+                
+                
+                carAIList[i].MoveCarToPool();
+            }
+        }
     }
+
+   
 }

@@ -192,10 +192,10 @@ public class MMPolice : MonoBehaviour
         switch (S)
         {
             case "Drive":
-                StartCoroutine(StartLoading("DriveModePolice"));
+                StartCoroutine(StartLoading("DriveModePolice",true));
                 break;
             case "Parking":
-               StartCoroutine(StartLoading("Parking"));
+               StartCoroutine(StartLoading("Parking",true));
 
                 break;
             default:
@@ -204,13 +204,18 @@ public class MMPolice : MonoBehaviour
     }
 
     AsyncOperation asyncLoad;
-    public IEnumerator StartLoading(string sceneName)
+    public IEnumerator StartLoading(string sceneName,bool isAd=false)
     {
         soundmngr?.PlaypoliceClickSound();
         ButtonActivity("Loading");
         loadingImage.fillAmount = 0f;
-        PlayInterAD();
-        yield return new WaitForSeconds(0.1f);
+
+        if (isAd)
+        {
+            PlayInterAD();
+            yield return new WaitForSeconds(0.1f);
+        }
+      
         PlayRectBanner(true);
         GarageHndlr garagehandler = garagePanel.GetComponent<GarageHndlr>();
         ValStorage.SetCarNumber(garagehandler.GetCurrCarNumber());
